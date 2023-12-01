@@ -1,0 +1,118 @@
+body {
+    font-family: 'Saira Condensed', sans-serif;
+    justify-self: center;
+    align-items: center;
+    background-color: #4abaa4;
+    color: #fff;
+    display: flex;
+}
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.row
+{
+    display: flex;
+}
+
+.space{
+    padding: 0.8%;
+}
+
+.menu {
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 500px;
+    background-color: #317151;
+    
+    border-color: #193b2a;
+    border-style: solid;
+}
+
+.title{
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    font-size: 60px;
+}
+
+.namebox{
+    font-size: 22px;
+    text-align: center;
+    height: 35px;
+    width: 60%;
+    background-color: #317151;
+    border-radius: 50px 50px 0 0;
+}
+.boxprize{
+    background-color: #193b2a;
+    height: 120px;
+    width: 60%;
+}
+.boxuser{
+    background-color: #ffffff;
+    height: 120px;
+    width: 60%;
+}
+.random-button{
+    font-size: 20px;
+    text-align: center;
+    height: 60px;
+    width: 150px;
+    color: white;
+    background-color: rgb(8, 68, 23);
+    border-radius: 20px 20px 20px 20px;
+}
+
+
+.preview-box-left{
+    font-size:20px;
+    height: 120px;
+    width: 25px;
+    background-color: #317151;
+    border-radius: 20px  0 0 20px;
+}
+.preview-box-right{
+    font-size:20px;
+    height: 120px;
+    width: 25px;
+    background-color: #317151;
+    border-radius: 0 20px 20px 0 ;
+}
+.preview-prize{
+    background-color: #193b2a;
+    height: 120px;
+    width: 83%;
+}
+
+
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+#qrcode-container{
+    display:none;
+    padding: 20px;
+}
+.qrcode{
+  border: #fff;
+  border-style: solid;
+  border-width: 10px;
+}
+.qrcode img{
+  margin: 0 auto;
+}
