@@ -59,10 +59,22 @@ body {
     height: 120px;
     width: 60%;
 }
+.prizetext{
+    font-size: 50px;
+    text-align: center;
+    padding-top: 20px;
+    color: #fff;
+}
 .boxuser{
     background-color: #ffffff;
     height: 120px;
     width: 60%;
+}
+.usertext{
+    font-size: 50px;
+    text-align: center;
+    padding-top: 20px;
+    color: #000000;
 }
 .random-button{
     font-size: 20px;
