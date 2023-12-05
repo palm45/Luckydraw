@@ -1,0 +1,87 @@
+body {
+    font-family: 'Saira Condensed', sans-serif;
+    justify-self: center;
+    align-items: center;
+    background-color: #4abaa4;
+    color: #fff;
+    display: flex;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+    padding: 5%;
+    font-size: 50px;
+    font-style: bold;
+}
+
+.box-PV{
+    background-color: white;
+    height: 100px;
+    width: 300px;
+    border-radius: 20px;
+}
+
+.textemail{
+    font-size: 30px;
+    text-align: center;
+    justify-self: center;
+    border-radius: 20px;
+    width: 300px;
+    height: 100px;
+}
+
+.button-PV{
+    background-color:#193b2a;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    height: 60px;
+    width: 150px;
+    border-radius: 20px;
+}
+
+.space{
+    padding: 5%;
+    
+}
+
+.input { 
+    width: 40px; 
+    border: none; 
+    background-color: #4abaa4;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5); 
+    margin: 0 10px; 
+    text-align: center; 
+    font-size: 50px; 
+    pointer-events: none; 
+} 
+.input:focus { 
+    border-bottom: 3px solid orange; 
+    outline: none; 
+} 
+.input:nth-child(1) { 
+    cursor: pointer; 
+    pointer-events: all; 
+}
+.input:nth-child(2) { 
+    cursor: pointer; 
+    pointer-events: all; 
+}
+.input:nth-child(3) { 
+    cursor: pointer; 
+    pointer-events: all; 
+}
+.input:nth-child(4) { 
+    cursor: pointer; 
+    pointer-events: all; 
+}
+
+.CodePrize{
+    font-size: 100px;
+    color: white;
+}
