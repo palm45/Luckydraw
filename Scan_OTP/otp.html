@@ -23,20 +23,47 @@
             <div class="center">
                 <div class="title">Email Validation</div>
             </div>
-            <form action="verify-otp.html">
+            <form>
                 <div class="center">
                     <div class="box-PV">
-                        <input type="text" name="email" pattern="^[a-zA-Z0-9]+@gmail\.com$" class="textemail" placeholder="Email"
-                            required />
+                        <input type="text" id="email" pattern="^[a-zA-Z0-9]+@gmail\.com$" class="textemail"
+                            placeholder="username@gmail.com" required />
                     </div>
                 </div>
                 <div class="space"></div>
                 <div class="center">
-                    <button class="button-PV">Send OTP</button>
+                    <button id="btn" onclick="SendEmail()" class="button-PV">Send OTP</button>
                 </div>
             </form>
+            <div class="space"></div>
+            <div class="stem"></div>
+            <div class="spacemini"></div>
+            <div class="center">
+                <div class="title">Verify OTP</div>
+            </div>
+            <div class="space"></div>
+            <form action="codeprize.html">
+                <div class="center">
+                    <div id="inputs" class="inputs">
+                        <input class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1" required />
+                        <input class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1" required />
+                        <input class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1" required />
+                        <input class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1" required />
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div class="center">
+                    <a href="codeprize.html">
+                        <button class="button-PV">Verify</button>
+                    </a>
+                </div>
+            </form>
+            <div class="space"></div>    
         </div>
     </div>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+    </script>
 </body>
 
 </html>
