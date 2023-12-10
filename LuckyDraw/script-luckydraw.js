@@ -7,12 +7,11 @@ function off() {
     document.getElementById("overlay").style.display = "none";
 }
 
-function generateQRCode(data) {
+function generateQRCode() {
     on()
-    var url = data
     let qrcodeContainer = document.getElementById("qrcode");
     qrcodeContainer.innerHTML = "";
-    new QRCode(qrcodeContainer, data);
+    new QRCode(qrcodeContainer, 'https://palm45.github.io/Luckydraw/Scan_OTP/otp.html');
     
     document.getElementById("qrcode-container").style.display = "block";
 }
