@@ -33,3 +33,32 @@ function ButtonNextPage(){
     }
 }
 
+const prize = ["จักรยาน","เบงๆ","เซี่ยงไฮ้","ไอโฟน","ลูกปิงปอง"];
+const code = ["Osd5l9","Px94wr","P1dfo5","2g0yP","0j8Eps"];
+function randomprize(){
+    let rand = Math.random() * prize.length;
+    Prize = prize[Math.floor(rand)];
+    return Prize
+}
+
+function randomcodeuser(){
+    let rand = Math.random() * code.length;
+    Code = code[Math.floor(rand)];
+    return Code
+}
+
+function getrandom(){
+    document.getElementsByClassName('random-button')[0].innerHTML = 'รอ...';
+    intervalPrize = setInterval(function(){
+        document.getElementById('randomprize').innerHTML = randomprize();
+    });
+    intervalCode = setInterval(function(){
+        document.getElementById('randomcodeuser').innerHTML = randomcodeuser();
+    });
+
+    setTimeout(function(){
+        clearInterval(intervalPrize);
+        clearInterval(intervalCode);
+        document.getElementsByClassName('random-button')[0].innerHTML = 'สุ่มรางวัล';
+    },3000);
+}
