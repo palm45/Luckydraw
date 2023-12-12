@@ -48,7 +48,8 @@ function randomcodeuser(){
 }
 
 function getrandom(){
-    document.getElementsByClassName('random-button')[0].innerHTML = 'รอ...';
+    document.getElementsByClassName('random-button')[0].innerHTML = 'รอ...'; 
+    document.getElementsByClassName('random-button')[0].disabled = true;
     intervalPrize = setInterval(function(){
         document.getElementById('randomprize').innerHTML = randomprize();
     });
@@ -60,5 +61,6 @@ function getrandom(){
         clearInterval(intervalPrize);
         clearInterval(intervalCode);
         document.getElementsByClassName('random-button')[0].innerHTML = 'สุ่มรางวัล';
+        document.getElementsByClassName('random-button')[0].disabled = false;
     },3000);
 }
