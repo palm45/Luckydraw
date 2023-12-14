@@ -89,14 +89,14 @@ body {
 
 .preview-box-left{
     font-size:20px;
-    height: 120px;
+    height: 125px;
     width: 25px;
     background-color: #317151;
     border-radius: 20px  0 0 20px;
 }
 .preview-box-right{
     font-size:20px;
-    height: 120px;
+    height: 125px;
     width: 25px;
     background-color: #317151;
     border-radius: 0 20px 20px 0 ;
@@ -104,7 +104,7 @@ body {
 }
 .preview-prize{
     background-color: #193b2a;
-    height: 120px;
+    height: 125px;
     width: 83%;
     white-space: nowrap;
     overflow: scroll;
@@ -118,7 +118,7 @@ body {
     padding-left: 10px;
     font-size: 35px;
     columns: 60px 2;
-    height: 105px;
+    height: 109px;
     width: 160px;
 }
 
