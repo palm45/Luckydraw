@@ -33,17 +33,25 @@ function ButtonNextPage(){
     }
 }
 
+var num1 = 5;
+var num2 = 5;
+const NowPrize =["จักรยาน","เบงๆ","เซี่ยงไฮ้","ไอโฟน","ลูกปิงปอง"];
+const NowCode =["Osd5l9","Px94wr","P1dfo5","2g0yP","0j8Eps"];
 const prize = ["จักรยาน","เบงๆ","เซี่ยงไฮ้","ไอโฟน","ลูกปิงปอง"];
 const code = ["Osd5l9","Px94wr","P1dfo5","2g0yP","0j8Eps"];
 function randomprize(){
     let rand = Math.random() * prize.length;
     Prize = prize[Math.floor(rand)];
+    NowPrize[num1] = Prize;
+    num1++;
     return Prize
 }
 
 function randomcodeuser(){
     let rand = Math.random() * code.length;
     Code = code[Math.floor(rand)];
+    NowCode[num2] = Code;
+    num2++;
     return Code
 }
 
@@ -63,4 +71,13 @@ function getrandom(){
         document.getElementsByClassName('random-button')[0].innerHTML = 'สุ่มรางวัล';
         document.getElementsByClassName('random-button')[0].disabled = false;
     },3000);
+}
+
+
+function NowRandomPrize(){
+    for (let i = 0; i < num1; i++) {
+        document.write(NowPrize[i] + "<br>");
+        document.write(NowCode[i] +"<br>");
+    }
+    
 }

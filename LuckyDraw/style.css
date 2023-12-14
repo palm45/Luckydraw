@@ -100,13 +100,27 @@ body {
     width: 25px;
     background-color: #317151;
     border-radius: 0 20px 20px 0 ;
+    
 }
 .preview-prize{
     background-color: #193b2a;
     height: 120px;
     width: 83%;
+    white-space: nowrap;
+    overflow: scroll;
+    text-overflow: clip ellipsis;
 }
-
+.boxrandom{
+    padding-left: 10px;
+    
+}
+#showrandom{ 
+    padding-left: 10px;
+    font-size: 35px;
+    columns: 60px 2;
+    height: 105px;
+    width: 160px;
+}
 
 #overlay {
     position: fixed;
