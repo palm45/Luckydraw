@@ -155,13 +155,16 @@ body {
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-
     opacity: 0;
     transform: scale(0.75);
     animation-name: confirm__window---open;
     animation-duration: 0.2s;
     animation-fill-mode: forwards;
     animation-delay: 0.2s;
+    -webkit-transform: scale(0.75);
+    -moz-transform: scale(0.75);
+    -ms-transform: scale(0.75);
+    -o-transform: scale(0.75);
 }
 .confirm__titlebar{
     font-size: 20px;
@@ -241,7 +244,7 @@ body {
         -moz-transform: scale(1);
         -ms-transform: scale(1);
         -o-transform: scale(1);
-}
+    }
 }
 
 

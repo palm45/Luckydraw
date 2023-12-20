@@ -35,32 +35,43 @@ function ButtonNextPage() {
 
 var num1 = 0;
 var num2 = 0;
-const NowRandom = [];
 const NowPrize = [];
 const NowCode = [];
-const prize = ["จักรยาน", "เบงๆ", "เซี่ยงไฮ้", "ไอโฟน", "ลูกปิงปอง"];
+const countprize = [1, 2, 2];
+const prize = ["จักรยาน", "เบงๆ", "เซี่ยงไฮ้"]; //, "ไอโฟน", "ลูกปิงปอง"
 const code = ["Osd5l9", "Px94wr", "P1dfo5", "2g0yP", "0j8Eps"];
+
 function randomprize() {
     let rand = Math.random() * prize.length;
-    Prize = prize[Math.floor(rand)];
+    if (prize.length == 0) {
+        Prize = "รางวัลหมดแล้ว!!";
+    } else {
+        Prize = prize[Math.floor(rand)];
+    }
+
     return Prize
 }
 
 function randomcodeuser() {
     let rand = Math.random() * code.length;
-    Code = code[Math.floor(rand)];
+    if(code.length == 0){
+        Code = "ไม่มีคนแล้ว!!";
+    }else{
+        Code = code[Math.floor(rand)];
+    }
+
     return Code
 }
 
 const Confirm = {
-    open (options) {
+    open(options) {
         options = Object.assign({}, {
             title: '',
             message: '',
             okText: 'นำออก',
             cancelText: 'ยกเลิก',
-            onok: function () {},
-            oncancel: function () {}
+            onok: function () { },
+            oncancel: function () { }
         }, options);
         const html = `
             <div class="confirm">
@@ -96,12 +107,14 @@ const Confirm = {
 
         btnOk.addEventListener('click', () => {
             options.onok();
+            btnOk.disabled = true;
             this._close(confirmEl);
         });
 
         [btnCancel, btnClose].forEach(el => {
             el.addEventListener('click', () => {
                 options.oncancel();
+                el.disabled = true;
                 this._close(confirmEl);
             });
         });
@@ -109,7 +122,7 @@ const Confirm = {
         document.body.appendChild(template.content);
     },
 
-    _close (confirmEl) {
+    _close(confirmEl) {
         confirmEl.classList.add('confirm--close');
 
         confirmEl.addEventListener('animationend', () => {
@@ -141,32 +154,40 @@ function getrandom() {
             title: 'ยินดีด้วย!!',
             message: String(RandomCodeNow),
             onok: () => {
-                NowPrize.push(RandomPrizeNow);
-                NowCode.push(RandomCodeNow);
-                for(let i=0;i<prize.length;i++){
-                    if(prize[i] == RandomPrizeNow){
-                        delete prize[i];
-                        prize.splice(i, 1);
+                if (prize.length != 0 && code.length != 0) {
+                    NowPrize.push(RandomPrizeNow);
+                    NowCode.push(RandomCodeNow);
+                    for (let i = 0; i < prize.length; i++) {
+                        if (prize[i] == RandomPrizeNow) {
+                            if (countprize[i] > 1) {
+                                countprize[i] -= 1;
+                            } else {
+                                countprize[i] -= 1;
+                                prize.splice(i, 1);
+                                countprize.splice(i, 1);
+                            }
+                        }
+                    }
+                    for (let i = 0; i < code.length; i++) {
+                        if (code[i] == RandomCodeNow) {
+                            code.splice(i, 1);
+                        }
+                    }
+                    console.log(countprize.length);
+                    console.log(prize.length);
+                    console.log(code.length);
+
+                    for (let i = NowPrize.length - 2; i >= 0; i--) {
+                        document.getElementById('showrandom').innerHTML -= NowPrize[i];
+                        document.getElementById('showrandom').innerHTML -= NowCode[i];
+                    }
+                    document.getElementById('showrandom').innerHTML = "";
+                    for (let i = NowPrize.length - 1; i >= 0; i--) {
+                        document.getElementById('showrandom').innerHTML += NowPrize[i] + "<br>";
+                        document.getElementById('showrandom').innerHTML += NowCode[i] + "</br>";
                     }
                 }
-                for(let i=0;i<code.length;i++){
-                    if(code[i] == RandomCodeNow){
-                        delete code[i];
-                        code.splice(i,1);
-                    }
-                }
-                console.log(prize);
-                console.log(code);
-                
-                for (let i = NowPrize.length - 2; i >= 0; i--) {
-                    document.getElementById('showrandom').innerHTML -= NowPrize[i];
-                    document.getElementById('showrandom').innerHTML -= NowCode[i];
-                }
-                document.getElementById('showrandom').innerHTML = "";
-                for (let i = NowPrize.length - 1; i >= 0; i--) {
-                    document.getElementById('showrandom').innerHTML += NowPrize[i] + "<br>";
-                    document.getElementById('showrandom').innerHTML += NowCode[i] + "</br>";
-                }
+
             },
         })
     }, 3000)
