@@ -100,7 +100,6 @@ body {
     width: 25px;
     background-color: #317151;
     border-radius: 0 20px 20px 0 ;
-    
 }
 .preview-prize{
     background-color: #193b2a;
@@ -274,3 +273,60 @@ body {
   margin: 0 auto;
 }
 
+
+.search{
+    border-radius: 10px;
+    margin: 10px;
+    color: rgb(0, 0, 0);
+    height: 40px;
+    width: 450px;
+    padding: 10px;
+    font-size: 17px;
+}
+.search-name{
+    font-size: 17px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 6px;
+    height: 40px;
+    width: 60px;
+    background-color: #317151;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    
+    border: 2px solid black;
+}
+select{
+    text-align: center;
+    font-size: 17px;
+    width: 100px;
+}
+
+.showuser-left{
+    font-size:20px;
+    height: 450px;
+    width: 25px;
+    background-color: #317151;
+    border-radius: 20px  0 0 20px;
+}
+.showuser-right{
+    font-size:20px;
+    height: 450px;
+    width: 25px;
+    background-color: #317151;
+    border-radius: 0 20px 20px 0 ;
+}
+.showuser{
+    font-size: 20px;
+    height: 450px;
+    width: 600px;
+    background-color: rgb(8, 68, 23);
+    overflow: scroll;
+}
+
+#myTable{
+    font-size: 25px;
+    text-align: center;
+}

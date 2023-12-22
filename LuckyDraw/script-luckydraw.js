@@ -35,11 +35,12 @@ function ButtonNextPage() {
 
 var num1 = 0;
 var num2 = 0;
-const NowPrize = [];
-const NowCode = [];
+const NowPrize = ["จักรยาน", "เบงๆ", "เซี่ยงไฮ้"];
+const NowCode = ["Osd5l9", "P1dfo5", "2g0yP"];
 const countprize = [1, 2, 2];
 const prize = ["จักรยาน", "เบงๆ", "เซี่ยงไฮ้"]; //, "ไอโฟน", "ลูกปิงปอง"
 const code = ["Osd5l9", "Px94wr", "P1dfo5", "2g0yP", "0j8Eps"];
+const gmail = ["ggez@gmail.com", "sapook@gmail.com", "tyot@gmail.com", "Omega@gmail.com", "Tpose@gmail.com"];
 
 function randomprize() {
     let rand = Math.random() * prize.length;
@@ -54,9 +55,9 @@ function randomprize() {
 
 function randomcodeuser() {
     let rand = Math.random() * code.length;
-    if(code.length == 0){
+    if (code.length == 0) {
         Code = "ไม่มีคนแล้ว!!";
-    }else{
+    } else {
         Code = code[Math.floor(rand)];
     }
 
@@ -192,3 +193,52 @@ function getrandom() {
         })
     }, 3000)
 }
+
+var type=0;
+function ShowAllUser() {
+    var mytable = "<tr>"
+    for (let i = 0; i < gmail.length; i++) {
+        mytable += "<td>" + (i + 1) + "</td>"
+        mytable += "<td>" + gmail[i] + "</td>"
+        mytable += "<td>" + code[i] + "</td>"
+        for (let j = 0; j < NowCode.length; j++) {
+            if (code[i] == NowCode[j]) {
+                check = true;
+                mytable += "<td>" + NowPrize[j] + "</td>"
+                break;
+            }
+        }
+        if (check == false) {
+            mytable += "<td>" + "-" + "</td>"
+        }
+        check = false;
+        mytable += "</tr><tr>"
+    }
+    mytable += "</tr>";
+    document.write(mytable);
+}
+function SelectType(select){
+    type = select;
+}
+function SearchTable() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("search");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[type];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+
