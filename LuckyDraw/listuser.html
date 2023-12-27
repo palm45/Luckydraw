@@ -54,18 +54,18 @@
         </div>
         <div class="center">
             <div class="search-name">ค้นหา</div>
-            <input type="search" onkeyup="SearchTable()" class="search" id="search">
+            <input type="search" placeholder="ค้นหา..." onkeyup="SearchTable()" class="search" id="search">
             <select onchange="SelectType(this.value)">
                 <option name="choice1" value="0">Id</option>
                 <option name="choice2" value="1">Gmail</option>
                 <option name="choice3" value="2">รหัส</option>
-                <option name="choice4" value="3">รางวัลที่ได้</option>
+                <option name="choice4" value="3">รางวัล</option>
             </select>
         </div>
         <div class="space"></div>
         <div class="center">
-            <div class="showuser-left"></div>
-            <div class="showuser">
+            <div class="showtable-left"></div>
+            <div class="showtable">
                 <div class="container">
                     <table id="myTable" class="display" style="width: 100%;">
                         <thead>
@@ -73,7 +73,7 @@
                                 <th>Id</th>
                                 <th>Gmail</th>
                                 <th>รหัส</th>
-                                <th>รางวัลที่ได้</th>
+                                <th>รางวัล</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,10 +81,8 @@
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
-            <div class="showuser-right"></div>
+            <div class="showtable-right"></div>
         </div>
 
         <div id="overlay" onclick="off()">

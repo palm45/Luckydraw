@@ -193,12 +193,18 @@ function getrandom() {
         })
     }, 3000)
 }
+function ShowRandom(){
+    for (let i = NowPrize.length - 1; i >= 0; i--) {
+        document.getElementById('showrandom').innerHTML += NowPrize[i] + "<br>";
+        document.getElementById('showrandom').innerHTML += NowCode[i] + "</br>";
+    }
+}
 
-var type=0;
+var type = 0;
 function ShowAllUser() {
     var mytable = "<tr>"
     for (let i = 0; i < gmail.length; i++) {
-        mytable += "<td>" + (i + 1) + "</td>"
+        mytable += "<td class="+"indexCell"+"></td>"
         mytable += "<td>" + gmail[i] + "</td>"
         mytable += "<td>" + code[i] + "</td>"
         for (let j = 0; j < NowCode.length; j++) {
@@ -217,7 +223,7 @@ function ShowAllUser() {
     mytable += "</tr>";
     document.write(mytable);
 }
-function SelectType(select){
+function SelectType(select) {
     type = select;
 }
 function SearchTable() {
@@ -241,4 +247,28 @@ function SearchTable() {
     }
 }
 
+function AddPrize() {
+    
 
+}
+function ShowAllPrizes() {
+    var mytable = "<tr>"
+    for (let i = 0; i < prize.length; i++) {
+        mytable += "<td class="+"indexCell"+"></td>"
+        mytable += "<td>" + prize[i] + "</td>"
+        mytable += "<td>" + countprize[i] + "</td>";
+        mytable += "<td>" + "<button class='delete' onclick=" + "DeletePrize(this,"+i+")" + ">ลบ</button>" + "</td>"
+        mytable += "</tr><tr>"
+    }
+    mytable += "</tr>";
+    document.write(mytable);
+}
+function EditPrize(button) {
+    
+}
+function DeletePrize(button,i) {
+    let row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+    prize.splice(i, 1);
+    countprize.splice(i,1);
+}
