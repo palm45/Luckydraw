@@ -248,8 +248,23 @@ function SearchTable() {
 }
 
 function AddPrize() {
-    
+    let name = document.getElementById("add-prize").value;
+    let num = document.getElementById("add-numprize").value;
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(table.rows.length);
 
+    
+    $(row).addClass("indexCell");
+    row.insertCell(0).innerHTML = name;
+    row.insertCell(1).innerHTML = num;
+    row.insertCell(2).innerHTML = '<span class="edit"> <button class="delete" onclick="EditPrize(this,'+(table.rows.length-3)+')">แก้ไข</button></span>'
+    + '<button class="delete" onclick="DeletePrize(this,'+(table.rows.length-3)+')">ลบ</button>';
+    
+    prize.push(name);
+    countprize.push(num);
+
+    document.getElementById("add-prize").value = "";
+    document.getElementById("add-numprize").value = "1";
 }
 function ShowAllPrizes() {
     var mytable = "<tr>"
@@ -257,18 +272,23 @@ function ShowAllPrizes() {
         mytable += "<td class="+"indexCell"+"></td>"
         mytable += "<td>" + prize[i] + "</td>"
         mytable += "<td>" + countprize[i] + "</td>";
-        mytable += "<td>" + "<button class='delete' onclick=" + "DeletePrize(this,"+i+")" + ">ลบ</button>" + "</td>"
+        mytable += "<td>";
+            mytable += "<span class='edit'>" + "<button class='delete' onclick='EditPrize(this,"+i+")'>แก้ไข</button>"+ "</span>";
+            mytable += "<button class='delete' onclick='DeletePrize(this,"+i+")'>ลบ</button>";
+        mytable += "</td>"
         mytable += "</tr><tr>"
     }
     mytable += "</tr>";
     document.write(mytable);
 }
-function EditPrize(button) {
-    
+function EditPrize(button,i) {
+
 }
 function DeletePrize(button,i) {
     let row = button.parentNode.parentNode;
     row.parentNode.removeChild(row);
     prize.splice(i, 1);
     countprize.splice(i,1);
+    console.log(prize);
+    console.log(countprize);
 }

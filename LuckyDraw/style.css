@@ -335,14 +335,14 @@ select{
 }
 
 
-.add-prize{
+#add-prize{
     font-size: 17px;
     background-color: white;
     width: 200px;
     height: 40px;
     border-radius: 10px;
 }
-.add-numprize{
+#add-numprize{
     text-align: center;
     margin-right: 20px;
     font-size: 17px;
@@ -376,8 +376,8 @@ select{
 }
 .delete{
     text-align: center;
-    font-size: 10px;
-    height: 25px;
+    font-size: 15px;
+    height: 40px;
     width: 50px;
     color: white;
     border-radius: 10px;
