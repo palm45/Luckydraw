@@ -4,8 +4,7 @@ body {
     align-items: center;
     background-color: #4abaa4;
     color: #fff;
-    display: flex;
-    counter-reset: section; /* Set a counter named 'section', and its initial value is 0. */
+    display: flex;/* Set a counter named 'section', and its initial value is 0. */
 }
 .center{
     display: flex;
@@ -370,15 +369,49 @@ select{
     -o-border-radius: 10px;
 }
 
-.indexCell::before {
-    counter-increment: section;
-    content: counter(section);
+.prize_data{
+    text-align: center;
+    padding: 5px;
+    width: 250px;
 }
-.delete{
+.numprize_data{
+    text-align: center;
+    padding: 5px;
+    width: 80px;
+}
+.edit-button{
     text-align: center;
     font-size: 15px;
     height: 40px;
     width: 50px;
+    color: white;
+    border-radius: 10px;
+    background-color: #317151;
+}
+.save-button{
+    text-align: center;
+    font-size: 15px;
+    height: 40px;
+    width: 55px;
+    color: white;
+    border-radius: 10px;
+    background-color: #317151;
+}
+.cancel-button{
+    text-align: center;
+    font-size: 15px;
+    height: 40px;
+    width: 60px;
+    color: black;
+    border-radius: 10px;
+    background-color: white;
+}
+.delete-button{
+    text-align: center;
+    margin-left: 10px;
+    font-size: 15px;
+    height: 40px;
+    width: 40px;
     color: white;
     border-radius: 10px;
     background-color: #317151;

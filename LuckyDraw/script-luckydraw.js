@@ -193,18 +193,19 @@ function getrandom() {
         })
     }, 3000)
 }
-function ShowRandom(){
+function ShowRandom() {
     for (let i = NowPrize.length - 1; i >= 0; i--) {
         document.getElementById('showrandom').innerHTML += NowPrize[i] + "<br>";
         document.getElementById('showrandom').innerHTML += NowCode[i] + "</br>";
     }
 }
 
+
 var type = 0;
 function ShowAllUser() {
     var mytable = "<tr>"
     for (let i = 0; i < gmail.length; i++) {
-        mytable += "<td class="+"indexCell"+"></td>"
+        mytable += "<td>"+(i+1)+"</td></td>"
         mytable += "<td>" + gmail[i] + "</td>"
         mytable += "<td>" + code[i] + "</td>"
         for (let j = 0; j < NowCode.length; j++) {
@@ -247,48 +248,132 @@ function SearchTable() {
     }
 }
 
+
 function AddPrize() {
     let name = document.getElementById("add-prize").value;
     let num = document.getElementById("add-numprize").value;
     var table = document.getElementById("myTable");
     var row = table.insertRow(table.rows.length);
+    var i = table.rows.length - 3;
 
-    
-    $(row).addClass("indexCell");
-    row.insertCell(0).innerHTML = name;
-    row.insertCell(1).innerHTML = num;
-    row.insertCell(2).innerHTML = '<span class="edit"> <button class="delete" onclick="EditPrize(this,'+(table.rows.length-3)+')">แก้ไข</button></span>'
-    + '<button class="delete" onclick="DeletePrize(this,'+(table.rows.length-3)+')">ลบ</button>';
-    
+    row.insertCell(0).innerHTML = table.rows.length - 2;
+    row.insertCell(1).innerHTML = '<td><input type="text" id="EditPrize_' + i + '" class="prize_data" value="'+ name+ '" readonly></input></td>';
+    row.insertCell(2).innerHTML = '<td><input type="number" type="number" min="1" max="9999" step="1" id="EditNumber_' + i + '" class="numprize_data" value="'+ num+ '" readonly></input></td>';
+    row.insertCell(3).innerHTML = '<span id="edit_' + i + '"> <button class="edit-button" onclick="Editbutton(' + i + ')">แก้ไข</button></span>'
+        + '<span id="save_' + i + '"> <button class="save-button" onclick="EditSave(' + i + ')">บันทึก</button></span>'
+        + '<span id="cancel_' + i + '"> <button class="cancel-button" onclick="Editcancel(' + i + ')">ยกเลิก</button></span>'
+        + '<button class="delete-button" onclick="DeletePrize(this,' + i + ')">ลบ</button>';
+
     prize.push(name);
-    countprize.push(num);
+    countprize.push(parseInt(num));
 
     document.getElementById("add-prize").value = "";
-    document.getElementById("add-numprize").value = "1";
+    document.getElementById("add-numprize").value = 1;
+
+    for (let i = 0; i < prize.length; i++) {
+        const btn = document.getElementById('edit_' + i);
+        const btn2 = document.getElementById('save_' + i);
+        const btn3 = document.getElementById('cancel_' + i);
+
+        btn.hidden = false;
+        btn2.hidden = true;
+        btn3.hidden = true;
+    }
 }
 function ShowAllPrizes() {
     var mytable = "<tr>"
     for (let i = 0; i < prize.length; i++) {
-        mytable += "<td class="+"indexCell"+"></td>"
-        mytable += "<td>" + prize[i] + "</td>"
-        mytable += "<td>" + countprize[i] + "</td>";
+        mytable += "<td>"+(i+1)+"</td>"
+        mytable += "<td><input type='text' id='EditPrize_" + i + "' class='prize_data' value=" + prize[i] + " readonly></input></td>"
+        mytable += "<td><input type='number' min='1' max='9999' step='1' id='EditNumber_" + i + "' class='numprize_data'  value=" + countprize[i] + " readonly></input></td>";
         mytable += "<td>";
-            mytable += "<span class='edit'>" + "<button class='delete' onclick='EditPrize(this,"+i+")'>แก้ไข</button>"+ "</span>";
-            mytable += "<button class='delete' onclick='DeletePrize(this,"+i+")'>ลบ</button>";
+        mytable += "<span id='edit_" + i + "'>" + "<button class='edit-button' onclick='Editbutton(" + i + ")'>แก้ไข</button>" + "</span>";
+        mytable += "<span id='save_" + i + "'>" + "<button class='save-button' onclick='EditSave(" + i + ")'>บันทึก</button>" + "</span>";
+        mytable += "<span id='cancel_" + i + "'>" + "<button class='cancel-button' onclick='Editcancel(" + i + ")'>ยกเลิก</button>" + "</span>";
+        mytable += "<button class='delete-button' onclick='DeletePrize(this," + i + ")'>ลบ</button>";
         mytable += "</td>"
         mytable += "</tr><tr>"
     }
-    mytable += "</tr>";
-    document.write(mytable);
-}
-function EditPrize(button,i) {
+    mytable += "</tr>"
 
+    document.write(mytable);
+
+    for (let i = 0; i < prize.length; i++) {
+        const btn = document.getElementById('edit_' + i);
+        const btn2 = document.getElementById('save_' + i);
+        const btn3 = document.getElementById('cancel_' + i);
+
+        btn.hidden = false;
+        btn2.hidden = true;
+        btn3.hidden = true;
+    }
 }
-function DeletePrize(button,i) {
+function Editbutton(Rownum) {
+    console.log(prize)
+
+    const editPrizeInput = document.getElementById('EditPrize_' + Rownum);
+    const editNumberInput = document.getElementById('EditNumber_' + Rownum);
+
+    const btn = document.getElementById('edit_' + Rownum);
+    const btn2 = document.getElementById('save_' + Rownum);
+    const btn3 = document.getElementById('cancel_' + Rownum);
+
+    editPrizeInput.removeAttribute('readonly');
+    editNumberInput.removeAttribute('readonly');
+
+    btn.hidden = true;
+    btn2.hidden = false;
+    btn3.hidden = false;
+}
+
+
+function EditSave(Rownum) {
+    const btn = document.getElementById('edit_' + Rownum);
+    const btn2 = document.getElementById('save_' + Rownum);
+    const btn3 = document.getElementById('cancel_' + Rownum);
+
+    btn.hidden = false;
+    btn2.hidden = true;
+    btn3.hidden = true;
+
+    const editPrizeInput = document.getElementById('EditPrize_' + Rownum);
+    const editNumberInput = document.getElementById('EditNumber_' + Rownum);
+
+    console.log(editPrizeInput.value)
+
+    prize[Rownum] = editPrizeInput.value;
+    countprize[Rownum] = parseInt(editNumberInput.value);
+
+    console.log(prize,countprize)
+
+    editPrizeInput.setAttribute('readonly', 'readonly');
+    editNumberInput.setAttribute('readonly', 'readonly');
+}
+
+
+function Editcancel(Rownum) {
+    const btn = document.getElementById('edit_' + Rownum);
+    const btn2 = document.getElementById('save_' + Rownum);
+    const btn3 = document.getElementById('cancel_' + Rownum);
+
+    btn.hidden = false;
+    btn2.hidden = true;
+    btn3.hidden = true;
+
+    const editPrizeInput = document.getElementById('EditPrize_' + Rownum);
+    const editNumberInput = document.getElementById('EditNumber_' + Rownum);
+    
+    editPrizeInput.value = prize[Rownum];
+    editNumberInput.value = countprize[Rownum];
+   
+    editPrizeInput.setAttribute('readonly', 'readonly');
+    editNumberInput.setAttribute('readonly', 'readonly');
+}
+function DeletePrize(button, i) {
     let row = button.parentNode.parentNode;
     row.parentNode.removeChild(row);
     prize.splice(i, 1);
-    countprize.splice(i,1);
+    countprize.splice(i, 1);
     console.log(prize);
     console.log(countprize);
 }

@@ -67,13 +67,13 @@ function SendEmail() {
         Email.send({
             Host: "smtp.elasticemail.com",
             Username: "LuckyDraw@gmail.com",
-            Password: "DE2003C8544A1237B9FFA058448213C247F0",
+            Password: "55C8576AC30FA4E22468F17BA2313421C6CE",
             To: email,
             From: "akkhraviphanon_p@silpakorn.edu",
             Subject: "OTP LuckyDraw",
             Body: body
         }).then(
             message => alert(message)
-          );
+        );
     })
 }
