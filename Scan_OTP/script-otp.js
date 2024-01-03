@@ -69,7 +69,7 @@ function SendEmail() {
             Username: "LuckyDraw@gmail.com",
             Password: "55C8576AC30FA4E22468F17BA2313421C6CE",
             To: email,
-            From: "akkhraviphanon_p@silpakorn.edu",
+            From: "paranyuak@gmail.com",
             Subject: "OTP LuckyDraw",
             Body: body
         }).then(
