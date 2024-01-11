@@ -133,7 +133,6 @@ body {
 .confirm__windowNotHere {
     width: 100%;
     max-width: 500px;
-    max-height: 500px;
     color: black;
     background: white;
     font-family: 'Noto Sans', sans-serif;
@@ -163,7 +162,6 @@ body {
 }
 .confirm__contentNotHere {
     height: 400px;
-    line-height: 1.8em;
     overflow: scroll;
 }
 #myTableNotHere{
@@ -415,6 +413,7 @@ body {
 
 
 #add-prize{
+    display: none;
     font-size: 17px;
     background-color: white;
     width: 200px;
@@ -422,6 +421,7 @@ body {
     border-radius: 10px;
 }
 #add-numprize{
+    display: none;
     text-align: center;
     margin-right: 20px;
     font-size: 17px;
@@ -431,12 +431,17 @@ body {
     border-radius: 10px;
 }
 .text-add{
+    display: none;
     color: black;
     font-size: 20px;
     font-style: bold;
-    padding: 10px;
+    padding-right: 10px;
+}
+.add-prize-button{
+    display: none;
 }
 .add-button{
+    display: none;
     color: white;
     height: 40px;
     width: 60px;
@@ -448,6 +453,8 @@ body {
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
 }
+
+
 
 .prize_data{
     text-align: center;

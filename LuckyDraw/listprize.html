@@ -52,10 +52,19 @@
             </div>
             <div class="space"></div>
             <div class="center">
-                <div class="text-add">เพิ่มของรางวัล</div>
+                <button class="search-button" onclick="SearchPrizeNow()">ค้นหา</button>
+                <input id="SearchInput" type="search" placeholder="ค้นหา..." onkeyup="SearchTable()" class="search">
+                <select id="SearchType" onchange="SelectType(this.value)">
+                    <option name="choice1" value="0">Id</option>
+                    <option name="choice2" value="1">List</option>
+                    <option name="choice3" value="2">Number</option>
+                    <option name="choice3" value="3">Draw</option>
+                </select>
+                <div id="text-add" class="text-add">เพิ่มของรางวัล</div>
                 <input type="text" id="add-prize" placeholder="ชื่อของรางวัล">
                 <input type="number" id="add-numprize" value="1" min="1" max="9999" step="1">
-                <button class="add-button" onclick="AddPrize()">เพิ่ม</button>
+                <button id="add-prize-button" class="add-button" onclick="AddPrize()">เพิ่ม</button>
+                <button class="search-button" onclick="AddNewPrize()">เพิ่ม</button>
             </div>
             <div class="space"></div>
             <div class="center">

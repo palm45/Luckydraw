@@ -337,18 +337,24 @@ function ShowNotHereTable(){
     table = `<table id="myTableNotHere" class="display" style="width: 100%;"><thead><tr>`;
     for(var i = 0; i <NowNotHere.length;i++){
         table += `<td>` + NowNotHere[i] + `</td>`
-        table += `<td><button class="remove-nothere">นำออก</button></td>`
+        table += `<td><button class="remove-nothere" onclick="DeleteNotHere(this,`+i+`)">นำออก</button></td>`
         table += `</tr><tr>`
     }
     table += `</tr>`
     table += `</thead></table>`
     return table;
 }
+function DeleteNotHere(button, i) {
+    let row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+    NowNotHere.splice(i,1);
+}
 function ShowNotHere(){
     NotHere.open({
         message: ShowNotHereTable(),
     })
 }
+
 
 
 var type = 0;
@@ -429,7 +435,7 @@ function SearchPrize(num) {
 
     if (num == "-1") {
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
+            td = tr[i].getElementsByTagName("td")[1];
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 tr[i].style.display = "";
@@ -437,7 +443,7 @@ function SearchPrize(num) {
         }
     } else if (num == "-2") {
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
+            td = tr[i].getElementsByTagName("td")[1];
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf("-") > -1) {
@@ -448,9 +454,8 @@ function SearchPrize(num) {
             }
         }
     } else {
-        // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
+            td = tr[i].getElementsByTagName("td")[1];
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(prize[num]) > -1) {
@@ -474,9 +479,9 @@ function AddPrize() {
         var i = table.rows.length - 3 + count;
 
         row.insertCell(0).innerHTML = table.rows.length - 2 + count;
-        row.insertCell(1).innerHTML = '<td><input type="text" class="prize_data" value="' + name + '" readonly></input></td>';
-        row.insertCell(2).innerHTML = '<td><input type="text" type="number" min="1" max="9999" step="1" class="numprize_data" value="' + num + '" readonly></input></td>';
-        row.insertCell(3).innerHTML = '<td><input type="text" class="numprize_data" value="' + 0 + '" readonly></input></td>';
+        row.insertCell(1).innerHTML = '<td><div class="prize_data" >' + name + '</div></td>';
+        row.insertCell(2).innerHTML = '<td><div class="numprize_data" >' + num + '</div></td>';
+        row.insertCell(3).innerHTML = '<td><div class="numprize_data" >' + 0 + '</div></td>';
         row.insertCell(4).innerHTML = '<button class="delete-button" onclick="DeletePrize(this,' + i + ')">ลบ</button>';
 
         prize.push(name);
@@ -495,9 +500,9 @@ function ShowAllPrizes() {
     var mytable = "<tr>"
     for (let i = 0; i < prize.length; i++) {
         mytable += "<td>" + (i + 1) + "</td>"
-        mytable += "<td><input type='text' class='prize_data' value=" + prize[i] + " readonly></input></td>"
-        mytable += "<td><input type='text' min='1' max='9999' step='1' class='numprize_data'  value=" + countprize[i] + " readonly></input></td>";
-        mytable += "<td><input type='text' class='numprize_data' value=" + draw[i] + " readonly></input></td>"
+        mytable += "<td><div class='prize_data' >" + prize[i] + "</div></td>"
+        mytable += "<td><div class='numprize_data' >" + countprize[i] + "</div></td>";
+        mytable += "<td><div class='numprize_data' >" + draw[i] + "</div></td>"
         mytable += "<td>";
         mytable += "<button class='delete-button' onclick='DeletePrize(this," + i + ")'>ลบ</button>";
         mytable += "</td>"
@@ -518,4 +523,38 @@ function DeletePrize(button, i) {
     console.log(prize);
     console.log(countprize);
     console.log(draw);
+}
+function SearchPrizeNow(){
+    var x = document.getElementById("text-add");
+    var x2 = document.getElementById("add-prize");
+    var x3 = document.getElementById("add-numprize");
+    var x4 = document.getElementById("add-prize-button");
+
+    var y = document.getElementById("SearchInput");
+    var y2 = document.getElementById("SearchType");
+
+    x.style.display = "none";
+    x2.style.display = "none";
+    x3.style.display = "none";
+    x4.style.display = "none";
+
+    y.style.display = "block";
+    y2.style.display = "block";
+}
+function AddNewPrize(){
+    var x = document.getElementById("text-add");
+    var x2 = document.getElementById("add-prize");
+    var x3 = document.getElementById("add-numprize");
+    var x4 = document.getElementById("add-prize-button");
+
+    var y = document.getElementById("SearchInput");
+    var y2 = document.getElementById("SearchType");
+
+    x.style.display = "block";
+    x2.style.display = "block";
+    x3.style.display = "block";
+    x4.style.display = "block";
+
+    y.style.display = "none";
+    y2.style.display = "none";
 }
