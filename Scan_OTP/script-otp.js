@@ -75,7 +75,6 @@ function SendEmail() {
             Body: body
         }).then(
             message => alert(message)
-            
         );
         
         document.getElementById("email").value = "";
@@ -105,7 +104,6 @@ function VerifyOTP(){
         alert("กรุณายืนยันตัวตนใหม่")
     }
 
-    
     document.getElementById("input1").value = "";
     document.getElementById("input2").value = "";
     document.getElementById("input3").value = "";
