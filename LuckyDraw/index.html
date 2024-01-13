@@ -38,7 +38,7 @@
             </div>
             <div class="col-3">
                 <div class="row">
-                    <button class="menu" onclick="generateQRCode()">QRCode</button>
+                    <button class="menu" onclick="generateQRCode()">แสกน QRCode</button>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                         <div class="boxprize">
                             <div class="center">
                                 <div id="randomprize" class="prizetext">
-                                    ..รางวัล..
+                                    ..สุ่มรางวัล..
                                 </div>
                             </div>
                         </div>
@@ -87,10 +87,23 @@
                             <div class="center">
                                 <div class="preview-box-left"></div>
                                 <div class="preview-prize">
-                                    <div id="showrandom"><script>ShowRandom()</script></div>
+                                    <div id="showrandom">
+                                        <script>ShowRandom()</script>
+                                    </div>
                                 </div>
                                 <div class="preview-box-right"></div>
-                                <button class="ShowNotHere" onclick="ShowNotHere()">รายการคนที่ไม่อยู่</button>
+                                <div class="col">
+                                        <div class="center">เปลี่ยนโหมด</div>
+                                        <div class="center">
+                                            <label class="switch">
+                                                <input type="checkbox" onclick="ChangeModePrize()">
+                                                <span class="slider round"></span>
+                                             </label>
+                                            <div id="Mode" class="text-mode-prize">สุ่มรางวัล</div>
+                                        </div>
+                                    <button class="ShowNotHere" onclick="ShowNotHere()">รายการคนที่ไม่อยู่</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>

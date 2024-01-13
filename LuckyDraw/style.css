@@ -116,15 +116,16 @@ body {
     text-align: center;
     padding-left: 5px;
     font-size: 35px;
-    columns: 60px 2;
+    columns: 200px 2;
     height: 109px;
     width: 160px;
 }
 .ShowNotHere{
-    font-size: 25px;
+    font-size: 23px;
     text-align: center;
+    margin-top: 8px;
     margin-left: 10px;
-    height: 80px;
+    height: 70px;
     width: 150px;
     color: white;
     background-color: rgb(227, 62, 62);
@@ -320,6 +321,12 @@ body {
         -o-transform: scale(1);
     }
 }
+.text-mode-prize{
+    margin-left:10px
+}
+#SelectPrizeRandom{
+    text-align: center;
+}
 
 
 #overlay {
@@ -358,6 +365,17 @@ body {
     height: 50px;
     width: 60px;
     background-color: #317151
+}
+.prize-button{
+    font-size: 16px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 6px;
+    height: 50px;
+    width: 110px;
+    background-color: #317151;
 }
 .search{
     border-radius: 10px;
@@ -423,7 +441,8 @@ body {
 #add-numprize{
     display: none;
     text-align: center;
-    margin-right: 20px;
+    margin-left: 5px;
+    margin-right: 10px;
     font-size: 17px;
     background-color: white;
     width: 60px;
@@ -454,6 +473,63 @@ body {
     -o-border-radius: 10px;
 }
 
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+input:checked + .slider {
+    background-color: #21f38e;
+}
+input:focus + .slider {
+    box-shadow: 0 0 1px #21f38e;
+}
+input:checked + .slider:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
+    -moz-transform: translateX(22px);
+    -o-transform: translateX(22px);
+}
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 45%;
+    -webkit-border-radius: 45%;
+    -moz-border-radius: 45%;
+    -ms-border-radius: 45%;
+    -o-border-radius: 45%;
+}
 
 
 

@@ -41,7 +41,7 @@
             </div>
             <div class="col-3">
                 <div class="row">
-                    <button class="menu" onclick="generateQRCode()">QRCode</button>
+                    <button class="menu" onclick="generateQRCode()">แสกน QRCode</button>
                 </div>
             </div>
         </div>
@@ -55,14 +55,14 @@
             <button id="SearchAll" class="search-button" onclick="ShowSearch()">ค้นหา</button>
             <input id="SearchInput" type="search" placeholder="ค้นหา..." onkeyup="SearchTable()" class="search">
             <select id="SearchType" onchange="SelectType(this.value)">
-                <option name="choice1" value="0">Number</option>
-                <option name="choice2" value="1">Prize</option>
-                <option name="choice3" value="2">Code</option>
+                <option value="0">Number</option>
+                <option value="1">Prize</option>
+                <option value="2">Code</option>
             </select>
             <select id="PrizeSelect" onchange="SearchPrize(this.value)">
                 <script>PrizeSelect()</script>
             </select>
-            <button id="PrizeOnly" class="search-button" onclick="ShowPrizeSelect()">รางวัล</button>
+            <button id="PrizeOnly" class="prize-button" onclick="ShowPrizeSelect()">ดูของรางวัล</button>
         </div>
         <div class="space"></div>
         <div class="center">

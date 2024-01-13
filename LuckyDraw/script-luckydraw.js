@@ -178,22 +178,79 @@ const Confirm = {
     }
 };
 
+
+ChangePrizeMode = false;
+Prize = -1;
+function ChangeModePrize() {
+    if (ChangePrizeMode == false) {
+        ChangePrizeMode = true;
+        document.getElementById('randomprize').innerHTML = SelectPrizeRandom();
+        document.getElementsByClassName('random-button')[0].disabled = true;
+        document.getElementById('Mode').innerHTML = "เลือกรางวัล";
+    } else {
+        ChangePrizeMode = false;
+        document.getElementsByClassName('random-button')[0].disabled = false;
+        document.getElementById('Mode').innerHTML = "สุ่มรางวัล";
+
+        check=0;
+        for(let i = 0; i <prize.length;i++){
+            if(draw[i]==countprize[i]){
+                check++;
+            }
+        }
+        
+        if(check==prize.length){
+            document.getElementById('randomprize').innerHTML = "รางวัลหมดแล้ว!!";
+        }else{
+            document.getElementById('randomprize').innerHTML = "..สุ่มรางวัล..";
+        }
+    }
+}
+function SelectPrizeRandom() {
+    SelectPrize = "<select id='SelectPrizeRandom' onchange='SelectTypePrizeRandom(this.value)'>";
+    SelectPrize += "<option value='-1'>เลือกรางวัล</option>";
+    for (let i = 0; i < prize.length; i++) {
+        if (draw[i] != countprize[i]) {
+            SelectPrize += "<option value='" + prize[i] + "'>";
+            SelectPrize += prize[i];
+            SelectPrize += "</option>"
+        }
+    }
+    SelectPrize += "</select>";
+    return SelectPrize;
+}
+function SelectTypePrizeRandom(i) {
+    if (i == -1) {
+        document.getElementsByClassName('random-button')[0].disabled = true;
+    } else {
+        document.getElementsByClassName('random-button')[0].disabled = false;
+        Prize = i;
+    }
+}
 function getrandom() {
     let RandomPrizeNow = '';
     let RandomCodeNow = '';
     document.getElementsByClassName('random-button')[0].innerHTML = 'รอ...';
     document.getElementsByClassName('random-button')[0].disabled = true;
-    intervalPrize = setInterval(function () {
-        RandomPrizeNow = randomprize();
-        document.getElementById('randomprize').innerHTML = RandomPrizeNow;
-    });
+
+    if (ChangePrizeMode == false) {
+        intervalPrize = setInterval(function () {
+            RandomPrizeNow = randomprize();
+            document.getElementById('randomprize').innerHTML = RandomPrizeNow;
+        });
+    } else {
+        RandomPrizeNow = Prize;
+    }
+
     intervalCode = setInterval(function () {
         RandomCodeNow = randomcodeuser();
         document.getElementById('randomcodeuser').innerHTML = RandomCodeNow;
     });
 
     setTimeout(function () {
-        clearInterval(intervalPrize);
+        if (ChangePrizeMode == false) {
+            clearInterval(intervalPrize);
+        }
         clearInterval(intervalCode);
         document.getElementsByClassName('random-button')[0].innerHTML = 'สุ่มรางวัล';
         document.getElementsByClassName('random-button')[0].disabled = false;
@@ -216,7 +273,7 @@ function getrandom() {
                 for (let i = 0; i < NowNotHere.length; i++) {
                     checkUserGet++;
                 }
-                if (checkprize != countprize.length && checkUserGet != code.length) {
+                if (checkprize != countprize.length && checkUserGet != code.length && RandomPrizeNow != -1) {
                     NowPrize.push(RandomPrizeNow);
                     NowCode.push(RandomCodeNow);
                     for (let i = 0; i < prize.length; i++) {
@@ -246,6 +303,25 @@ function getrandom() {
                         document.getElementById('showrandom').innerHTML += NowPrize[i] + "<br>";
                         document.getElementById('showrandom').innerHTML += NowCode[i] + "</br>";
                     }
+
+                    if (ChangePrizeMode == true) {
+                        for (let i = 1; i < document.getElementById('SelectPrizeRandom').options.length; i++) {
+                            if (document.getElementById('SelectPrizeRandom').options[i].value == RandomPrizeNow) {
+                                for (let j = 0; j < prize.length; j++) {
+                                    if (RandomPrizeNow == prize[j]) {
+                                        if (draw[j] == countprize[j]) {
+                                            document.getElementById('SelectPrizeRandom').options[i].remove();
+                                            document.getElementsByClassName('random-button')[0].disabled = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(document.getElementById('SelectPrizeRandom').options.length==1){
+                            document.getElementById('randomcodeuser').innerHTML = "ไม่มีคนแล้ว!!";
+                        }
+                    }
+
                 }
 
             },
@@ -259,7 +335,7 @@ function getrandom() {
                 for (let i = 0; i < NowNotHere.length; i++) {
                     check++;
                 }
-                if (check < code.length) {
+                if (check < code.length && RandomPrizeNow != -1) {
                     NowNotHere.push(RandomCodeNow);
                     console.log(NowNotHere);
                 }
@@ -273,6 +349,7 @@ function ShowRandom() {
         document.getElementById('showrandom').innerHTML += NowCode[i] + "</br>";
     }
 }
+
 
 const NotHere = {
     open(options) {
