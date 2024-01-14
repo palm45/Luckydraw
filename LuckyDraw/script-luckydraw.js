@@ -26,15 +26,15 @@ function nextlistprize() {
     window.location.href = "listprize.html";
 }
 
-const NowPrize = ["จักรยาน", "เบงๆ", "เซี่ยงไฮ้"];
-const NowCode = ["Osd5l9", "P1dfo5", "2g0yP"];
+const NowPrize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม"];
+const NowCode = ["995710", "125114", "876541"];
 const NowNotHere = [];
-const draw = [0, 0, 0];
-const countprize = [1, 2, 2];
-const prize = ["จักรยาน", "เบงๆ", "เซี่ยงไฮ้"]; //, "ไอโฟน", "ลูกปิงปอง"
-const code = ["Osd5l9", "Px94wr", "P1dfo5", "2g0yP", "0j8Eps"];
-const gmail = ["ggez@gmail.com", "sapook@gmail.com", "tyot@gmail.com", "Omega@gmail.com", "Tpose@gmail.com"];
-const UserGet = [false, false, false, false, false];
+const draw = [1, 1, 1, 0 ,0];
+const countprize = [1, 2, 3, 1];
+const prize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม", "โอริโอ้"]; //, "ไอโฟน", "ลูกปิงปอง"
+const code = ["995710", "686625", "125114", "849529", "876541", "582393","109254"];
+const gmail = ["ggez@gmail.com", "sapook@gmail.com", "tyot@gmail.com", "Omega@gmail.com", "Tpose@gmail.com", "City@gmail.com", "Reality@gmail.com"];
+const UserGet = [true, false, true, true, false, false, false];
 
 function randomprize() {
     check = 0;
@@ -430,6 +430,7 @@ function ShowNotHere() {
 var type = 0;
 function ShowAllUser() {
     var mytable = "<tr>"
+    check = false;
     for (let i = 0; i < gmail.length; i++) {
         mytable += "<td>" + (i + 1) + "</td></td>"
         for (let j = 0; j < NowCode.length; j++) {

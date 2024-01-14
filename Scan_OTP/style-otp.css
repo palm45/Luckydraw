@@ -86,3 +86,7 @@ body {
     cursor: pointer; 
     pointer-events: all; 
 }
+.time{
+    font-size: 25px;
+    padding: 15px;
+}
