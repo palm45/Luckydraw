@@ -29,7 +29,7 @@ function nextlistprize() {
 const NowPrize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม"];
 const NowCode = ["995710", "125114", "876541"];
 const NowNotHere = [];
-const draw = [1, 1, 1, 0 ,0];
+const draw = [1, 1, 1, 0];
 const countprize = [1, 2, 3, 1];
 const prize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม", "โอริโอ้"]; //, "ไอโฟน", "ลูกปิงปอง"
 const code = ["995710", "686625", "125114", "849529", "876541", "582393","109254"];
