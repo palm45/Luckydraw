@@ -154,7 +154,6 @@ function Timer(remaining) {
     }
 
     if (Verifyotp != "" && CheckVerifyOTP == false) {
-        document.getElementsByClassName('button-PV')[0].disabled = false;
         alert('หมดเวลายืนยันตัวตน');
         Verifyotp = "";
     }
