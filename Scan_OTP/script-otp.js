@@ -83,6 +83,7 @@ function SendEmail() {
                 if (message === "OK") {
                     alert("ส่ง OTP เรียบร้อย โปรดตรวจสอบใน email");
                     Timer(30);
+                    document.getElementsByClassName('button-PV')[0].disabled = true;
                 } else {
                     alert("กรุณาใส่ email ให้ถูกต้อง");
                 }
@@ -153,6 +154,7 @@ function Timer(remaining) {
     }
 
     if (Verifyotp != "" && CheckVerifyOTP == false) {
+        document.getElementsByClassName('button-PV')[0].disabled = false;
         alert('หมดเวลายืนยันตัวตน');
         Verifyotp = "";
     }
