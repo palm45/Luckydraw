@@ -19,20 +19,17 @@ body {
     font-style: bold;
 }
 
-.box-PV{
-    background-color: white;
-    height: 100px;
-    width: 300px;
-    border-radius: 20px;
-}
-.textemail{
+.text-user{
     font-size: 24px;
     text-align: center;
     justify-self: center;
     border-radius: 20px;
     width: 300px;
-    height: 100px;
+    height: 50px;
+    margin: 10px;
 }
+
+
 
 .button-PV{
     background-color:#193b2a;

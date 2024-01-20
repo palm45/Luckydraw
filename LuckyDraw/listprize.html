@@ -14,6 +14,7 @@
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script-luckydraw.js"></script>
+    <script src="script-prize.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
@@ -56,11 +57,12 @@
                 <select id="SearchType" onchange="SelectType(this.value)">
                     <option value="0">Id</option>
                     <option value="1">Prize</option>
-                    <option value="2">Number</option>
+                    <option value="2">Count</option>
                     <option value="3">Draw</option>
                 </select>
-                <div id="text-add" class="text-add">เพิ่มของรางวัล</div>
+                
                 <input type="text" id="add-prize" placeholder="ชื่อของรางวัล">
+                <div id="text-add" class="text-add">จำนวน</div>
                 <input type="number" id="add-numprize" value="1" min="1" max="9999" step="1">
                 <button id="add-prize-button" class="add-button" onclick="AddPrize()">เพิ่ม</button>
                 <button class="prize-button" onclick="AddNewPrize()">เพิ่มของรางวัล</button>
