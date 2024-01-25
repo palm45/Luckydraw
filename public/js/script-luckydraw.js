@@ -10,7 +10,7 @@ function generateQRCode() {
     on()
     let qrcodeContainer = document.getElementById("qrcode");
     qrcodeContainer.innerHTML = "";
-    new QRCode(qrcodeContainer, 'https://palm45.github.io/Luckydraw/otp.html');
+    new QRCode(qrcodeContainer, 'https://palm45.github.io/Luckydraw/views/otp.ejs');
 
     document.getElementById("qrcode-container").style.display = "block";
 }
