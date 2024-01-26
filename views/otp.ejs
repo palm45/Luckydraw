@@ -21,53 +21,57 @@
 <body>
     <div class="container-fluid">
         <div class="col">
+
             <div class="center">
                 <div class="title">Email Validation</div>
             </div>
-                <div class="center">
-                    <input type="text" id="name" class="text-user"
-                        placeholder="ใส่ชื่อ" required/>
-                </div>
-                <div class="center">
-                    <input type="text" id="surname" class="text-user"
-                        placeholder="ใส่นามสกุล" required/>
-                </div>
-                <div class="center">
-                    <input type="text" id="phone" class="text-user"
-                        placeholder="ใส่เบอร์โทร" required/>
-                </div>
-                <div class="center">
-                     <input type="text" id="email" class="text-user"
-                            placeholder="ใส่ Email" required />
-                </div>
-                <div class="spacemini"></div>
-                <div class="center">
-                    <button onclick="SendEmail()" class="button-PV">Send OTP</button>
-                </div>
+            <div class="center">
+                <input type="text" name="name" id="name" class="text-user" placeholder="ใส่ชื่อ" required />
+            </div>
+            <div class="center">
+                <input type="text" name="surname" id="surname" class="text-user" placeholder="ใส่นามสกุล" required />
+            </div>
+            <div class="center">
+                <input type="tel" name="phone" id="phone" class="text-user" placeholder="ใส่เบอร์โทร" required />
+            </div>
+            <div class="center">
+                <input type="email" name="email" id="email" class="text-user" placeholder="ใส่ Email" required />
+            </div>
+            <div class="spacemini"></div>
+            <div class="center">
+                <button onclick="SendEmail()" class="button-PV">Send OTP</button>
+            </div>
+
             <div class="space"></div>
             <div class="stem"></div>
             <div class="spacemini"></div>
-            <div class="center">
-                <div class="title">Verify OTP</div>
-            </div>
-            <div class="spacemini"></div>
+
+            <form>
+                <div class="center">
+                    <div class="title">Verify OTP</div>
+                </div>
+                <div class="spacemini"></div>
                 <div class="center">
                     <div id="inputs" class="inputs">
-                        <input id="input1" class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1" required />
-                        <input id="input2" class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1" required />
-                        <input id="input3" class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1" required />
-                        <input id="input4" class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1" required />
+                        <input id="input1" class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1"
+                            required />
+                        <input id="input2" class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1"
+                            required />
+                        <input id="input3" class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1"
+                            required />
+                        <input id="input4" class="input" onclick="input()" type="text" inputmode="numeric" maxlength="1"
+                            required />
                     </div>
                 </div>
                 <div class="center">
                     <div class="time">Timer left = <span id="timer">0:00</span></div>
                 </div>
-            <div class="spacemini"></div>
-            <div class="center">
-                <button  class="button-PV" onclick="VerifyOTP()">Verify</button>
-            </div>
-            
-            <div class="space"></div>
+                <div class="spacemini"></div>
+                <div class="center">
+                    <button class="button-PV" onclick="VerifyOTP()">Verify</button>
+                </div>
+                <div class="space"></div>
+            </form>
         </div>
     </div>
     <script src="https://smtpjs.com/v3/smtp.js"></script>

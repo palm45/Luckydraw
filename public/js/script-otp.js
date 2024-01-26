@@ -33,8 +33,13 @@ function input() {
 
 }
 
-var Verifyotp = "";
+var names = "";
+var surnames = "";
+var phone = "";
 var email = "";
+var codeuser = "";
+var Verifyotp = "";
+
 function RandomCodeUser() {
     var string = '0123456789';
     let CodeUser = '';
@@ -58,19 +63,11 @@ function RandomOTP() {
     return OTP;
 }
 
-const namelist = [];
-const surnamelist=[];
-const phonelist=[];
-const emaillist=[];
-const CodeUser=[];
-let UserList1 = [];
-let UserList2 = [];
-
 CheckVerifyOTP = false;
 function SendEmail() {
-    var names = document.getElementById("name").value;
-    var surnames = document.getElementById("surname").value;
-    var phone = document.getElementById("phone").value;
+    names = document.getElementById("name").value;
+    surnames = document.getElementById("surname").value;
+    phone = document.getElementById("phone").value;
     email = document.getElementById("email").value;
     var errormessage = "";
     m = "";
@@ -78,14 +75,6 @@ function SendEmail() {
     Verifyotp = body;
 
     if (CheckVerifyOTP == false) {
-        console.log(names.length);
-
-        $.ajax({
-            type: "GET",
-            url: "insert.php"
-        }).done(
-            
-        );
 
         if (names.length == 0) {
             errormessage += "กรุณาใส่ชื่อ";
@@ -115,29 +104,19 @@ function SendEmail() {
                         alert("ส่ง OTP เรียบร้อย โปรดตรวจสอบใน email");
                         Timer(30);
                         document.getElementsByClassName('button-PV')[0].disabled = true;
-                        UserList1 = {
-                            Name: names,
-                            Surname: surnames,
-                            Phone: phone,
-                            Email_user: email,
-                        }
-                        namelist.push(names);
-                        surnamelist.push(surnames);
-                        phonelist.push(phone);
-                        emaillist.push(email);
-                        document.getElementById("email").value = "";
                         document.getElementById("name").value = "";
                         document.getElementById("surname").value = "";
                         document.getElementById("phone").value = "";
+                        document.getElementById("email").value = "";
                     }
                 }
             )
-        }else if(email.length == 0 && errormessage.length == 0){
+        } else if (email.length == 0 && errormessage.length == 0) {
             errormessage += "กรุณาใส่ email";
-        }else if(email.length == 0){
+        } else if (email.length == 0) {
             errormessage += " email ";
         }
-        if(errormessage.length > 0){
+        if (errormessage.length > 0) {
             alert(errormessage + "ให้ถูกต้อง");
         }
     } else {
@@ -152,7 +131,8 @@ function VerifyOTP() {
 
     var OTP = input1 + input2 + input3 + input4;
     if (OTP == Verifyotp && Verifyotp != "") {
-        var body = RandomCodeUser();
+        codeuser = RandomCodeUser();
+        body = codeuser;
         Email.send({
             Host: "smtp.elasticemail.com",
             Username: "LuckyDraw@gmail.com",
@@ -165,21 +145,17 @@ function VerifyOTP() {
             message => {
                 if (message === "OK") {
                     alert("คุณได้รับ Code เข้าร่วม Lucky Draw แล้ว โปรดตรวจสอบใน email");
-                    UserList2 = {
-                        CodeUser: body,
-                        Getprize: "",
-                        UserGet: false,
-                    }
                 }
             }
         );
         Verifyotp = "";
         CheckVerifyOTP = true;
+        postdata();
     } else if (Verifyotp == "" && CheckVerifyOTP == false) {
         alert("กรุณาส่ง OTP ใหม่")
-    } else if (CheckVerifyOTP == true){
+    } else if (CheckVerifyOTP == true) {
         alert("คุณได้รับ Code ของรางวัลแล้ว");
-    }else {
+    } else {
         alert("OTP ไม่ถูกต้อง")
     }
 
@@ -214,4 +190,14 @@ function Timer(remaining) {
         alert('หมดเวลายืนยันตัวตน');
         Verifyotp = "";
     }
+}
+
+async function postdata() {
+    const res = await fetch('http://localhost:3000/otpsummit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: names, surname: surnames, phone: phone, email: email, codeuser: codeuser })
+    });
 }
