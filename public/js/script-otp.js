@@ -33,6 +33,7 @@ function input() {
 
 }
 
+data = [];
 var names = "";
 var surnames = "";
 var phone = "";
@@ -63,6 +64,24 @@ function RandomOTP() {
     return OTP;
 }
 
+async function postdata() {
+    const res = await fetch('http://localhost:3000/otpsummit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: names, surname: surnames, phone: phone, email: email, codeuser: codeuser })
+    });
+}
+
+async function getdbuser() {
+    const res = await fetch('http://localhost:3000/getuser', {
+        method: 'GET',
+    })
+    data = await res.json();
+}
+getdbuser();
+
 CheckVerifyOTP = false;
 function SendEmail() {
     names = document.getElementById("name").value;
@@ -70,12 +89,42 @@ function SendEmail() {
     phone = document.getElementById("phone").value;
     email = document.getElementById("email").value;
     var errormessage = "";
-    m = "";
+    var samemessage = "";
+
     var body = RandomOTP();
     Verifyotp = body;
 
-    if (CheckVerifyOTP == false) {
+    CheckName = false;
+    CheckSurname = false;
+    CheckSamename = false;
+    CheckEmail = false;
+    CheckPhone = false;
 
+    for (let i = 0; i < data.length; i++) {
+        if (names == data[i].Name) {
+            CheckName = true;
+        }
+        if (surnames == data[i].Surname) {
+            CheckSurname = true;
+        }
+        if (CheckName == true && CheckSurname == true) {
+            CheckSamename = true;
+            break;
+        }
+        CheckName = false;
+        CheckSurname = false;
+    }
+    for (let i = 0; i < data.length; i++) {
+        if (phone == data[i].Phone) {
+            CheckPhone = true;
+        }
+        if (email == data[i].Email_user) {
+            CheckEmail = true;
+        }
+    }
+
+    if (CheckVerifyOTP == false) {
+        console.log(CheckEmail);
         if (names.length == 0) {
             errormessage += "กรุณาใส่ชื่อ";
         }
@@ -84,40 +133,64 @@ function SendEmail() {
         } else if (surnames.length == 0) {
             errormessage += " นามสกุล"
         }
-        if (errormessage.length == 0 && phone.length == 0) {
-            errormessage += "กรุณาใส่เบอร์โทร"
-        } else if (phone.length == 0 || phone.length < 10) {
-            errormessage += " เบอร์โทร"
+        if (errormessage.length == 0 && phone.length > 10 || errormessage.length == 0 && phone.length < 10) {
+            errormessage += "กรุณาใส่เบอร์โทรศัพท์"
+        } else if (errormessage.length > 0 && phone.length > 10 || errormessage.length > 0 && phone.length < 10) {
+            errormessage += " เบอร์โทรศัพท์"
         }
-        if (email.length > 0 && errormessage.length == 0 && phone.length == 10) {
-            Email.send({
-                Host: "smtp.elasticemail.com",
-                Username: "LuckyDraw@gmail.com",
-                Password: "E4940A7C2D5FD3437AB28CD7DCE9948C56DB",
-                To: email,
-                From: "akkhraviphanon_p@silpakorn.edu",
-                Subject: "OTP LuckyDraw",
-                Body: body
-            }).then(
-                message => {
-                    if (message === "OK") {
-                        alert("ส่ง OTP เรียบร้อย โปรดตรวจสอบใน email");
-                        Timer(30);
-                        document.getElementsByClassName('button-PV')[0].disabled = true;
-                        document.getElementById("name").value = "";
-                        document.getElementById("surname").value = "";
-                        document.getElementById("phone").value = "";
-                        document.getElementById("email").value = "";
+        if (email.includes('@') && email.includes('.com') && errormessage.length == 0 && CheckEmail == false) {
+            if (CheckSamename == false && CheckPhone == false) {
+                Email.send({
+                    Host: "smtp.elasticemail.com",
+                    Username: "LuckyDraw@gmail.com",
+                    Password: "E4940A7C2D5FD3437AB28CD7DCE9948C56DB",
+                    To: email,
+                    From: "akkhraviphanon_p@silpakorn.edu",
+                    Subject: "OTP LuckyDraw",
+                    Body: body
+                }).then(
+                    message => {
+                        if (message === "OK") {
+                            alert("ส่ง OTP เรียบร้อย โปรดตรวจสอบใน email");
+                            Timer(30);
+                            document.getElementsByClassName('button-PV')[0].disabled = true;
+                            document.getElementById("name").value = "";
+                            document.getElementById("surname").value = "";
+                            document.getElementById("phone").value = "";
+                            document.getElementById("email").value = "";
+                        }
                     }
-                }
-            )
-        } else if (email.length == 0 && errormessage.length == 0) {
-            errormessage += "กรุณาใส่ email";
-        } else if (email.length == 0) {
-            errormessage += " email ";
+                )
+            }
+
+        } else {
+            if (errormessage.length == 0 && CheckEmail == false) {
+                errormessage += "กรุณาใส่ email ";
+            } else if (errormessage.length > 0 && CheckEmail == false) {
+                errormessage += " email ";
+            }
         }
-        if (errormessage.length > 0) {
+
+        if (CheckSamename == true) {
+            samemessage = "ชื่อ นามสกุล"
+        }
+        if (CheckPhone == true && samemessage.length > 0) {
+            samemessage += " เบอร์โทรศัพท์"
+        } else if (CheckPhone == true && samemessage.length == 0) {
+            samemessage += "เบอร์โทรศัพท์"
+        }
+        if (CheckEmail == true && samemessage.length > 0) {
+            samemessage += " email "
+        } else if (CheckEmail == true && samemessage.length == 0) {
+            samemessage += "email "
+        }
+
+        if (errormessage.length > 0 && samemessage.length > 0) {
+            alert(errormessage + "ให้ถูกต้อง" + " และ\n" + samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
+        } else if (errormessage.length > 0 && samemessage.length == 0) {
             alert(errormessage + "ให้ถูกต้อง");
+        } else if (errormessage.length == 0 && samemessage.length > 0) {
+            alert(samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
         }
     } else {
         alert("คุณได้รับ Code ของรางวัลแล้ว");
@@ -192,12 +265,3 @@ function Timer(remaining) {
     }
 }
 
-async function postdata() {
-    const res = await fetch('http://localhost:3000/otpsummit', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name: names, surname: surnames, phone: phone, email: email, codeuser: codeuser })
-    });
-}

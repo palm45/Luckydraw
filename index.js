@@ -55,3 +55,10 @@ app.post('/otpsummit', (req, res) => {
         return res.send('<script>alert("GBG"); window.location="/qr";</script>');
     });
 });
+
+app.get('/getuser', (req, res) => {
+    const sql = 'SELECT * FROM users';
+    db.query(sql, (err, result) => {
+        res.send(result);
+    })
+})
