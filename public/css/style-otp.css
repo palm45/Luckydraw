@@ -31,7 +31,16 @@ body {
 
 
 
-.button-PV{
+.button-OTP{
+    background-color:#193b2a;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    height: 60px;
+    width: 150px;
+    border-radius: 20px;
+}
+.button-Verify{
     background-color:#193b2a;
     color: #fff;
     font-size: 20px;

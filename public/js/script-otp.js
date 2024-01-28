@@ -41,29 +41,6 @@ var email = "";
 var codeuser = "";
 var Verifyotp = "";
 
-function RandomCodeUser() {
-    var string = '0123456789';
-    let CodeUser = '';
-
-    var len = string.length;
-    for (let i = 0; i < 6; i++) {
-        CodeUser += string[Math.floor(Math.random() * len)];
-    }
-
-    return CodeUser;
-}
-
-function RandomOTP() {
-    var string = '0123456789';
-    let OTP = '';
-
-    var len = string.length;
-    for (let i = 0; i < 4; i++) {
-        OTP += string[Math.floor(Math.random() * len)];
-    }
-    return OTP;
-}
-
 async function postdata() {
     const res = await fetch('http://localhost:3000/otpsummit', {
         method: 'POST',
@@ -80,10 +57,47 @@ async function getdbuser() {
     })
     data = await res.json();
 }
+
 getdbuser();
+
+function RandomCodeUser() {
+    var string = '0123456789';
+    let CodeUser = '';
+
+    var len = string.length;
+    while (true) {
+        check=false;
+        for (let i = 0; i < 6; i++) {
+            CodeUser += string[Math.floor(Math.random() * len)];
+        }
+        for (let i = 0; i < data.length; i++) {
+            if(data[i].CodeUser == CodeUser) {
+                check = true;
+            }
+        }
+        if(check == false){
+            break;
+        }
+    }
+
+    return CodeUser;
+}
+
+function RandomOTP() {
+    var string = '0123456789';
+    let OTP = '';
+
+    var len = string.length;
+    for (let i = 0; i < 4; i++) {
+        OTP += string[Math.floor(Math.random() * len)];
+    }
+    return OTP;
+}
+
 
 CheckVerifyOTP = false;
 function SendEmail() {
+    document.getElementsByClassName('button-OTP')[0].disabled = true;
     names = document.getElementById("name").value;
     surnames = document.getElementById("surname").value;
     phone = document.getElementById("phone").value;
@@ -153,7 +167,6 @@ function SendEmail() {
                         if (message === "OK") {
                             alert("ส่ง OTP เรียบร้อย โปรดตรวจสอบใน email");
                             Timer(30);
-                            document.getElementsByClassName('button-PV')[0].disabled = true;
                             document.getElementById("name").value = "";
                             document.getElementById("surname").value = "";
                             document.getElementById("phone").value = "";
@@ -187,10 +200,13 @@ function SendEmail() {
 
         if (errormessage.length > 0 && samemessage.length > 0) {
             alert(errormessage + "ให้ถูกต้อง" + " และ\n" + samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
+            document.getElementsByClassName('button-OTP')[0].disabled = false;
         } else if (errormessage.length > 0 && samemessage.length == 0) {
             alert(errormessage + "ให้ถูกต้อง");
+            document.getElementsByClassName('button-OTP')[0].disabled = false;
         } else if (errormessage.length == 0 && samemessage.length > 0) {
             alert(samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
+            document.getElementsByClassName('button-OTP')[0].disabled = false;
         }
     } else {
         alert("คุณได้รับ Code ของรางวัลแล้ว");
@@ -218,17 +234,18 @@ function VerifyOTP() {
             message => {
                 if (message === "OK") {
                     alert("คุณได้รับ Code เข้าร่วม Lucky Draw แล้ว โปรดตรวจสอบใน email");
+                    document.getElementsByClassName('button-Verify')[0].disabled = true;
                 }
             }
         );
         Verifyotp = "";
         CheckVerifyOTP = true;
         postdata();
-    } else if (Verifyotp == "" && CheckVerifyOTP == false) {
-        alert("กรุณาส่ง OTP ใหม่")
-    } else if (CheckVerifyOTP == true) {
+    } else if (OTP != Verifyotp && Verifyotp == "" && CheckVerifyOTP == false || Verifyotp == "") {
+        alert("กรุณากรอกรายละเอียดส่ง OTP ใหม่")
+    } else if (OTP != Verifyotp && CheckVerifyOTP == true) {
         alert("คุณได้รับ Code ของรางวัลแล้ว");
-    } else {
+    } else if(OTP != Verifyotp){
         alert("OTP ไม่ถูกต้อง")
     }
 
@@ -259,8 +276,8 @@ function Timer(remaining) {
     }
 
     if (Verifyotp != "" && CheckVerifyOTP == false) {
-        document.getElementsByClassName('button-PV')[0].disabled = false;
-        alert('หมดเวลายืนยันตัวตน');
+        document.getElementsByClassName('button-OTP')[0].disabled = false;
+        alert('หมดเวลายืนยันตัวตน \nกรุณากรอกข้อมูลยืนยันตัวตนใหม่');
         Verifyotp = "";
     }
 }
