@@ -83,7 +83,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <script>ShowAllPrizes()</script>
+                                <% result.forEach(function(result, index) { %>
+                                    <tr>
+                                        <td class="cellTable"><%= result.Prize_id %></td>
+                                        <td id="Nameprize_<%= result.Nameprize %>" class="cellTable" contenteditable="false"><%= result.Nameprize %></td>
+                                        <td id="Countprize_<%= result.Countprize %>" class="cellTable" contenteditable="false"><%= result.Countprize %></td>
+                                        <td class="cellTable"><%= result.Draw %></td>
+                                        <td>
+                                            <span id="buttons_<%= result.Prize_id %>">
+                                                <button id="edit-button" onclick="Edit_button('<%= result.Prize_id %>')" type="button">Edit</button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <% }); %>
                             </tbody>
                         </table>
                     </div>

@@ -25,16 +25,35 @@ function nextlistprize() {
     window.location.href = "/listprize";
 }
 
+dataprize = [];
 const NowPrize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม"];
 const NowCode = ["995710", "125114", "876541"];
 const NowNotHere = [];
-const draw = [1, 1, 1, 0];
-const countprize = [1, 2, 3, 1];
-const prize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม", "โอริโอ้"]; //, "ไอโฟน", "ลูกปิงปอง"
+const prize_id = [];
+const prize = [];
+const countprize = [];
+const draw = [];
+//const draw = [1, 1, 1, 0];
+//const countprize = [1, 2, 3, 1];
+//const prize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม", "โอริโอ้"]; //, "ไอโฟน", "ลูกปิงปอง"
 const code = ["995710", "686625", "125114", "849529", "876541", "582393", "109254"];
 const gmail = ["ggez@gmail.com", "sapook@gmail.com", "tyot@gmail.com", "Omega@gmail.com", "Tpose@gmail.com", "City@gmail.com", "Reality@gmail.com"];
 const phonelist = ["0915254875", "04456871254", "0842267595", "0451931245", "0894152455", "0421249963", "0426587911"];
 const UserGet = [true, false, true, true, false, false, false];
+
+async function getdbprize(){
+    const res = await fetch('http://localhost:3000/getprize', {
+        method: 'GET',
+    })
+    dataprize = await res.json();
+    for(let i=0;i<dataprize.length;i++){
+        prize_id.push(dataprize[i].Prize_id);
+        prize.push(dataprize[i].Nameprize);
+        countprize.push(dataprize[i].Countprize);
+        draw.push(dataprize[i].Draw);
+    }
+}
+getdbprize();
 
 function randomprize() {
     check = 0;

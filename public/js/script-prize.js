@@ -23,7 +23,37 @@ function SearchTable() {
     }
 }
 
-var count = 0;
+
+
+async function postprize(nameprizeadd,countprizeadd) {
+    const res = await fetch('http://localhost:3000/addprize', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nameprize: nameprizeadd, countprize: countprizeadd})
+    });
+}
+async function deletedbprize(iddelete){
+    const res = await fetch('http://localhost:3000/deleteprize', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({prize_id: iddelete})
+    })
+}
+async function updatedbprize(idupdate){
+    const res = await fetch('http://localhost:3000/updateprize', {
+        method: 'UPDATE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    })
+}
+
+
 function AddPrize() {
     let name = document.getElementById("add-prize").value;
     let num = document.getElementById("add-numprize").value;
@@ -38,19 +68,7 @@ function AddPrize() {
         if (Samecheck == true) {
             alert("ชื่อของรางวัลซ้ำ กรุณาใส่ชื่อของรางวัลใหม่");
         } else {
-            var table = document.getElementById("myTable");
-            var row = table.insertRow(table.rows.length);
-            var i = table.rows.length - 3 + count;
-
-            row.insertCell(0).innerHTML = table.rows.length - 2 + count;
-            row.insertCell(1).innerHTML = '<td><div class="prize_data" >' + name + '</div></td>';
-            row.insertCell(2).innerHTML = '<td><div class="numprize_data" >' + num + '</div></td>';
-            row.insertCell(3).innerHTML = '<td><div class="numprize_data" >' + 0 + '</div></td>';
-            row.insertCell(4).innerHTML = '<button class="delete-button" onclick="DeletePrize(this,' + i + ')">ลบ</button>';
-
-            prize.push(name);
-            countprize.push(parseInt(num));
-            draw.push(0);
+            postprize(name,num);
 
             document.getElementById("add-prize").value = "";
             document.getElementById("add-numprize").value = 1;
@@ -58,22 +76,15 @@ function AddPrize() {
             console.log(prize);
             console.log(countprize);
             console.log(draw);
+            window.location.href='/listprize';
         }
     } else {
         alert("กรุณาใส่ชื่อของรางวัล");
     }
 }
-function DeletePrize(button, i) {
-    let row = button.parentNode.parentNode;
-    row.parentNode.removeChild(row);
-    prize.splice(i, 1);
-    countprize.splice(i, 1);
-    draw.splice(i, 1);
-    count++;
-
-    console.log(prize);
-    console.log(countprize);
-    console.log(draw);
+function DeletePrize(id) {
+    deletedbprize(id);
+    window.location.href='/listprize';
 }
 function SearchPrizeNow() {
     var x = document.getElementById("text-add");
@@ -93,6 +104,7 @@ function SearchPrizeNow() {
     y2.style.display = "block";
 }
 function AddNewPrize() {
+    console.log(dataprize);
     var x = document.getElementById("text-add");
     var x2 = document.getElementById("add-prize");
     var x3 = document.getElementById("add-numprize");
@@ -109,21 +121,16 @@ function AddNewPrize() {
     y.style.display = "none";
     y2.style.display = "none";
 }
-
-
-function ShowAllPrizes() {
-    var mytable = "<tr>"
-    for (let i = 0; i < prize.length; i++) {
-        mytable += "<td>" + (i + 1) + "</td>"
-        mytable += "<td><div>" + prize[i] + "</div></td>"
-        mytable += "<td><div>" + countprize[i] + "</div></td>";
-        mytable += "<td><div>" + draw[i] + "</div></td>"
-        mytable += "<td>";
-        mytable += "<button class='delete-button' onclick='DeletePrize(this," + i + ")'>ลบ</button>";
-        mytable += "</td>"
-        mytable += "</tr><tr>"
-    }
-    mytable += "</tr>"
-
-    document.write(mytable);
+function Edit_button(id){
+    var buttonsContainer = document.getElementById('buttons_' + id);
+    buttonsContainer.innerHTML = '<button class="save-button" onclick="Save_button('+id+')">บันทึก</button>'+
+                                '<button class="delete-button" onclick="DeletePrize('+id+')">ลบ</button>'+
+                                '<div><button class="cancel-button" onclick="Cancel_button('+id+')">ยกเลิก</button></div>';
+}
+function Save_button(id){
+    
+}
+function Cancel_button(id){
+    var buttonsContainer = document.getElementById('buttons_' + id);
+    buttonsContainer.innerHTML = '<button id="edit-button" onclick="Edit_button('+id+')" type="button">Edit</button>';
 }

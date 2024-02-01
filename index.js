@@ -36,7 +36,11 @@ app.get('/listuser', (req, res) => {
 });
 
 app.get('/listprize', (req, res) => {
-    res.render('listprize');
+    const sql = 'SELECT * FROM prizes';
+    db.query(sql, (err, result) => {
+        res.render('listprize', {result});
+    })
+    
 });
 
 app.get('/qr', (req, res) => {
@@ -47,18 +51,39 @@ app.post('/otpsummit', (req, res) => {
     const { name, surname, phone, email, codeuser} = req.body;
     const sql = 'INSERT INTO users (Name, Surname, Phone, Email_user, CodeUser, Getprize, UserGet) VALUES(?, ?, ?, ?, ?, ?, ?)';
     const values = [name, surname, phone, email, codeuser, "", 0];
-    db.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูล: ' + err.message);
-            return res.send('<script>alert("มีบางอย่างผิดพลาด"); window.location="/qr";</script>');
-        }
-        return res.send('<script>alert("GBG"); window.location="/qr";</script>');
-    });
+    db.query(sql, values);
 });
+
+app.post('/addprize',(req, res) => {
+    const { nameprize, countprize} = req.body;
+    const sql = 'INSERT INTO prizes (Nameprize, Countprize, Draw) VALUES(?,?,?)';
+    const values = [nameprize, countprize, 0];
+    db.query(sql, values);
+})
 
 app.get('/getuser', (req, res) => {
     const sql = 'SELECT * FROM users';
     db.query(sql, (err, result) => {
         res.send(result);
     })
+})
+
+app.get('/getprize',(req, res)=>{
+    const sql = 'SELECT * FROM prizes';
+    db.query(sql, (err, result) => {
+        res.send(result);
+    })
+})
+
+app.delete('/deleteprize', (req, res) => {
+    const { prize_id } = req.body
+    const sql = 'DELETE FROM luckydraw.prizes WHERE Prize_id="'+prize_id+'"';
+    db.query(sql);
+})
+
+app.post('/updateprize', (req, res) => {
+    const { prize_id, nameprize, countprize } = req.body;
+    const sql = 'UPDATE luckydraw.prizes SET Nameprize='+nameprize
+                +', Countprize='+ countprize +' WHERE Prize_id='+prize_id;
+    db.query(sql);
 })
