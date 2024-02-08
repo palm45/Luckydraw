@@ -26,20 +26,54 @@ function nextlistprize() {
 }
 
 dataprize = [];
-const NowPrize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม"];
-const NowCode = ["995710", "125114", "876541"];
-const NowNotHere = [];
+//const NowPrize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม"];
+//const NowCode = ["995710", "125114", "876541"];
+//const draw = [1, 1, 1, 0];
+//const countprize = [1, 2, 3, 1];
+//const prize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม", "โอริโอ้"]; //, "ไอโฟน", "ลูกปิงปอง"
+//const code = ["995710", "686625", "125114", "849529", "876541", "582393", "109254"];
+//const gmail = ["ggez@gmail.com", "sapook@gmail.com", "tyot@gmail.com", "Omega@gmail.com", "Tpose@gmail.com", "City@gmail.com", "Reality@gmail.com"];
+//const phonelist = ["0915254875", "04456871254", "0842267595", "0451931245", "0894152455", "0421249963", "0426587911"];
+//const UserGet = [true, false, true, false, true, false, false];
+
+const user_id = [];
+const namelist = [];
+const surnamelist = [];
+const phonelist = [];
+const gmail = [];
+const code = [];
+const UserGet = [];
+
 const prize_id = [];
 const prize = [];
 const countprize = [];
 const draw = [];
-//const draw = [1, 1, 1, 0];
-//const countprize = [1, 2, 3, 1];
-//const prize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม", "โอริโอ้"]; //, "ไอโฟน", "ลูกปิงปอง"
-const code = ["995710", "686625", "125114", "849529", "876541", "582393", "109254"];
-const gmail = ["ggez@gmail.com", "sapook@gmail.com", "tyot@gmail.com", "Omega@gmail.com", "Tpose@gmail.com", "City@gmail.com", "Reality@gmail.com"];
-const phonelist = ["0915254875", "04456871254", "0842267595", "0451931245", "0894152455", "0421249963", "0426587911"];
-const UserGet = [true, false, true, true, false, false, false];
+
+const NowPrize = [];
+const NowCode = [];
+const NowNotHere_id = [];
+const NowNotHere = [];
+
+async function getdbuser() {
+    const res = await fetch('http://localhost:3000/getuser', {
+        method: 'GET',
+    })
+    datauser = await res.json();
+    for(let i=0;i<datauser.length;i++){
+        user_id.push(datauser[i].User_id);
+        namelist.push(datauser[i].Name);
+        surnamelist.push(datauser[i].Surname);
+        phonelist.push(datauser[i].Phone);
+        gmail.push(datauser[i].Email_user);
+        code.push(datauser[i].CodeUser);
+        if(datauser[i].UserGet==0){
+            UserGet.push(false);
+        }else if(datauser[i].UserGet==1){
+            UserGet.push(true);
+        }
+    }
+}
+getdbuser();
 
 async function getdbprize(){
     const res = await fetch('http://localhost:3000/getprize', {
@@ -54,6 +88,81 @@ async function getdbprize(){
     }
 }
 getdbprize();
+
+async function getdbnowrandom(){
+    const res = await fetch('http://localhost:3000/getnowrandom', {
+        method: 'GET',
+    })
+    datarandomnow = await res.json();
+    for(let i=0;i<dataprize.length;i++){
+        NowPrize.push(dataprize[i].NowPrizeList);
+        NowCode.push(dataprize[i].NowCodeList);
+    }
+}
+getdbnowrandom()
+
+async function getdbnownothere(){
+    const res = await fetch('http://localhost:3000/getnownothere', {
+        method: 'GET',
+    })
+    datanownothere = await res.json();
+    for(let i=0;i<datanownothere.length;i++){
+        NowNotHere_id.push(datanownothere[i].NowNotHere_id);
+        NowNotHere.push(datanownothere[i].CodeNotHere);;
+    }
+}
+getdbnownothere()
+
+async function postnowrandom(nowprizeadd, nowcodeadd){
+    fetch('http://localhost:3000/addnowrandom', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nowprizelist: nowprizeadd, nowcodelist: nowcodeadd})
+    });
+}
+
+async function postnownothere(codeadd){
+    fetch('http://localhost:3000/addnownothere', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({codenownothere: codeadd})
+    })
+}
+
+async function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate){
+    fetch('http://localhost:3000/updateprize', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({prize_id: idupdate, nameprize: nameprizeupdate, countprize: countprizeupdate, drawprize: drawprizeupdate})
+    })
+}
+
+async function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate){
+    fetch('http://localhost:3000/updateuser', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({user_id: idupdate, name: nameuserupdate, surname: surnameuserupdate, phone: phoneupdate, email_user: emailuserupdate, codeuser: codeuserupdate, getprize: getprizeupdate, userget: usergetupdate})
+    })
+}
+
+async function deletedbnownothere(codedelete){
+    fetch('http://localhost:3000/deletenothere', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({codenothere_id: codedelete})
+    })
+}
+
 
 function randomprize() {
     check = 0;
@@ -102,7 +211,7 @@ function randomcodeuser() {
             if (UserGet[random] == false) {
                 if (NowNotHere.length > 0) {
                     for (let i = 0; i < NowNotHere.length; i++) {
-                        if (NowNotHere[i] == code[random]) {
+                        if (NowNotHere[i] == code[random]|| NowCode[i] == code[random]) {
                             checkrandom = true
                         }
                     }
@@ -197,17 +306,16 @@ const Confirm = {
     }
 };
 
-
 ChangePrizeMode = false;
 Prize = -1;
 function ChangeModePrize() {
-    if (ChangePrizeMode == false) {
-        ChangePrizeMode = true;
+    ChangePrizeMode = document.querySelector('#changemode').checked;
+    if (ChangePrizeMode == true) {
         document.getElementById('randomprize').innerHTML = SelectPrizeRandom();
         document.getElementsByClassName('random-button')[0].disabled = true;
         document.getElementById('Mode').innerHTML = "เลือกรางวัล";
-    } else {
-        ChangePrizeMode = false;
+        console.log(document.querySelector('#changemode').checked);
+    }else if(ChangePrizeMode == false){
         document.getElementsByClassName('random-button')[0].disabled = false;
         document.getElementById('Mode').innerHTML = "สุ่มรางวัล";
 
@@ -223,6 +331,7 @@ function ChangeModePrize() {
         } else {
             document.getElementById('randomprize').innerHTML = "..สุ่มรางวัล..";
         }
+        console.log(document.querySelector('#changemode').checked);
     }
 }
 function SelectPrizeRandom() {
@@ -251,6 +360,7 @@ function getrandom() {
     let RandomCodeNow = '';
     document.getElementsByClassName('random-button')[0].innerHTML = 'รอ...';
     document.getElementsByClassName('random-button')[0].disabled = true;
+    document.getElementById('changemode').setAttribute('disabled', 'disabled');
 
     if (ChangePrizeMode == false) {
         intervalPrize = setInterval(function () {
@@ -273,6 +383,7 @@ function getrandom() {
         clearInterval(intervalCode);
         document.getElementsByClassName('random-button')[0].innerHTML = 'สุ่มรางวัล';
         document.getElementsByClassName('random-button')[0].disabled = false;
+        document.getElementById('changemode').removeAttribute('disabled');
         Confirm.open({
             title: 'ยินดีด้วย!!',
             message: "ได้" + String(RandomPrizeNow) + "<div>" + String(RandomCodeNow) + "</div>",
@@ -293,18 +404,42 @@ function getrandom() {
                     checkUserGet++;
                 }
                 if (checkprize != countprize.length && checkUserGet != code.length && RandomPrizeNow != -1) {
+                    idupdate = 0; 
+                    nameprizeupdate = '';
+                    countprizeupdate = 0; 
+                    drawprizeupdate = 0;
+
+                    iduserupdate = 0;
+                    nameuserupdate = '';
+                    surnameuserupdate = '';
+                    phoneupdate = '';
+                    emailuserupdate = '';
+                    codeuserupdate = RandomCodeNow;
+                    getprizeupdate = RandomPrizeNow;
+                    usergetupdate = 0;
+
                     NowPrize.push(RandomPrizeNow);
                     NowCode.push(RandomCodeNow);
                     for (let i = 0; i < prize.length; i++) {
                         if (prize[i] == RandomPrizeNow) {
                             if (countprize[i] > draw[i]) {
                                 draw[i]++;
+                                idupdate = prize_id[i];
+                                nameprizeupdate = prize[i];
+                                countprizeupdate = countprize[i];
+                                drawprizeupdate = draw[i];
                             }
                         }
                     }
                     for (let i = 0; i < code.length; i++) {
                         if (code[i] == RandomCodeNow) {
                             UserGet[i] = true;
+                            iduserupdate = user_id[i];
+                            nameuserupdate = namelist[i];
+                            surnameuserupdate = surnamelist[i];
+                            phoneupdate = phonelist[i];
+                            emailuserupdate = gmail[i];
+                            usergetupdate = 1;
                         }
                     }
 
@@ -312,16 +447,6 @@ function getrandom() {
                     console.log(draw);
                     console.log(code);
                     console.log(UserGet);
-
-                    for (let i = NowPrize.length - 2; i >= 0; i--) {
-                        document.getElementById('showrandom').innerHTML -= NowPrize[i];
-                        document.getElementById('showrandom').innerHTML -= NowCode[i];
-                    }
-                    document.getElementById('showrandom').innerHTML = "";
-                    for (let i = NowPrize.length - 1; i >= 0; i--) {
-                        document.getElementById('showrandom').innerHTML += NowPrize[i] + "<br>";
-                        document.getElementById('showrandom').innerHTML += NowCode[i] + "</br>";
-                    }
 
                     if (ChangePrizeMode == true) {
                         for (let i = 1; i < document.getElementById('SelectPrizeRandom').options.length; i++) {
@@ -340,7 +465,10 @@ function getrandom() {
                             document.getElementById('randomcodeuser').innerHTML = "ไม่มีคนแล้ว!!";
                         }
                     }
-
+                    postnowrandom(RandomPrizeNow, RandomCodeNow);
+                    updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate);
+                    updatedbuser(iduserupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate)
+                    window.location.href='/';
                 }
 
             },
@@ -355,20 +483,15 @@ function getrandom() {
                     check++;
                 }
                 if (check < code.length && RandomPrizeNow != -1) {
+                    postnownothere(RandomCodeNow);
                     NowNotHere.push(RandomCodeNow);
                     console.log(NowNotHere);
+                    window.location.href='/';
                 }
             }
         })
     }, 3000)
 }
-function ShowRandom() {
-        for (let i = NowPrize.length - 1; i >= 0; i--) {
-            document.getElementById('showrandom').innerHTML += NowPrize[i] + "<br>";
-            document.getElementById('showrandom').innerHTML += NowCode[i] + "</br>";
-        }
-}
-
 
 const NotHere = {
     open(options) {
@@ -436,7 +559,10 @@ function ShowNotHereTable() {
 function DeleteNotHere(button, i) {
     let row = button.parentNode.parentNode;
     row.parentNode.removeChild(row);
+    codedelete = NowNotHere_id[i];
     NowNotHere.splice(i, 1);
+    deletedbnownothere(codedelete);
+    window.location.href='/';
 }
 function ShowNotHere() {
     NotHere.open({

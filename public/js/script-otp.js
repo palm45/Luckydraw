@@ -42,7 +42,7 @@ var codeuser = "";
 var Verifyotp = "";
 
 async function postdata() {
-    const res = await fetch('http://localhost:3000/otpsummit', {
+    fetch('http://localhost:3000/otpsummit', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

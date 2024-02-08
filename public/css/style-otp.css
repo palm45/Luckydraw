@@ -12,6 +12,17 @@ body {
     align-items: center;
     justify-content: center;
 }
+.text_timeout{
+    text-align: center;
+    font-size: 50px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+.text_mini{
+    font-size: 30px;
+}
 
 .title{
     padding: 5%;

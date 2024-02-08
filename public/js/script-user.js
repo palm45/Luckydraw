@@ -40,20 +40,16 @@ function ShowPrizeSelect() {
     x.style.display = "block";
     console.log(document.getElementById("SearchType").value);
 }
-function PrizeSelect() {
-    var PrizeSelect = "<option name='choice0' value='-1'>แสดงทั้งหมด</option>";
-    PrizeSelect += "<option name='choice0' value='-2'>ยังไม่ได้</option>"
-    for (let i = 0; i < prize.length; i++) {
-        PrizeSelect += "<option name='choice" + (i + 1) + "' value=" + i + ">" + prize[i] + "</option>";
-    }
+function PrizeSelect(PrizeName, i) {
+    var PrizeSelect = "<option name='choice" + (i + 1) + "' value=" + PrizeName + ">" + PrizeName + "</option>";
     document.write(PrizeSelect);
 }
-function SearchPrize(num) {
+function SearchPrize(seach) {
     var table, tr, td, i, txtValue;
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
 
-    if (num == "-1") {
+    if (seach == "-1") {
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[1];
             if (td) {
@@ -61,7 +57,7 @@ function SearchPrize(num) {
                 tr[i].style.display = "";
             }
         }
-    } else if (num == "-2") {
+    } else if (seach == "-2") {
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[2];
             if (td) {
@@ -78,7 +74,7 @@ function SearchPrize(num) {
             td = tr[i].getElementsByTagName("td")[2];
             if (td) {
                 txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(prize[num]) > -1) {
+                if (txtValue.toUpperCase().indexOf(seach) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
@@ -88,7 +84,32 @@ function SearchPrize(num) {
     }
 }
 
-function ShowAllUser() {
+function CensorPhone(phone){
+    PhoneNew = "";
+    for(let i = 0; i < phone.length; i++){
+        if(i%3==0 && i!=0 && i<7){
+            PhoneNew += '-'
+        }
+        if(i<6){
+            PhoneNew += 'x'
+        }else{
+            PhoneNew += phone.charAt(i);
+        }
+    }
+    document.write(PhoneNew);
+}
+
+function ShowPrizeUser(nameprize){
+    names="";
+    if(nameprize.length==0){
+        names="-"
+    }else{
+        names=nameprize;
+    }
+    document.write(names);
+}
+
+/*function ShowAllUser() {
     var mytable = "<tr>"
     check = false;
     for (let i = 0; i < gmail.length; i++) {
@@ -124,4 +145,4 @@ function ShowAllUser() {
     }
     mytable += "</tr>";
     document.write(mytable);
-}
+}*/

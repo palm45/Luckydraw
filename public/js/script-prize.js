@@ -26,7 +26,7 @@ function SearchTable() {
 
 
 async function postprize(nameprizeadd,countprizeadd) {
-    const res = await fetch('http://localhost:3000/addprize', {
+    fetch('http://localhost:3000/addprize', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -35,21 +35,12 @@ async function postprize(nameprizeadd,countprizeadd) {
     });
 }
 async function deletedbprize(iddelete){
-    const res = await fetch('http://localhost:3000/deleteprize', {
+    fetch('http://localhost:3000/deleteprize', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({prize_id: iddelete})
-    })
-}
-async function updatedbprize(idupdate){
-    const res = await fetch('http://localhost:3000/updateprize', {
-        method: 'UPDATE',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({})
     })
 }
 
@@ -73,9 +64,6 @@ function AddPrize() {
             document.getElementById("add-prize").value = "";
             document.getElementById("add-numprize").value = 1;
 
-            console.log(prize);
-            console.log(countprize);
-            console.log(draw);
             window.location.href='/listprize';
         }
     } else {
@@ -104,7 +92,6 @@ function SearchPrizeNow() {
     y2.style.display = "block";
 }
 function AddNewPrize() {
-    console.log(dataprize);
     var x = document.getElementById("text-add");
     var x2 = document.getElementById("add-prize");
     var x3 = document.getElementById("add-numprize");
@@ -126,11 +113,25 @@ function Edit_button(id){
     buttonsContainer.innerHTML = '<button class="save-button" onclick="Save_button('+id+')">บันทึก</button>'+
                                 '<button class="delete-button" onclick="DeletePrize('+id+')">ลบ</button>'+
                                 '<div><button class="cancel-button" onclick="Cancel_button('+id+')">ยกเลิก</button></div>';
+    
+    document.getElementById('Nameprize_' + id).contentEditable = true;
+    document.getElementById('Countprize_' + id).contentEditable = true;
 }
 function Save_button(id){
+    var buttonsContainer = document.getElementById('buttons_' + id);
+    buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button('+id+')" type="button">แก้ไข</button>';
+    document.getElementById('Nameprize_' + id).contentEditable = false;
+    document.getElementById('Countprize_' + id).contentEditable = false;
     
+    nameprizeupdate = document.getElementById('Nameprize_' + id).innerHTML;
+    countprizeupdate = parseInt(document.getElementById('Countprize_' + id).innerHTML);
+    drawprizeupdate = parseInt(document.getElementById('Drawprize_' + id).innerHTML);
+
+    updatedbprize(id, nameprizeupdate, countprizeupdate, drawprizeupdate);
 }
 function Cancel_button(id){
     var buttonsContainer = document.getElementById('buttons_' + id);
-    buttonsContainer.innerHTML = '<button id="edit-button" onclick="Edit_button('+id+')" type="button">Edit</button>';
+    buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button('+id+')" type="button">แก้ไข</button>';
+    document.getElementById('Nameprize_' + id).contentEditable = false;
+    document.getElementById('Countprize_' + id).contentEditable = false;
 }

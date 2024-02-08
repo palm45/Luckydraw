@@ -55,8 +55,8 @@
                 <button class="search-button" onclick="SearchPrizeNow()">ค้นหา</button>
                 <input id="SearchInput" type="search" placeholder="ค้นหา..." onkeyup="SearchTable()" class="search">
                 <select id="SearchType" onchange="SelectType(this.value)">
-                    <option value="0">Id</option>
                     <option value="1">Prize</option>
+                    <option value="0">Id</option>
                     <option value="2">Count</option>
                     <option value="3">Draw</option>
                 </select>
@@ -86,12 +86,12 @@
                                 <% result.forEach(function(result, index) { %>
                                     <tr>
                                         <td class="cellTable"><%= result.Prize_id %></td>
-                                        <td id="Nameprize_<%= result.Nameprize %>" class="cellTable" contenteditable="false"><%= result.Nameprize %></td>
-                                        <td id="Countprize_<%= result.Countprize %>" class="cellTable" contenteditable="false"><%= result.Countprize %></td>
-                                        <td class="cellTable"><%= result.Draw %></td>
+                                        <td id="Nameprize_<%= result.Prize_id %>" class="cellTable" contenteditable="false"><%= result.Nameprize %></td>
+                                        <td id="Countprize_<%= result.Prize_id %>" class="cellTable" contenteditable="false"><%= result.Countprize %></td>
+                                        <td id="Drawprize_<%= result.Prize_id %>" class="cellTable"><%= result.Draw %></td>
                                         <td>
                                             <span id="buttons_<%= result.Prize_id %>">
-                                                <button id="edit-button" onclick="Edit_button('<%= result.Prize_id %>')" type="button">Edit</button>
+                                                <button class="edit-button" onclick="Edit_button('<%= result.Prize_id %>')" type="button">แก้ไข</button>
                                             </span>
                                         </td>
                                     </tr>
