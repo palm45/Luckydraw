@@ -10,7 +10,7 @@ function generateQRCode() {
     on()
     let qrcodeContainer = document.getElementById("qrcode");
     qrcodeContainer.innerHTML = "";
-    new QRCode(qrcodeContainer, 'http://localhost:3000/qr');
+    new QRCode(qrcodeContainer, 'https://6992-2001-fb1-df-efe-d9dc-921b-9896-c8f6.ngrok-free.app/qr');
 
     document.getElementById("qrcode-container").style.display = "block";
 }
@@ -23,6 +23,9 @@ function nextlistuser() {
 }
 function nextlistprize() {
     window.location.href = "/listprize";
+}
+function nextsetqrcode() {
+    window.location.href = "/setotp";
 }
 
 dataprize = [];
@@ -55,7 +58,7 @@ const NowNotHere_id = [];
 const NowNotHere = [];
 
 async function getdbuser() {
-    const res = await fetch('http://localhost:3000/getuser', {
+    const res = await fetch('http://localhost:3000/getnewuser', {
         method: 'GET',
     })
     datauser = await res.json();
@@ -75,8 +78,9 @@ async function getdbuser() {
 }
 getdbuser();
 
+
 async function getdbprize(){
-    const res = await fetch('http://localhost:3000/getprize', {
+    const res = await fetch('http://localhost:3000/getnewprize', {
         method: 'GET',
     })
     dataprize = await res.json();
@@ -90,7 +94,7 @@ async function getdbprize(){
 getdbprize();
 
 async function getdbnowrandom(){
-    const res = await fetch('http://localhost:3000/getnowrandom', {
+    const res = await fetch('http://localhost:3000/getnewnowrandom', {
         method: 'GET',
     })
     datarandomnow = await res.json();
@@ -102,7 +106,7 @@ async function getdbnowrandom(){
 getdbnowrandom()
 
 async function getdbnownothere(){
-    const res = await fetch('http://localhost:3000/getnownothere', {
+    const res = await fetch('http://localhost:3000/getnewnownothere', {
         method: 'GET',
     })
     datanownothere = await res.json();
@@ -114,7 +118,7 @@ async function getdbnownothere(){
 getdbnownothere()
 
 async function postnowrandom(nowprizeadd, nowcodeadd){
-    fetch('http://localhost:3000/addnowrandom', {
+    fetch('http://localhost:3000/addnewnowrandom', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -124,7 +128,7 @@ async function postnowrandom(nowprizeadd, nowcodeadd){
 }
 
 async function postnownothere(codeadd){
-    fetch('http://localhost:3000/addnownothere', {
+    fetch('http://localhost:3000/addnewnownothere', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -134,7 +138,7 @@ async function postnownothere(codeadd){
 }
 
 async function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate){
-    fetch('http://localhost:3000/updateprize', {
+    fetch('http://localhost:3000/updatenewprize', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -144,7 +148,7 @@ async function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawpr
 }
 
 async function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate){
-    fetch('http://localhost:3000/updateuser', {
+    fetch('http://localhost:3000/updatenewuser', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -154,7 +158,7 @@ async function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneup
 }
 
 async function deletedbnownothere(codedelete){
-    fetch('http://localhost:3000/deletenothere', {
+    fetch('http://localhost:3000/deletenewnothere', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -404,9 +408,9 @@ function getrandom() {
                     checkUserGet++;
                 }
                 if (checkprize != countprize.length && checkUserGet != code.length && RandomPrizeNow != -1) {
-                    idupdate = 0; 
+                    idupdate = 0;
                     nameprizeupdate = '';
-                    countprizeupdate = 0; 
+                    countprizeupdate = 0;
                     drawprizeupdate = 0;
 
                     iduserupdate = 0;
@@ -468,7 +472,9 @@ function getrandom() {
                     postnowrandom(RandomPrizeNow, RandomCodeNow);
                     updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate);
                     updatedbuser(iduserupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate)
-                    window.location.href='/';
+                    setTimeout(function() {
+                        window.location.href='/';
+                    }, 400);
                 }
 
             },

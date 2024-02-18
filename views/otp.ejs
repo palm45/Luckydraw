@@ -20,32 +20,33 @@
 <body>
     <div class="container-fluid">
         <div class="col">
+            
+                <div class="center">
+                    <div class="title">Email Validation</div>
+                </div>
+                <div class="center">
+                    <input type="text" name="name" id="name" class="text-user" placeholder="ใส่ชื่อ" required />
+                </div>
+                <div class="center">
+                    <input type="text" name="surname" id="surname" class="text-user" placeholder="ใส่นามสกุล"
+                        required />
+                </div>
+                <div class="center">
+                    <input type="tel" name="phone" id="phone" class="text-user" placeholder="ใส่เบอร์โทร" required />
+                </div>
+                <div class="center">
+                    <input type="email" name="email" id="email" class="text-user" placeholder="ใส่ Email" required />
+                </div>
+                <div class="spacemini"></div>
+                <div class="center">
+                    <button onclick="SendEmail()" class="button-OTP">Send OTP</button>
+                </div>
 
-            <div class="center">
-                <div class="title">Email Validation</div>
-            </div>
-            <div class="center">
-                <input type="text" name="name" id="name" class="text-user" placeholder="ใส่ชื่อ" required />
-            </div>
-            <div class="center">
-                <input type="text" name="surname" id="surname" class="text-user" placeholder="ใส่นามสกุล" required />
-            </div>
-            <div class="center">
-                <input type="tel" name="phone" id="phone" class="text-user" placeholder="ใส่เบอร์โทร" required />
-            </div>
-            <div class="center">
-                <input type="email" name="email" id="email" class="text-user" placeholder="ใส่ Email" required />
-            </div>
-            <div class="spacemini"></div>
-            <div class="center">
-                <button onclick="SendEmail()" class="button-OTP">Send OTP</button>
-            </div>
+                <div class="space"></div>
+                <div class="stem"></div>
+                <div class="spacemini"></div>
 
-            <div class="space"></div>
-            <div class="stem"></div>
-            <div class="spacemini"></div>
-
-            <form>
+            <form id="addForm">
                 <div class="center">
                     <div class="title">Verify OTP</div>
                 </div>
@@ -67,15 +68,13 @@
                 </div>
                 <div class="spacemini"></div>
                 <div class="center">
-                    <button class="button-Verify" onclick="VerifyOTP()">Verify</button>
+                    <button type="submit" class="button-Verify" onclick="VerifyOTP()">Verify</button>
                 </div>
                 <div class="space"></div>
             </form>
         </div>
     </div>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <script>
-    </script>
 </body>
 
 </html>

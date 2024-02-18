@@ -574,3 +574,63 @@ input:checked + .slider:before {
     border-radius: 10px;
     background-color: #317151;
 }
+
+
+.subtext-setotp{
+    font-size: 35px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.subtext{
+    font-size:25px
+}
+#time-qrcode1{
+    text-align: center;
+    height: 35px;
+    font-size: 20px;
+    margin: 10px;
+}
+#time-qrcode2{
+    text-align: center;
+    height: 35px;
+    font-size: 20px;
+    margin: 10px;
+}
+#time-qrcode3{
+    text-align: center;
+    height: 35px;
+    font-size: 20px;
+    margin: 10px;
+}
+#timesetup{
+    margin-top: 30px;
+    margin-bottom: 60px;
+    text-align: center;
+    height: 40px;
+    width: 80px;
+    background-color: #317151;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+#timecancel{
+    margin-top: 30px;
+    margin-bottom: 60px;
+    text-align: center;
+    height: 40px;
+    width: 80px;
+    background-color: #317151;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+.text-timer{
+    font-size: 90px;
+    margin-bottom: 60px;
+}
+#qrcode-button{
+    font-size: 20px;
+    text-align: center;
+    height: 60px;
+    width: 150px;
+    background-color: #317151;
+    border-radius: 10px;
+}

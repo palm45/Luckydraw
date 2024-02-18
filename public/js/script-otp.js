@@ -33,7 +33,7 @@ function input() {
 
 }
 
-data = [];
+datanew = [];
 var names = "";
 var surnames = "";
 var phone = "";
@@ -41,8 +41,8 @@ var email = "";
 var codeuser = "";
 var Verifyotp = "";
 
-async function postdata() {
-    fetch('http://localhost:3000/otpsummit', {
+async function postnewdata() {
+    fetch('http://localhost:3000/addnewuser', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -50,15 +50,13 @@ async function postdata() {
         body: JSON.stringify({ name: names, surname: surnames, phone: phone, email: email, codeuser: codeuser })
     });
 }
-
-async function getdbuser() {
-    const res = await fetch('http://localhost:3000/getuser', {
+async function getnewdata() {
+    const res = await fetch('http://localhost:3000/getnewuser', {
         method: 'GET',
     })
-    data = await res.json();
+    datanew = await res.json();
 }
-
-getdbuser();
+getnewdata()
 
 function RandomCodeUser() {
     var string = '0123456789';
@@ -66,16 +64,16 @@ function RandomCodeUser() {
 
     var len = string.length;
     while (true) {
-        check=false;
+        check = false;
         for (let i = 0; i < 6; i++) {
             CodeUser += string[Math.floor(Math.random() * len)];
         }
-        for (let i = 0; i < data.length; i++) {
-            if(data[i].CodeUser == CodeUser) {
+        for (let i = 0; i < datanew.length; i++) {
+            if (datanew[i].CodeUser == CodeUser) {
                 check = true;
             }
         }
-        if(check == false){
+        if (check == false) {
             break;
         }
     }
@@ -114,11 +112,11 @@ function SendEmail() {
     CheckEmail = false;
     CheckPhone = false;
 
-    for (let i = 0; i < data.length; i++) {
-        if (names == data[i].Name) {
+    for (let i = 0; i < datanew.length; i++) {
+        if (names == datanew[i].Name) {
             CheckName = true;
         }
-        if (surnames == data[i].Surname) {
+        if (surnames == datanew[i].Surname) {
             CheckSurname = true;
         }
         if (CheckName == true && CheckSurname == true) {
@@ -128,11 +126,11 @@ function SendEmail() {
         CheckName = false;
         CheckSurname = false;
     }
-    for (let i = 0; i < data.length; i++) {
-        if (phone == data[i].Phone) {
+    for (let i = 0; i < datanew.length; i++) {
+        if (phone == datanew[i].Phone) {
             CheckPhone = true;
         }
-        if (email == data[i].Email_user) {
+        if (email == datanew[i].Email_user) {
             CheckEmail = true;
         }
     }
@@ -240,12 +238,12 @@ function VerifyOTP() {
         );
         Verifyotp = "";
         CheckVerifyOTP = true;
-        postdata();
+        postnewdata();
     } else if (OTP != Verifyotp && Verifyotp == "" && CheckVerifyOTP == false || Verifyotp == "") {
         alert("กรุณากรอกรายละเอียดส่ง OTP ใหม่")
     } else if (OTP != Verifyotp && CheckVerifyOTP == true) {
         alert("คุณได้รับ Code ของรางวัลแล้ว");
-    } else if(OTP != Verifyotp){
+    } else if (OTP != Verifyotp) {
         alert("OTP ไม่ถูกต้อง")
     }
 
@@ -281,4 +279,3 @@ function Timer(remaining) {
         Verifyotp = "";
     }
 }
-
