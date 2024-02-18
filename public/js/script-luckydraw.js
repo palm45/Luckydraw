@@ -10,7 +10,7 @@ function generateQRCode() {
     on()
     let qrcodeContainer = document.getElementById("qrcode");
     qrcodeContainer.innerHTML = "";
-    new QRCode(qrcodeContainer, 'https://luckydraw-nrgo4wlae-palms-projects-eaae8854.vercel.app/qr');
+    new QRCode(qrcodeContainer, 'https://luckydraw-fawn.vercel.app/qr');
 
     document.getElementById("qrcode-container").style.display = "block";
 }
