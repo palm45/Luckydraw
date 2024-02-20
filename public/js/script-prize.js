@@ -25,7 +25,7 @@ function SearchTable() {
 
 
 
-async function postprize(nameprizeadd,countprizeadd) {
+function postprize(nameprizeadd,countprizeadd) {
     fetch('http://localhost:3000/addnewprize', {
         method: 'POST',
         headers: {
@@ -34,7 +34,7 @@ async function postprize(nameprizeadd,countprizeadd) {
         body: JSON.stringify({ nameprize: nameprizeadd, countprize: countprizeadd})
     });
 }
-async function deletedbprize(iddelete){
+function deletedbprize(iddelete){
     fetch('http://localhost:3000/deletenewprize', {
         method: 'DELETE',
         headers: {
@@ -66,7 +66,7 @@ function AddPrize() {
 
             setTimeout(function() {
                 window.location.href='/listprize';
-            }, 400);
+            }, 600);
         }
     } else {
         alert("กรุณาใส่ชื่อของรางวัล");
@@ -76,7 +76,7 @@ function DeletePrize(id) {
     deletedbprize(id);
     setTimeout(function() {
         window.location.href='/listprize';
-    }, 400);
+    }, 600);
 }
 function SearchPrizeNow() {
     var x = document.getElementById("text-add");

@@ -353,7 +353,6 @@ app.put('/updatenewprize', (req, res) => {
     updateprize['prizes/'+ (prize_id-1) + '/Draw']=drawprize;
     
     update(ref(database), updateprize)
-    db.query(sql);
 })
 
 

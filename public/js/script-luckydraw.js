@@ -117,7 +117,7 @@ async function getdbnownothere(){
 }
 getdbnownothere()
 
-async function postnowrandom(nowprizeadd, nowcodeadd){
+function postnowrandom(nowprizeadd, nowcodeadd){
     fetch('http://localhost:3000/addnewnowrandom', {
         method: 'POST',
         headers: {
@@ -127,7 +127,7 @@ async function postnowrandom(nowprizeadd, nowcodeadd){
     });
 }
 
-async function postnownothere(codeadd){
+function postnownothere(codeadd){
     fetch('http://localhost:3000/addnewnownothere', {
         method: 'POST',
         headers: {
@@ -137,7 +137,7 @@ async function postnownothere(codeadd){
     })
 }
 
-async function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate){
+function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate){
     fetch('http://localhost:3000/updatenewprize', {
         method: 'PUT',
         headers: {
@@ -147,7 +147,7 @@ async function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawpr
     })
 }
 
-async function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate){
+function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate){
     fetch('http://localhost:3000/updatenewuser', {
         method: 'PUT',
         headers: {
@@ -157,7 +157,7 @@ async function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneup
     })
 }
 
-async function deletedbnownothere(codedelete){
+function deletedbnownothere(codedelete){
     fetch('http://localhost:3000/deletenewnothere', {
         method: 'DELETE',
         headers: {

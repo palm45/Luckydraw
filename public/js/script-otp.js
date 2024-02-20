@@ -41,7 +41,7 @@ var email = "";
 var codeuser = "";
 var Verifyotp = "";
 
-async function postnewdata() {
+function postnewdata() {
     fetch('http://localhost:3000/addnewuser', {
         method: 'POST',
         headers: {
