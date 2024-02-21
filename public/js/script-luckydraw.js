@@ -100,9 +100,9 @@ async function getdbnowrandom(){
         method: 'GET',
     })
     datarandomnow = await res.json();
-    for(let i=0;i<dataprize.length;i++){
-        NowPrize.push(dataprize[i].NowPrizeList);
-        NowCode.push(dataprize[i].NowCodeList);
+    for(let i=0;i<datarandomnow.length;i++){
+        NowPrize.push(datarandomnow[i].NowPrizeList);
+        NowCode.push(datarandomnow[i].NowCodeList);
     }
 }
 getdbnowrandom()
