@@ -30,7 +30,6 @@ function nextsetqrcode() {
     window.location.href = "/setotp";
 }
 
-dataprize = [];
 //const NowPrize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม"];
 //const NowCode = ["995710", "125114", "876541"];
 //const draw = [1, 1, 1, 0];
