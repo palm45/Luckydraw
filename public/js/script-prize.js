@@ -1,5 +1,7 @@
 var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
+
 var type = 0;
+
 function SelectType(select) {
     type = select;
 }

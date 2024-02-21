@@ -1,4 +1,5 @@
 var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
+
 function input() {
     const inputs = document.getElementById("inputs");
     inputs.addEventListener("input", function (e) {
