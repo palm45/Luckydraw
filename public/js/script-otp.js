@@ -42,7 +42,7 @@ var codeuser = "";
 var Verifyotp = "";
 
 function postnewdata() {
-    fetch('https://luckydraw-fawn.vercel.app/addnewuser', {
+    fetch('https://luckydraw-git-main-palms-projects-eaae8854.vercel.app/addnewuser', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ function postnewdata() {
     });
 }
 async function getnewdata() {
-    const res = await fetch('https://luckydraw-fawn.vercel.app/getnewuser', {
+    const res = await fetch('https://luckydraw-git-main-palms-projects-eaae8854.vercel.app/getnewuser', {
         method: 'GET',
     })
     datanew = await res.json();
