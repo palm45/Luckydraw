@@ -1,3 +1,4 @@
+var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 function input() {
     const inputs = document.getElementById("inputs");
     inputs.addEventListener("input", function (e) {
@@ -42,7 +43,7 @@ var codeuser = "";
 var Verifyotp = "";
 
 function postnewdata() {
-    fetch('https://luckydraw-mauve.vercel.app/addnewuser', {
+    fetch( url + '/addnewuser', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -51,7 +52,7 @@ function postnewdata() {
     });
 }
 async function getnewdata() {
-    const res = await fetch('https://luckydraw-mauve.vercel.app/getnewuser', {
+    const res = await fetch( url + '/getnewuser', {
         method: 'GET',
     })
     datanew = await res.json();

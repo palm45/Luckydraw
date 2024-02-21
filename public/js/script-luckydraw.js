@@ -1,3 +1,4 @@
+var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 function on() {
     document.getElementById("overlay").style.display = "block";
 }
@@ -10,7 +11,7 @@ function generateQRCode() {
     on()
     let qrcodeContainer = document.getElementById("qrcode");
     qrcodeContainer.innerHTML = "";
-    new QRCode(qrcodeContainer, 'https://luckydraw-mauve.vercel.app/qr');
+    new QRCode(qrcodeContainer, url + '/qr');
 
     document.getElementById("qrcode-container").style.display = "block";
 }
@@ -58,7 +59,7 @@ const NowNotHere_id = [];
 const NowNotHere = [];
 
 async function getdbuser() {
-    const res = await fetch('http://localhost:3000/getnewuser', {
+    const res = await fetch( url + '/getnewuser', {
         method: 'GET',
     })
     datauser = await res.json();
@@ -80,7 +81,7 @@ getdbuser();
 
 
 async function getdbprize(){
-    const res = await fetch('http://localhost:3000/getnewprize', {
+    const res = await fetch( url + '/getnewprize', {
         method: 'GET',
     })
     dataprize = await res.json();
@@ -94,7 +95,7 @@ async function getdbprize(){
 getdbprize();
 
 async function getdbnowrandom(){
-    const res = await fetch('http://localhost:3000/getnewnowrandom', {
+    const res = await fetch( url + '/getnewnowrandom', {
         method: 'GET',
     })
     datarandomnow = await res.json();
@@ -106,7 +107,7 @@ async function getdbnowrandom(){
 getdbnowrandom()
 
 async function getdbnownothere(){
-    const res = await fetch('http://localhost:3000/getnewnownothere', {
+    const res = await fetch( url + '/getnewnownothere', {
         method: 'GET',
     })
     datanownothere = await res.json();
@@ -118,7 +119,7 @@ async function getdbnownothere(){
 getdbnownothere()
 
 function postnowrandom(nowprizeadd, nowcodeadd){
-    fetch('http://localhost:3000/addnewnowrandom', {
+    fetch( url + '/addnewnowrandom', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -128,7 +129,7 @@ function postnowrandom(nowprizeadd, nowcodeadd){
 }
 
 function postnownothere(codeadd){
-    fetch('http://localhost:3000/addnewnownothere', {
+    fetch( url + '/addnewnownothere', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -138,7 +139,7 @@ function postnownothere(codeadd){
 }
 
 function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate){
-    fetch('http://localhost:3000/updatenewprize', {
+    fetch( url + '/updatenewprize', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -148,7 +149,7 @@ function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupd
 }
 
 function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate){
-    fetch('http://localhost:3000/updatenewuser', {
+    fetch( url + '/updatenewuser', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -158,7 +159,7 @@ function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneupdate, 
 }
 
 function deletedbnownothere(codedelete){
-    fetch('http://localhost:3000/deletenewnothere', {
+    fetch( url + '/deletenewnothere', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'

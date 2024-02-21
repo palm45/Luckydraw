@@ -1,3 +1,4 @@
+var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 var type = 0;
 function SelectType(select) {
     type = select;
@@ -26,7 +27,7 @@ function SearchTable() {
 
 
 function postprize(nameprizeadd,countprizeadd) {
-    fetch('http://localhost:3000/addnewprize', {
+    fetch( url + '/addnewprize', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -35,7 +36,7 @@ function postprize(nameprizeadd,countprizeadd) {
     });
 }
 function deletedbprize(iddelete){
-    fetch('http://localhost:3000/deletenewprize', {
+    fetch( url + '/deletenewprize', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
