@@ -33,8 +33,8 @@
                     class="text-user" placeholder="ใส่นามสกุล" required />
             </div>
             <div class="center">
-                <input type="tel" name="phone" onkeydown="return /[0-9]/i.test(event.key)" maxLength="10" id="phone"
-                    class="text-user" placeholder="ใส่เบอร์โทร" required />
+                <input type="tel" name="phone" maxLength="10" onkeydown="" id="phone" class="text-user"
+                    placeholder="ใส่เบอร์โทร" required />
             </div>
             <div class="center">
                 <input type="email" name="email" id="email" class="text-user" placeholder="ใส่ Email" required />
@@ -76,12 +76,16 @@
             </form>
         </div>
     </div>
-    
+
     <script>
-        document.getElementById('phone').onkeydown = function (e) {
-            var key = e.keyCode ? e.keyCode : e.which;
-            if (key && (key <= 47 || key >= 58) && key != 8 ) return false;
-        }
+        var inputField = document.querySelector('#phone');
+
+        inputField.onkeydown = function (event) {
+            // Only allow if the e.key value is a number or if it's 'Backspace'
+            if (isNaN(event.key) && event.key !== 'Backspace' || event.keyCode === 32) {
+                event.preventDefault();
+            }
+        };
     </script>
 
     <script src="https://smtpjs.com/v3/smtp.js"></script>
