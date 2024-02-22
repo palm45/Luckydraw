@@ -105,8 +105,7 @@ function SendEmail() {
     var errormessage = "";
     var samemessage = "";
 
-    var body = RandomOTP();
-    Verifyotp = body;
+    Verifyotp = RandomOTP();
 
     CheckName = false;
     CheckSurname = false;
@@ -154,6 +153,11 @@ function SendEmail() {
         }
         if (email.includes('@') && email.includes('.com') && errormessage.length == 0 && CheckEmail == false) {
             if (CheckSamename == false && CheckPhone == false) {
+                body = '<div style="text-align: center; ' 
+                        + 'height:200px; width:200px;">' + 
+                        '<h1 style="color:black;">รหัส OTP</h1>' + 
+                        '<div style="font-size: 35px;">'+ Verifyotp +'</div>'
+                        + '</div>';
                 Email.send({
                     Host: "smtp.elasticemail.com",
                     Username: "LuckyDraw@gmail.com",
@@ -166,7 +170,7 @@ function SendEmail() {
                     message => {
                         if (message === "OK") {
                             alert("ส่ง OTP เรียบร้อย โปรดตรวจสอบใน email");
-                            Timer(30);
+                            Timer(180);
                             document.getElementById("name").value = "";
                             document.getElementById("surname").value = "";
                             document.getElementById("phone").value = "";
@@ -219,9 +223,15 @@ function VerifyOTP() {
     var input4 = document.getElementById("input4").value;
 
     var OTP = input1 + input2 + input3 + input4;
+    
     if (OTP == Verifyotp && Verifyotp != "") {
         codeuser = RandomCodeUser();
-        body = codeuser;
+        //body = codeuser;
+        body = '<div style="text-align: center; ' 
+                + 'height:200px; width:200px;">' + 
+                '<h1 style="color:black;">รหัส LuckyDraw</h1>' + 
+                '<div style="font-size: 35px;">'+ codeuser +'</div>'
+                + '</div>';
         Email.send({
             Host: "smtp.elasticemail.com",
             Username: "LuckyDraw@gmail.com",

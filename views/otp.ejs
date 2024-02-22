@@ -20,31 +20,33 @@
 <body>
     <div class="container-fluid">
         <div class="col">
-            
-                <div class="center">
-                    <div class="title">Email Validation</div>
-                </div>
-                <div class="center">
-                    <input type="text" name="name" id="name" class="text-user" placeholder="ใส่ชื่อ" required />
-                </div>
-                <div class="center">
-                    <input type="text" name="surname" id="surname" class="text-user" placeholder="ใส่นามสกุล"
-                        required />
-                </div>
-                <div class="center">
-                    <input type="tel" name="phone" id="phone" class="text-user" placeholder="ใส่เบอร์โทร" required />
-                </div>
-                <div class="center">
-                    <input type="email" name="email" id="email" class="text-user" placeholder="ใส่ Email" required />
-                </div>
-                <div class="spacemini"></div>
-                <div class="center">
-                    <button onclick="SendEmail()" class="button-OTP">Send OTP</button>
-                </div>
 
-                <div class="space"></div>
-                <div class="stem"></div>
-                <div class="spacemini"></div>
+            <div class="center">
+                <div class="title">Email Validation</div>
+            </div>
+            <div class="center">
+                <input type="text" name="name" onkeydown="return /[a-zก-๏]/i.test(event.key)" id="name"
+                    class="text-user" placeholder="ใส่ชื่อ" required />
+            </div>
+            <div class="center">
+                <input type="text" name="surname" onkeydown="return /[a-zก-๏]/i.test(event.key)" id="surname"
+                    class="text-user" placeholder="ใส่นามสกุล" required />
+            </div>
+            <div class="center">
+                <input type="tel" name="phone" onkeydown="return /[0-9]/i.test(event.key)" maxLength="10" id="phone"
+                    class="text-user" placeholder="ใส่เบอร์โทร" required />
+            </div>
+            <div class="center">
+                <input type="email" name="email" id="email" class="text-user" placeholder="ใส่ Email" required />
+            </div>
+            <div class="spacemini"></div>
+            <div class="center">
+                <button onclick="SendEmail()" class="button-OTP">Send OTP</button>
+            </div>
+
+            <div class="space"></div>
+            <div class="stem"></div>
+            <div class="spacemini"></div>
 
             <form id="addForm">
                 <div class="center">
@@ -74,6 +76,14 @@
             </form>
         </div>
     </div>
+    
+    <script>
+        document.getElementById('phone').onkeydown = function (e) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key && (key <= 47 || key >= 58) && key != 8 ) return false;
+        }
+    </script>
+
     <script src="https://smtpjs.com/v3/smtp.js"></script>
 </body>
 
