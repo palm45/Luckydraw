@@ -79,10 +79,41 @@
 
     <script>
         var inputField = document.querySelector('#phone');
+        var inputField2 = document.querySelector('#email');
 
         inputField.onkeydown = function (event) {
-            // Only allow if the e.key value is a number or if it's 'Backspace'
             if (isNaN(event.key) && event.key !== 'Backspace' || event.keyCode === 32) {
+                event.preventDefault();
+            }
+        };
+
+        inputField2.onkeydown = function (event) {
+            if (event.keyCode === 32) {
+                event.preventDefault();
+            }
+        };
+
+        var input1 = document.querySelector('#input1');
+        var input2 = document.querySelector('#input2');
+        var input3 = document.querySelector('#input3');
+        var input4 = document.querySelector('#input4');
+        input1.onkeydown = function (event) {
+            if (event.keyCode === 32) {
+                event.preventDefault();
+            }
+        };
+        input2.onkeydown = function (event) {
+            if (event.keyCode === 32) {
+                event.preventDefault();
+            }
+        };
+        input3.onkeydown = function (event) {
+            if (event.keyCode === 32) {
+                event.preventDefault();
+            }
+        };
+        input4.onkeydown = function (event) {
+            if (event.keyCode === 32) {
                 event.preventDefault();
             }
         };
