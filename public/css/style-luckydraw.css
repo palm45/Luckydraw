@@ -31,8 +31,9 @@ body {
     width: 500px;
     background-color: #317151;
     
-    border-color: #193b2a;
+    border-color: #3a3b19;
     border-style: solid;
+    font-weight: bold;
 }
 
 .title{
@@ -578,7 +579,6 @@ input:checked + .slider:before {
 
 .subtext-setotp{
     font-size: 35px;
-    margin-top: 40px;
     margin-bottom: 20px;
 }
 .subtext{
@@ -604,7 +604,7 @@ input:checked + .slider:before {
 }
 #timesetup{
     margin-top: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     text-align: center;
     height: 40px;
     width: 80px;
@@ -614,7 +614,7 @@ input:checked + .slider:before {
 }
 #timecancel{
     margin-top: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     text-align: center;
     height: 40px;
     width: 80px;
@@ -624,7 +624,7 @@ input:checked + .slider:before {
 }
 .text-timer{
     font-size: 90px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 #qrcode-button{
     font-size: 20px;
@@ -633,4 +633,10 @@ input:checked + .slider:before {
     width: 150px;
     background-color: #317151;
     border-radius: 10px;
+}
+.text-mode-form{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-size: 20px;
 }

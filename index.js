@@ -183,17 +183,40 @@ app.get('/listprize', (req, res) => {
     })
 });
 
-/*app.get('/setotp', (req, res) => {
+app.get('/setotp', (req, res) => {
     res.render('setotp');
-});*/
-
-app.get('/qr', (req, res) => {
-    res.render('otp');
 });
 
-/*app.get('/timeout', (req, res) => {
-    res.render('timeoutotp');
-});*/
+app.get('/qr', (req, res) => {
+    get(ref(database, 'Status')).then((snapshot) => {
+        if(snapshot.val().StatusForm == 0){
+            res.render('timeoutotp');
+        }else{
+            res.render('otp');
+        }
+    });
+});
+
+app.get('/getStatusForm', (req, res) => {
+    get(ref(database, 'Status')).then((snapshot) => {
+        res.send(snapshot);
+    })
+})
+app.put('/UpdateStatusForm', (req, res) => {
+    const { Status } = req.body
+    const updatestatus = {};
+    updatestatus['Status/' + 'StatusForm'] = Status;
+
+    update(ref(database), updatestatus)
+})
+app.put('/UpdateTime', (req, res) => {
+    const { time } = req.body
+    const updatestatus = {};
+    updatestatus['Status/' + 'Time'] = time;
+
+    update(ref(database), updatestatus)
+})
+
 
 app.post('/addnewuser', (req, res) => {
     const { name, surname, phone, email, codeuser } = req.body;

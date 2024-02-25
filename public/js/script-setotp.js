@@ -1,3 +1,57 @@
+var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
+
+async function getStatus(){
+    const res = await fetch( url + '/getStatusForm', {
+        method: 'GET',
+    })
+    dataStatus = await res.json();
+    FormNow(dataStatus.StatusForm);
+    if(dataStatus.Time>0){
+        Timer(dataStatus.Time)
+    }
+}
+getStatus()
+
+function updateStatusForm(StatusForm){
+    fetch( url + '/UpdateStatusForm', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({Status: StatusForm})
+    })
+}
+function updateStatusTime(StatusTime){
+    fetch( url + '/UpdateTime', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({time: StatusTime})
+    })
+}
+
+
+function FormNow(statusform){
+    if(statusform == 0){
+        document.querySelector('#changemodeform').checked = false;
+        document.getElementById("ModeForm").innerHTML = "ปิดฟอร์ม"
+    }else if(statusform == 1){
+        document.querySelector('#changemodeform').checked = true;
+        document.getElementById("ModeForm").innerHTML = "เปิดฟอร์ม"
+    }
+}
+function ChangeOpenForm(){
+    mode = document.querySelector('#changemodeform').checked
+    if(mode == false){
+        document.getElementById("ModeForm").innerHTML = "ปิดฟอร์ม"
+        updateStatusForm(0);
+    }else if(mode == true){
+        document.getElementById("ModeForm").innerHTML = "เปิดฟอร์ม"
+        updateStatusForm(1);
+    }
+}
+
 function set_time() {
     var val3 = document.getElementById("time-qrcode3").value;
     var val2 = document.getElementById("time-qrcode2").value;
@@ -80,15 +134,21 @@ function SetupTime() {
     document.getElementById("time-qrcode1").value = '0' + 0 ;
     document.getElementById("time-qrcode2").value = '0' + 0 ;
     document.getElementById("time-qrcode3").value = '0' + 0 ;
-
-    document.getElementById('timesetup').disabled = true;
     
+    FormNow(true);
+    updateStatusForm(1);
     Timer(time);
 }
 function Timer(remaining) {
     if(remaining==0){
+        FormNow(false);
+        updateStatusForm(0);
         document.getElementById('timesetup').disabled = false;
+    }else if(remaining>0){
+        document.getElementById('timesetup').disabled = true;
     }
+
+    updateStatusTime(remaining);
 
     var h = 0;
     var m = 0;
@@ -117,6 +177,9 @@ function Timer(remaining) {
     }
 }
 function cancelTimer() {
+    FormNow(false);
+    updateStatusForm(0);
+    updateStatusTime(0);
     cancel = true;
     document.getElementById('timer').innerHTML = '0:00:00' ;
     document.getElementById('timesetup').disabled = false;

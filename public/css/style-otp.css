@@ -14,14 +14,17 @@ body {
 }
 .text_timeout{
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
     top: 50%;
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
 }
+.text_titletimeout{
+    font-weight: bold;
+}
 .text_mini{
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .title{

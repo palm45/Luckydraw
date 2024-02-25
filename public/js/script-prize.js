@@ -1,9 +1,28 @@
 var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
+
+
 var type = 0;
 
 function SelectType(select) {
     type = select;
+    document.getElementById("SearchInput").value = "";
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("SearchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[type];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }
 function SearchTable() {
     var input, filter, table, tr, td, i, txtValue;
@@ -51,7 +70,11 @@ function deletedbprize(iddelete){
 function AddPrize() {
     let name = document.getElementById("add-prize").value;
     let num = document.getElementById("add-numprize").value;
-    if (name.length > 0) {
+    if(num.length == 0 && name.length == 0){
+        alert("กรุณาใส่ชื่อ และจำนวนของรางวัล")
+    }else if(num.length == 0){
+        alert("กรุณาใส่จำนวนของรางวัล")
+    }else if (name.length > 0) {
         Samecheck = false;
         for (let i = 0; i < prize.length; i++) {
             if (name == prize[i]) {

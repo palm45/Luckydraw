@@ -42,14 +42,16 @@
             </div>
             <div class="col-3">
                 <div class="row">
-                    <button class="menu" onclick="generateQRCode()">แสกน QRCode</button>
+                    <button class="menu" onclick="nextsetqrcode()">แสกน QRCode</button>
                 </div>
             </div>
         </div>
 
         <div class="col">
             <div class="center">
+                <div class="col-3"></div>
                 <div class="title2"> รายการของรางวัล </div>
+                <div class="col-3 center" id="timer3"> 0:00:00 </div>
             </div>
             <div class="center">
                 <button class="search-button" onclick="SearchPrizeNow()">ค้นหา</button>
@@ -63,7 +65,7 @@
                 
                 <input type="text" id="add-prize" placeholder="ชื่อของรางวัล">
                 <div id="text-add" class="text-add">จำนวน</div>
-                <input type="number" id="add-numprize" value="1" min="1" max="9999" step="1">
+                <input type="number" id="add-numprize" value="1" min="1" max="9999" step="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); " maxlength="4">
                 <button id="add-prize-button" class="add-button" onclick="AddPrize()">เพิ่ม</button>
                 <button class="prize-button" onclick="AddNewPrize()">เพิ่มของรางวัล</button>
             </div>
@@ -101,14 +103,6 @@
                     </div>
                 </div>
                 <div class="showtable-right"></div>
-            </div>
-        </div>
-
-        <div id="overlay" onclick="off()">
-            <div id="qrcode-container">
-                <div class="center">
-                    <div id="qrcode" class="qrcode"></div>
-                </div>
             </div>
         </div>
 

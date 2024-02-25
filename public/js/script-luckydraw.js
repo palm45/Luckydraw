@@ -569,7 +569,6 @@ function DeleteNotHere(button, i) {
     codedelete = NowNotHere_id[i];
     NowNotHere.splice(i, 1);
     deletedbnownothere(codedelete);
-    window.location.href='/';
 }
 function ShowNotHere() {
     NotHere.open({

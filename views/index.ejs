@@ -38,7 +38,7 @@
             </div>
             <div class="col-3">
                 <div class="row">
-                    <button class="menu" onclick="generateQRCode()">แสกน QRCode</button>
+                    <button class="menu" onclick="nextsetqrcode()">แสกน QRCode</button>
                 </div>
             </div>
         </div>
@@ -46,7 +46,9 @@
         <div class="row">
             <div class="col">
                 <div class="center">
+                    <div class="col-4"></div>
                     <div class="title">Lucky Draw</div>
+                    <div class="col-4 center" id="timer1"> 0:00:00 </div>
                 </div>
 
                 <div class="col">
@@ -108,14 +110,6 @@
                                 </div>
 
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="overlay" onclick="off()">
-                    <div id="qrcode-container">
-                        <div class="center">
-                            <div id="qrcode" class="qrcode"></div>
                         </div>
                     </div>
                 </div>
