@@ -13,8 +13,7 @@ body {
 }
 
 
-.row
-{
+.row{
     display: flex;
 }
 
@@ -31,14 +30,14 @@ body {
     width: 500px;
     background-color: #317151;
     
-    border-color: #3a3b19;
+    border-color: #000000;
     border-style: solid;
     font-weight: bold;
 }
 
 .title{
-    padding-top: 0.25%;
-    padding-bottom: 0.25%;
+    padding-top: 5px;
+    padding-bottom: 5px;
     font-size: 60px;
 }
 .title2{
@@ -625,6 +624,17 @@ input:checked + .slider:before {
 .text-timer{
     font-size: 90px;
     margin-bottom: 40px;
+}
+.text-timer-other{
+    font-size: 30px;
+}
+#timer2{
+    font-size: 30px;
+    padding-left: 60px;
+}
+#timer3{
+    font-size: 30px;
+    padding-left: 80px;
 }
 #qrcode-button{
     font-size: 20px;

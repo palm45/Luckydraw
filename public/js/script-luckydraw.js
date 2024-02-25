@@ -168,6 +168,70 @@ function deletedbnownothere(codedelete){
     })
 }
 
+async function getStatus2(){
+    const res = await fetch( url + '/getStatusForm', {
+        method: 'GET',
+    })
+    dataStatus = await res.json();
+    if(dataStatus.Time>0){
+        Timer2(dataStatus.Time)
+    }
+}
+getStatus2()
+
+function updateStatusForm2(StatusForm){
+    fetch( url + '/UpdateStatusForm', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({Status: StatusForm})
+    })
+}
+function updateStatusTime2(StatusTime){
+    fetch( url + '/UpdateTime', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({time: StatusTime})
+    })
+}
+
+function Timer2(remaining) {
+    if(remaining==0){
+        updateStatusForm2(0);
+    }
+
+    updateStatusTime2(remaining);
+
+    var h = 0;
+    var m = 0;
+    var s = 0;
+    if (remaining >= 3600) {
+        h = Math.floor(remaining / 3600);
+        m = Math.floor(Math.floor(remaining % 3600) / 60);
+        s = Math.floor(Math.floor(remaining % 3600) % 60);
+    } else if (remaining < 3600) {
+        m = Math.floor(remaining / 60);
+        s = Math.floor(remaining % 60);
+    }
+
+    m = m < 10 ? '0' + m : m;
+    s = s < 10 ? '0' + s : s;
+    document.getElementById('timer1').innerHTML = h + ':' + m + ':' + s;
+    remaining -= 1;
+
+    if (remaining >= 0) {
+        setTimeout(function () {
+            Timer2(remaining);
+        }, 1000);
+        return;
+    }else{
+        document.getElementById("timer1").innerHTML = "";
+    }
+}
+
 
 function randomprize() {
     check = 0;

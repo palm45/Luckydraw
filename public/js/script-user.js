@@ -1,4 +1,68 @@
+var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
+async function getStatus(){
+    const res = await fetch( url + '/getStatusForm', {
+        method: 'GET',
+    })
+    dataStatus = await res.json();
+    if(dataStatus.Time>0){
+        Timer(dataStatus.Time)
+    }
+}
+getStatus()
+
+function updateStatusForm(StatusForm){
+    fetch( url + '/UpdateStatusForm', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({Status: StatusForm})
+    })
+}
+function updateStatusTime(StatusTime){
+    fetch( url + '/UpdateTime', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({time: StatusTime})
+    })
+}
+
+function Timer(remaining) {
+    if(remaining==0){
+        updateStatusForm(0);
+    }
+
+    updateStatusTime(remaining);
+
+    var h = 0;
+    var m = 0;
+    var s = 0;
+    if (remaining >= 3600) {
+        h = Math.floor(remaining / 3600);
+        m = Math.floor(Math.floor(remaining % 3600) / 60);
+        s = Math.floor(Math.floor(remaining % 3600) % 60);
+    } else if (remaining < 3600) {
+        m = Math.floor(remaining / 60);
+        s = Math.floor(remaining % 60);
+    }
+
+    m = m < 10 ? '0' + m : m;
+    s = s < 10 ? '0' + s : s;
+    document.getElementById('timer2').innerHTML = h + ':' + m + ':' + s;
+    remaining -= 1;
+
+    if (remaining >= 0) {
+        setTimeout(function () {
+            Timer(remaining);
+        }, 1000);
+        return;
+    }else{
+        document.getElementById("timer2").innerHTML = "";
+    }
+}
 
 var type = 0;
 function SelectType(select) {
