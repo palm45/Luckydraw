@@ -553,7 +553,7 @@ input:checked + .slider:before {
     width: 55px;
     color: white;
     border-radius: 10px;
-    background-color: #317151;
+    background-color: #009879;
 }
 .cancel-button{
     text-align: center;
@@ -572,7 +572,7 @@ input:checked + .slider:before {
     width: 40px;
     color: white;
     border-radius: 10px;
-    background-color: #317151;
+    background-color: rgb(227, 62, 62);
 }
 
 
@@ -607,7 +607,7 @@ input:checked + .slider:before {
     text-align: center;
     height: 40px;
     width: 80px;
-    background-color: #317151;
+    background-color: #009879;
     border-radius: 10px;
     margin-right: 10px;
 }
@@ -617,7 +617,7 @@ input:checked + .slider:before {
     text-align: center;
     height: 40px;
     width: 80px;
-    background-color: #317151;
+    background-color: #ffffff;
     border-radius: 10px;
     margin-left: 10px;
 }

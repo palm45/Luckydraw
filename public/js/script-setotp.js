@@ -7,7 +7,11 @@ async function getStatus(){
     dataStatus = await res.json();
     FormNow(dataStatus.StatusForm);
     if(dataStatus.Time>0){
+        time = dataStatus.Time;
         Timer(dataStatus.Time)
+    }
+    if(time==0 && dataStatus.StatusForm  == 1){
+        document.getElementById('timer').innerHTML = "เปิดถาวร"
     }
 }
 getStatus()
@@ -46,9 +50,19 @@ function ChangeOpenForm(){
     if(mode == false){
         document.getElementById("ModeForm").innerHTML = "ปิดฟอร์ม"
         updateStatusForm(0);
+        cancel = true;
+        time = 0;
+        updateStatusTime(0);
+        document.getElementById('timesetup').disabled = false;
+        if(time==0){
+            document.getElementById('timer').innerHTML = "0:00:00"
+        }
     }else if(mode == true){
         document.getElementById("ModeForm").innerHTML = "เปิดฟอร์ม"
         updateStatusForm(1);
+        if(time==0){
+            document.getElementById('timer').innerHTML = "เปิดถาวร"
+        }
     }
 }
 
@@ -140,6 +154,7 @@ function SetupTime() {
     Timer(time);
 }
 function Timer(remaining) {
+    time = remaining;
     if(remaining==0){
         FormNow(false);
         updateStatusForm(0);
@@ -166,6 +181,7 @@ function Timer(remaining) {
     s = s < 10 ? '0' + s : s;
     document.getElementById('timer').innerHTML = h + ':' + m + ':' + s;
     remaining -= 1;
+    
 
     if (remaining >= 0) {
         setTimeout(function () {
@@ -177,10 +193,15 @@ function Timer(remaining) {
     }
 }
 function cancelTimer() {
-    FormNow(false);
-    updateStatusForm(0);
+    if(time>0){
+        FormNow(false);
+        updateStatusForm(0);
+        document.getElementById('timesetup').disabled = false;
+        cancel = true;
+        document.getElementById('timer').innerHTML = '0:00:00' ;
+    }
     updateStatusTime(0);
-    cancel = true;
-    document.getElementById('timer').innerHTML = '0:00:00' ;
-    document.getElementById('timesetup').disabled = false;
+    document.getElementById("time-qrcode1").value = '0' + 0 ;
+    document.getElementById("time-qrcode2").value = '0' + 0 ;
+    document.getElementById("time-qrcode3").value = '0' + 0 ;
 }
