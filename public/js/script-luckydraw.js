@@ -517,6 +517,17 @@ function getrandom() {
                     console.log(code);
                     console.log(UserGet);
 
+                    for (let i = NowPrize.length - 2; i >= 0; i--) {
+                        document.getElementById('showrandom').innerHTML -= NowPrize[i];
+                        document.getElementById('showrandom').innerHTML -= NowCode[i];
+                    }
+                    document.getElementById('showrandom').innerHTML = "";
+                    for (let i = NowPrize.length - 1; i >= 0; i--) {
+                        document.getElementById('showrandom').innerHTML += NowPrize[i] + "<br>";
+                        document.getElementById('showrandom').innerHTML += NowCode[i] + "</br>";
+                    }
+
+
                     if (ChangePrizeMode == true) {
                         for (let i = 1; i < document.getElementById('SelectPrizeRandom').options.length; i++) {
                             if (document.getElementById('SelectPrizeRandom').options[i].value == RandomPrizeNow) {
@@ -537,9 +548,9 @@ function getrandom() {
                     postnowrandom(RandomPrizeNow, RandomCodeNow);
                     updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate);
                     updatedbuser(iduserupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate)
-                    setTimeout(function() {
+                    /*setTimeout(function() {
                         window.location.href='/';
-                    }, 400);
+                    }, 600);*/
                 }
 
             },
@@ -557,7 +568,9 @@ function getrandom() {
                     postnownothere(RandomCodeNow);
                     NowNotHere.push(RandomCodeNow);
                     console.log(NowNotHere);
-                    window.location.href='/';
+                    setTimeout(function() {
+                        window.location.href='/';
+                    }, 600);
                 }
             }
         })
