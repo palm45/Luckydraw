@@ -634,7 +634,7 @@ const NotHere = {
     }
 };
 function ShowNotHereTable() {
-    table = `<table id="myTableNotHere" class="display" style="width: 100%;"><thead><tr>`;
+    table = `<table id="myTableNotHere" class="display" style="width: 95%;"><thead><tr>`;
     for (var i = 0; i < NowNotHere.length; i++) {
         table += `<td>` + NowNotHere[i] + `</td>`
         table += `<td><button class="remove-nothere" onclick="DeleteNotHere(this,` + i + `)">นำออก</button></td>`

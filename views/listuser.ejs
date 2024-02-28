@@ -19,6 +19,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>List User</title>
 </head>
 
@@ -32,7 +34,7 @@
             </div>
             <div class="col-3">
                 <div class="row">
-                    <button class="menu" id="listuser" onclick="nextlistuser()">รายการผู้เข้าร่วมงาน</button>
+                    <button class="menu_select" id="listuser" onclick="nextlistuser()">รายการผู้เข้าร่วมงาน</button>
                 </div>
             </div>
             <div class="col-3">
@@ -49,7 +51,9 @@
 
         <div class="col">
             <div class="center">
-                <div class="col-2"></div>
+                <div class="col-2" style="text-align: right;">
+                    <i onclick="" class="fa fa-gear"></i>
+                </div>
                 <div class="title2"> รายการผู้เข้าร่วมงาน </div>
                 <div class="col-2" id="timer2"></div>
             </div>

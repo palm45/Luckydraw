@@ -194,6 +194,7 @@ function Timer(remaining) {
 }
 function cancelTimer() {
     if(time>0){
+        time = 0;
         FormNow(false);
         updateStatusForm(0);
         document.getElementById('timesetup').disabled = false;

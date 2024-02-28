@@ -34,6 +34,22 @@ body {
     border-style: solid;
     font-weight: bold;
 }
+.menu:hover {
+    background-color: #3f9268
+}
+.menu_select {
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 500px;
+    background-color: #53bf89;
+    
+    border-color: #000000;
+    border-style: solid;
+    font-weight: bold;
+}
 
 .title{
     padding-top: 5px;
@@ -355,6 +371,19 @@ body {
 .qrcode img{
   margin: 0 auto;
 }
+
+
+i.fa{
+    cursor: pointer;
+    user-select: none;
+    font-size:50px;
+    color:rgb(77, 77, 77);
+    padding-right:15px;
+}
+.fa:hover{
+    color: rgb(99, 99, 99);
+}
+
 
 .search-button{
     font-size: 18px;
