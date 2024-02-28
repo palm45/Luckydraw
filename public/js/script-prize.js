@@ -127,7 +127,24 @@ function deletedbprize(iddelete){
         body: JSON.stringify({prize_id: iddelete})
     })
 }
-
+function updateNowRandom(id, Nowrandomprize){
+    fetch( url + '/updatenowrandom', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({Now_id: id, Nowprize: Nowrandomprize})
+    })
+}
+function updatedbuserprize(id, getprizenow){
+    fetch( url + '/updatenewprizeuser', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({user_id: id, getprize : getprizenow})
+    })
+}
 
 function AddPrize() {
     let name = document.getElementById("add-prize").value;
@@ -208,22 +225,90 @@ function Edit_button(id){
     
     document.getElementById('Nameprize_' + id).contentEditable = true;
     document.getElementById('Countprize_' + id).contentEditable = true;
+
+    document.getElementById('Nameprize_' + id).style.backgroundColor = "white";
+    document.getElementById('Countprize_' + id).style.backgroundColor = "white";
+    document.getElementById('Nameprize_' + id).style.color = "black";
+    document.getElementById('Countprize_' + id).style.color = "black";
+    document.getElementById('Nameprize_' + id).style.border = "black solid";
+    document.getElementById('Countprize_' + id).style.border = "black solid";
+
+    $('#Countprize_' + id).keypress(function(e) {
+        if (isNaN(String.fromCharCode(e.which)) || e.keyCode == 32 || e.keyCode == 13){
+            e.preventDefault();
+        }
+    });
+    $('#Countprize_' + id).on('keydown paste', function(event) {
+        if($(this).text().length === 4 && event.keyCode != 8) { 
+            event.preventDefault();
+        }
+    });
+    $('#Nameprize_' + id).keypress(function(e) {
+        if (e.keyCode == 13){
+            e.preventDefault();
+        }
+    });
 }
 function Save_button(id){
     var buttonsContainer = document.getElementById('buttons_' + id);
-    buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button('+id+')" type="button">แก้ไข</button>';
-    document.getElementById('Nameprize_' + id).contentEditable = false;
-    document.getElementById('Countprize_' + id).contentEditable = false;
     
     nameprizeupdate = document.getElementById('Nameprize_' + id).innerHTML;
     countprizeupdate = parseInt(document.getElementById('Countprize_' + id).innerHTML);
     drawprizeupdate = parseInt(document.getElementById('Drawprize_' + id).innerHTML);
 
-    updatedbprize(id, nameprizeupdate, countprizeupdate, drawprizeupdate);
+    for(let i = 0; i < prize.length;i++){
+        if(prize_id[i] == id){
+            for(let j = 0; j < NowRandom_id.length;j++){
+                if(prize[i]==NowPrize[j]){
+                    updateNowRandom(NowRandom_id[j], nameprizeupdate);
+                }
+            }
+            for(let j = 0; j < user_id.length;j++){
+                if(Getprize[j] == prize[i]){
+                    updatedbuserprize(user_id[j], nameprizeupdate);
+                }
+            }
+        }
+    }
+
+
+    for(let i = 0; i < prize_id.length;i++){
+        if(prize_id[i] == id){
+            if(countprizeupdate <= 0){
+                alert("กรุณาใส่จำนวนของรางวัลอีกครั้ง")
+            }else if(draw[i]<=countprizeupdate){
+                updatedbprize(id, nameprizeupdate, countprizeupdate, drawprizeupdate);
+                document.getElementById('Nameprize_' + id).contentEditable = false;
+                document.getElementById('Countprize_' + id).contentEditable = false;
+                document.getElementById('Nameprize_' + id).style.backgroundColor = "rgb(8, 68, 23)";
+                document.getElementById('Countprize_' + id).style.backgroundColor = "rgb(8, 68, 23)";
+                document.getElementById('Nameprize_' + id).style.color = "white";
+                document.getElementById('Countprize_' + id).style.color = "white";
+                document.getElementById('Nameprize_' + id).style.border = "none";
+                document.getElementById('Countprize_' + id).style.border = "none";
+                buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button('+id+')" type="button">แก้ไข</button>';
+            }else if(draw[i]>countprizeupdate){
+                alert("มีคนได้ของรางวัลนี้ไปแล้ว ไม่สามารถลดของรางวัลได้")
+            }
+        }
+    }
 }
 function Cancel_button(id){
+    for(let i = 0; i < prize_id.length;i++){
+        if(prize_id[i] == id){
+            document.getElementById('Nameprize_' + id).innerHTML = prize[i];
+            document.getElementById('Countprize_' + id).innerHTML = countprize[i];
+        }
+    }
     var buttonsContainer = document.getElementById('buttons_' + id);
     buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button('+id+')" type="button">แก้ไข</button>';
     document.getElementById('Nameprize_' + id).contentEditable = false;
     document.getElementById('Countprize_' + id).contentEditable = false;
+
+    document.getElementById('Nameprize_' + id).style.backgroundColor = "rgb(8, 68, 23)";
+    document.getElementById('Countprize_' + id).style.backgroundColor = "rgb(8, 68, 23)";
+    document.getElementById('Nameprize_' + id).style.color = "white";
+    document.getElementById('Countprize_' + id).style.color = "white";
+    document.getElementById('Nameprize_' + id).style.border = "none";
+    document.getElementById('Countprize_' + id).style.border = "none";
 }

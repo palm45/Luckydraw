@@ -299,6 +299,15 @@ app.put('/updatenewuser', (req, res) => {
     update(ref(database), updateuser)
     db.query(sql);
 })
+app.put('/updatenewprizeuser', (req, res) => {
+    const { user_id, getprize} = req.body;
+    const updateuserprize = {};
+    updateuserprize['users/'+ (user_id-1) + '/User_id'] = user_id;
+    updateuserprize['users/'+ (user_id-1) + '/Getprize']=getprize;
+    
+    update(ref(database), updateuserprize)
+    db.query(sql);
+})
 
 
 app.post('/addnewprize', (req, res) => {
@@ -439,6 +448,14 @@ app.get('/getnewnowrandom', (req, res) => {
         }
         res.send(JSON.stringify(dbnowrandom));
     })
+})
+app.put('/updatenowrandom', (req, res) => {
+    const { Now_id, Nowprize} = req.body;
+    const updatenowprize = {};
+    updatenowprize['nowrandom/'+ (Now_id-1) + '/Now_id'] = Now_id;
+    updatenowprize['nowrandom/'+ (Now_id-1) + '/NowPrizeList']=Nowprize;
+
+    update(ref(database), updatenowprize)
 })
 
 

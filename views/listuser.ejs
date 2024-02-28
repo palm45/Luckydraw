@@ -66,6 +66,7 @@
             <select id="PrizeSelect" onchange="SearchPrize(this.value)">
                 <option name='choice0' value='-1'>แสดงทั้งหมด</option>
                 <option name='choice0' value='-2'>ยังไม่ได้</option>
+                <option name='choice0' value='-3'>ผู้โชคดี</option>
                 <% result2.forEach(function(result2, index) { %>
                     <script>PrizeSelect('<%= result2.Nameprize %>', 'index')</script>
                 <% }); %>

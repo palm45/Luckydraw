@@ -47,12 +47,14 @@ const phonelist = [];
 const gmail = [];
 const code = [];
 const UserGet = [];
+const Getprize = [];
 
 const prize_id = [];
 const prize = [];
 const countprize = [];
 const draw = [];
 
+const NowRandom_id = [];
 const NowPrize = [];
 const NowCode = [];
 const NowNotHere_id = [];
@@ -70,6 +72,7 @@ async function getdbuser() {
         phonelist.push(datauser[i].Phone);
         gmail.push(datauser[i].Email_user);
         code.push(datauser[i].CodeUser);
+        Getprize.push(datauser[i].Getprize);
         if(datauser[i].UserGet==0){
             UserGet.push(false);
         }else if(datauser[i].UserGet==1){
@@ -100,6 +103,7 @@ async function getdbnowrandom(){
     })
     datarandomnow = await res.json();
     for(let i=0;i<datarandomnow.length;i++){
+        NowRandom_id.push(datarandomnow[i].Now_id);
         NowPrize.push(datarandomnow[i].NowPrizeList);
         NowCode.push(datarandomnow[i].NowCodeList);
     }
@@ -302,7 +306,7 @@ const Confirm = {
         options = Object.assign({}, {
             title: '',
             message: '',
-            okText: 'นำออก',
+            okText: 'รับของรางวัล',
             removeText: 'ไม่อยู่',
             cancelText: 'ยกเลิก',
             onok: function () { },

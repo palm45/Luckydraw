@@ -152,7 +152,19 @@ function SearchPrize(seach) {
                 }
             }
         }
-    } else {
+    } else if (seach == "-3") {
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf("-") > -1) {
+                    tr[i].style.display = "none";
+                } else {
+                    tr[i].style.display = "";
+                }
+            }
+        }
+    } else{
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[2];
             if (td) {
