@@ -1,4 +1,5 @@
 body {
+    text-align: center;
     font-family: 'Saira Condensed', sans-serif;
     justify-self: center;
     align-items: center;
@@ -374,16 +375,12 @@ body {
 
 
 i.fa{
-    cursor: pointer;
-    user-select: none;
     font-size:50px;
-    color:rgb(77, 77, 77);
-    padding-right:15px;
+    color:rgb(0, 0, 0);
 }
-.fa:hover{
-    color: rgb(99, 99, 99);
+.Addition_option:hover{
+    background-color:#c1c1c1
 }
-
 
 .search-button{
     font-size: 18px;

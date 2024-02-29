@@ -40,6 +40,8 @@ function nextsetqrcode() {
 //const phonelist = ["0915254875", "04456871254", "0842267595", "0451931245", "0894152455", "0421249963", "0426587911"];
 //const UserGet = [true, false, true, false, true, false, false];
 
+datauser = [];
+
 const user_id = [];
 const namelist = [];
 const surnamelist = [];

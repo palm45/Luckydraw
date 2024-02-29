@@ -1,5 +1,70 @@
 var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
+
+const PrizeAdditionOption = {
+    open(options) {
+        options = Object.assign({}, {
+            title: 'ตัวเลือกเพิ่มเติม',
+            message: '',
+            oncancel: function () { }
+        }, options);
+        const html = `
+            <div class="confirm">
+                <div class="confirm__windowNotHere">
+                    <div class="confirm__titlebarNotHere">
+                        <span class="confirm__title">${options.title}</span>
+                        <button class="confirm__close">&times;</button>
+                    </div>
+                    <div class="confirm__contentNotHere">${options.message}</div>
+                </div>
+            </div>
+        `;
+
+        const template = document.createElement('template');
+        template.innerHTML = html;
+
+        // Elements
+        const confirmEl = template.content.querySelector('.confirm');
+        const btnClose = template.content.querySelector('.confirm__close');
+
+        confirmEl.addEventListener('click', e => {
+            if (e.target === confirmEl) {
+                options.oncancel();
+                this._close(confirmEl);
+            }
+        });
+
+        [btnClose].forEach(el => {
+            el.addEventListener('click', () => {
+                options.oncancel();
+                el.disabled = true;
+                this._close(confirmEl);
+            });
+        });
+
+        document.body.appendChild(template.content);
+    },
+
+    _close(confirmEl) {
+        confirmEl.classList.add('confirm--close');
+
+        confirmEl.addEventListener('animationend', () => {
+            document.body.removeChild(confirmEl);
+        });
+    }
+};
+function ShowPrizeAdditionOption() {
+    PrizeAdditionOption.open({
+        message: ShowPrizeAdditionOptionPage(),
+    })
+}
+function ShowPrizeAdditionOptionPage() {
+    AdditionPage = "<div class='center'>"
+
+    AdditionPage += "</div>"
+    return AdditionPage;
+}
+
 async function getStatus(){
     const res = await fetch( url + '/getStatusForm', {
         method: 'GET',

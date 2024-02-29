@@ -1,5 +1,102 @@
 var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
+const UserAdditionOption = {
+    open(options) {
+        options = Object.assign({}, {
+            title: 'ตัวเลือกเพิ่มเติม',
+            message: '',
+            oncancel: function () { }
+        }, options);
+        const html = `
+            <div class="confirm">
+                <div class="confirm__windowNotHere">
+                    <div class="confirm__titlebarNotHere">
+                        <span class="confirm__title">${options.title}</span>
+                        <button class="confirm__close">&times;</button>
+                    </div>
+                    <div class="confirm__contentNotHere">${options.message}</div>
+                </div>
+            </div>
+        `;
+
+        const template = document.createElement('template');
+        template.innerHTML = html;
+
+        // Elements
+        const confirmEl = template.content.querySelector('.confirm');
+        const btnClose = template.content.querySelector('.confirm__close');
+
+        confirmEl.addEventListener('click', e => {
+            if (e.target === confirmEl) {
+                options.oncancel();
+                this._close(confirmEl);
+            }
+        });
+
+        [btnClose].forEach(el => {
+            el.addEventListener('click', () => {
+                options.oncancel();
+                el.disabled = true;
+                this._close(confirmEl);
+            });
+        });
+
+        document.body.appendChild(template.content);
+    },
+
+    _close(confirmEl) {
+        confirmEl.classList.add('confirm--close');
+
+        confirmEl.addEventListener('animationend', () => {
+            document.body.removeChild(confirmEl);
+        });
+    }
+};
+function ShowUserAdditionOption() {
+    UserAdditionOption.open({
+        message: ShowUserAdditionOptionPage(),
+    })
+}
+function ShowUserAdditionOptionPage() {
+    
+    AdditionPage = "<div class='center'>"
+
+    AdditionPage += "<button onclick='DownloadUserCSV()' class='UserDownload' style='margin:10px'>ดาวโหลดข้อมูลผู้เข้าร่วม</class=>";
+
+    AdditionPage += "</div>"
+
+    return AdditionPage;
+}
+function DownloadUserCSV(){
+    const titleKeys = Object.keys(datauser[0])
+    const refinedData = []
+    refinedData.push(titleKeys)
+
+    datauser.forEach(item => {
+        refinedData.push(Object.values(item))
+    })
+
+    let csvContent = ''
+
+    refinedData.forEach(row => {
+        csvContent += row.join(',') + '\n'
+    })
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8,' })
+    const objUrl = URL.createObjectURL(blob)
+
+    const link = document.createElement('a')
+    link.setAttribute('href', objUrl)
+    link.setAttribute('download', 'LuckyDrawUser.csv')
+    link.textContent = 'Click to Download'
+
+    document.querySelector('body').append(link)
+
+    link.click();
+    document.body.removeChild(link);
+}
+
+
 async function getStatus(){
     const res = await fetch( url + '/getStatusForm', {
         method: 'GET',
