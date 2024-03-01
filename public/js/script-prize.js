@@ -1,5 +1,10 @@
 var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
+function DeleteDBAllPrizes(){
+    for(let i = 0; i < prize_id.length;i++){
+        deletedbprize(prize_id[i])
+    }
+}
 
 const PrizeAdditionOption = {
     open(options) {
@@ -59,44 +64,93 @@ function ShowPrizeAdditionOption() {
     })
 }
 function ShowPrizeAdditionOptionPage() {
-    AdditionPage = "<div class='center'>"
+    AdditionPage = ''
+    AdditionPage += "<div style='margin:10px;font-size:25px'>ลบข้อมูลของรางวัลทั้งหมด<i class='fa fa-trash' style='font-size:30px;margin:10px'></i></div>"
+    AdditionPage += "<button onclick='DeleteAllPrize()' class='UserDelete'>ลบข้อมูลทั้งหมด</button>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>คำเตือน: !! กรณีที่มีการสุ่มผู้โชคดีไปแล้ว</div>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>ต้องลบข้อมูลผู้เข้าร่วมทั้งหมดก่อน</div>"
 
-    AdditionPage += "</div>"
     return AdditionPage;
 }
+function DeleteAllPrize() {
+    Swal.fire({
+        title: "แน่ใจหรือไม่",
+        text: "ลบข้อมูลของรางวัลทั้งหมด",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#4db17f",
+        confirmButtonText: "ลบข้อมูลทั้งหมด",
+        cancelButtonText: "ยกเลิก",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            check = false;
+            for (let i = 0; i < draw.length; i++) {
+                if (draw[i] > 0) {
+                    check = true;
+                }
+            }
+            if (check == false) {
+                DeleteDBAllPrizes()
+                Swal.fire({
+                    confirmButtonText: "รับทราบ",
+                    title: "ลบเรียบร้อยแล้ว",
+                    text: "ตอนนี้ข้อมูลของรางวัลได้ถูกลบทั้งหมดแล้ว",
+                    icon: "success"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        setTimeout(function () {
+                            window.location.href = '/listprize';
+                        }, 600);
+                    }
+                });
+            } else {
+                Swal.fire({
+                    confirmButtonText: "รับทราบ",
+                    icon: "error",
+                    title: "ลบไม่ได้",
+                    text: "เนื่องจากได้มีการสุ่มผู้โชคดีไปแล้ว จึงไม่สามารถลบข้อมูลได้ กรุณาลบข้อมูลผู้เข้าร่วมทั้งหมดก่อน",
+                });
+            }
+        }
+    })
 
-async function getStatus(){
-    const res = await fetch( url + '/getStatusForm', {
+}
+
+
+
+async function getStatus() {
+    const res = await fetch(url + '/getStatusForm', {
         method: 'GET',
     })
     dataStatus = await res.json();
-    if(dataStatus.Time>0){
+    if (dataStatus.Time > 0) {
         Timer(dataStatus.Time)
     }
 }
 getStatus()
 
-function updateStatusForm(StatusForm){
-    fetch( url + '/UpdateStatusForm', {
+function updateStatusForm(StatusForm) {
+    fetch(url + '/UpdateStatusForm', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({Status: StatusForm})
+        body: JSON.stringify({ Status: StatusForm })
     })
 }
-function updateStatusTime(StatusTime){
-    fetch( url + '/UpdateTime', {
+function updateStatusTime(StatusTime) {
+    fetch(url + '/UpdateTime', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({time: StatusTime})
+        body: JSON.stringify({ time: StatusTime })
     })
 }
 
 function Timer(remaining) {
-    if(remaining==0){
+    if (remaining == 0) {
         updateStatusForm(0);
     }
 
@@ -124,7 +178,7 @@ function Timer(remaining) {
             Timer(remaining);
         }, 1000);
         return;
-    }else{
+    } else {
         document.getElementById("timer3").innerHTML = "";
     }
 }
@@ -174,51 +228,52 @@ function SearchTable() {
 
 
 
-function postprize(nameprizeadd,countprizeadd) {
-    fetch( url + '/addnewprize', {
+function postprize(nameprizeadd, countprizeadd) {
+    fetch(url + '/addnewprize', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ nameprize: nameprizeadd, countprize: countprizeadd})
+        body: JSON.stringify({ nameprize: nameprizeadd, countprize: countprizeadd })
     });
 }
-function deletedbprize(iddelete){
-    fetch( url + '/deletenewprize', {
+function deletedbprize(iddelete) {
+    fetch(url + '/deletenewprize', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({prize_id: iddelete})
+        body: JSON.stringify({ prize_id: iddelete })
     })
 }
-function updateNowRandom(id, Nowrandomprize){
-    fetch( url + '/updatenowrandom', {
+function updateNowRandom(id, Nowrandomprize) {
+    fetch(url + '/updatenowrandom', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({Now_id: id, Nowprize: Nowrandomprize})
+        body: JSON.stringify({ Now_id: id, Nowprize: Nowrandomprize })
     })
 }
-function updatedbuserprize(id, getprizenow){
-    fetch( url + '/updatenewprizeuser', {
+function updatedbuserprize(id, getprizenow) {
+    fetch(url + '/updatenewprizeuser', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({user_id: id, getprize : getprizenow})
+        body: JSON.stringify({ user_id: id, getprize: getprizenow })
     })
 }
 
 function AddPrize() {
     let name = document.getElementById("add-prize").value;
     let num = document.getElementById("add-numprize").value;
-    if(num.length == 0 && name.length == 0){
+    if (num.length == 0 && name.length == 0) {
+        
         alert("กรุณาใส่ชื่อ และจำนวนของรางวัล")
-    }else if(num.length == 0){
+    } else if (num.length == 0) {
         alert("กรุณาใส่จำนวนของรางวัล")
-    }else if (name.length > 0) {
+    } else if (name.length > 0) {
         Samecheck = false;
         for (let i = 0; i < prize.length; i++) {
             if (name == prize[i]) {
@@ -229,13 +284,13 @@ function AddPrize() {
         if (Samecheck == true) {
             alert("ชื่อของรางวัลซ้ำ กรุณาใส่ชื่อของรางวัลใหม่");
         } else {
-            postprize(name,num);
+            postprize(name, num);
 
             document.getElementById("add-prize").value = "";
             document.getElementById("add-numprize").value = 1;
 
-            setTimeout(function() {
-                window.location.href='/listprize';
+            setTimeout(function () {
+                window.location.href = '/listprize';
             }, 600);
         }
     } else {
@@ -244,8 +299,8 @@ function AddPrize() {
 }
 function DeletePrize(id) {
     deletedbprize(id);
-    setTimeout(function() {
-        window.location.href='/listprize';
+    setTimeout(function () {
+        window.location.href = '/listprize';
     }, 600);
 }
 function SearchPrizeNow() {
@@ -282,12 +337,12 @@ function AddNewPrize() {
     y.style.display = "none";
     y2.style.display = "none";
 }
-function Edit_button(id){
+function Edit_button(id) {
     var buttonsContainer = document.getElementById('buttons_' + id);
-    buttonsContainer.innerHTML = '<button class="save-button" onclick="Save_button('+id+')">บันทึก</button>'+
-                                '<button class="delete-button" onclick="DeletePrize('+id+')">ลบ</button>'+
-                                '<div><button class="cancel-button" onclick="Cancel_button('+id+')">ยกเลิก</button></div>';
-    
+    buttonsContainer.innerHTML = '<button class="save-button" onclick="Save_button(' + id + ')">บันทึก</button>' +
+        '<button class="delete-button" onclick="DeletePrize(' + id + ')">ลบ</button>' +
+        '<div><button class="cancel-button" onclick="Cancel_button(' + id + ')">ยกเลิก</button></div>';
+
     document.getElementById('Nameprize_' + id).contentEditable = true;
     document.getElementById('Countprize_' + id).contentEditable = true;
 
@@ -298,38 +353,38 @@ function Edit_button(id){
     document.getElementById('Nameprize_' + id).style.border = "black solid";
     document.getElementById('Countprize_' + id).style.border = "black solid";
 
-    $('#Countprize_' + id).keypress(function(e) {
-        if (isNaN(String.fromCharCode(e.which)) || e.keyCode == 32 || e.keyCode == 13){
+    $('#Countprize_' + id).keypress(function (e) {
+        if (isNaN(String.fromCharCode(e.which)) || e.keyCode == 32 || e.keyCode == 13) {
             e.preventDefault();
         }
     });
-    $('#Countprize_' + id).on('keydown paste', function(event) {
-        if($(this).text().length === 4 && event.keyCode != 8) { 
+    $('#Countprize_' + id).on('keydown paste', function (event) {
+        if ($(this).text().length === 4 && event.keyCode != 8) {
             event.preventDefault();
         }
     });
-    $('#Nameprize_' + id).keypress(function(e) {
-        if (e.keyCode == 13){
+    $('#Nameprize_' + id).keypress(function (e) {
+        if (e.keyCode == 13) {
             e.preventDefault();
         }
     });
 }
-function Save_button(id){
+function Save_button(id) {
     var buttonsContainer = document.getElementById('buttons_' + id);
-    
+
     nameprizeupdate = document.getElementById('Nameprize_' + id).innerHTML;
     countprizeupdate = parseInt(document.getElementById('Countprize_' + id).innerHTML);
     drawprizeupdate = parseInt(document.getElementById('Drawprize_' + id).innerHTML);
 
-    for(let i = 0; i < prize.length;i++){
-        if(prize_id[i] == id){
-            for(let j = 0; j < NowRandom_id.length;j++){
-                if(prize[i]==NowPrize[j]){
+    for (let i = 0; i < prize.length; i++) {
+        if (prize_id[i] == id) {
+            for (let j = 0; j < NowRandom_id.length; j++) {
+                if (prize[i] == NowPrize[j]) {
                     updateNowRandom(NowRandom_id[j], nameprizeupdate);
                 }
             }
-            for(let j = 0; j < user_id.length;j++){
-                if(Getprize[j] == prize[i]){
+            for (let j = 0; j < user_id.length; j++) {
+                if (Getprize[j] == prize[i]) {
                     updatedbuserprize(user_id[j], nameprizeupdate);
                 }
             }
@@ -337,11 +392,11 @@ function Save_button(id){
     }
 
 
-    for(let i = 0; i < prize_id.length;i++){
-        if(prize_id[i] == id){
-            if(countprizeupdate <= 0){
+    for (let i = 0; i < prize_id.length; i++) {
+        if (prize_id[i] == id) {
+            if (countprizeupdate <= 0) {
                 alert("กรุณาใส่จำนวนของรางวัลอีกครั้ง")
-            }else if(draw[i]<=countprizeupdate){
+            } else if (draw[i] <= countprizeupdate) {
                 updatedbprize(id, nameprizeupdate, countprizeupdate, drawprizeupdate);
                 document.getElementById('Nameprize_' + id).contentEditable = false;
                 document.getElementById('Countprize_' + id).contentEditable = false;
@@ -351,22 +406,22 @@ function Save_button(id){
                 document.getElementById('Countprize_' + id).style.color = "white";
                 document.getElementById('Nameprize_' + id).style.border = "none";
                 document.getElementById('Countprize_' + id).style.border = "none";
-                buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button('+id+')" type="button">แก้ไข</button>';
-            }else if(draw[i]>countprizeupdate){
+                buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button(' + id + ')" type="button">แก้ไข</button>';
+            } else if (draw[i] > countprizeupdate) {
                 alert("มีคนได้ของรางวัลนี้ไปแล้ว ไม่สามารถลดของรางวัลได้")
             }
         }
     }
 }
-function Cancel_button(id){
-    for(let i = 0; i < prize_id.length;i++){
-        if(prize_id[i] == id){
+function Cancel_button(id) {
+    for (let i = 0; i < prize_id.length; i++) {
+        if (prize_id[i] == id) {
             document.getElementById('Nameprize_' + id).innerHTML = prize[i];
             document.getElementById('Countprize_' + id).innerHTML = countprize[i];
         }
     }
     var buttonsContainer = document.getElementById('buttons_' + id);
-    buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button('+id+')" type="button">แก้ไข</button>';
+    buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button(' + id + ')" type="button">แก้ไข</button>';
     document.getElementById('Nameprize_' + id).contentEditable = false;
     document.getElementById('Countprize_' + id).contentEditable = false;
 

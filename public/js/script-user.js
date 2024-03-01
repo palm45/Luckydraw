@@ -1,5 +1,57 @@
 var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
+
+function deletedbuser(user_id){
+    fetch( url + '/deleteuser', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({user_id: user_id})
+    })
+}
+function deletedbnowrandom(nowrandom_id){
+    fetch( url + '/deletenowrandom', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({nowrandom_id: nowrandom_id})
+    })
+}
+function updatedbdefultdrawprize(idupdate){
+    fetch( url + '/updatedefaultdrawprize', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({prize_id: idupdate})
+    })
+}
+
+
+function UpdateDBDefaultDrawPrize(){
+    for(let i=0;i<prize_id.length;i++){
+        updatedbdefultdrawprize(prize_id[i])
+    }
+}
+function DeleteDBAllUser(){
+    for(let i=0;i<user_id.length;i++){
+        deletedbuser(user_id[i])
+    }
+}
+function DeleteDBAllNowRandom(){
+    for(let i=0;i<NowRandom_id.length;i++){
+        deletedbnowrandom(NowRandom_id[i])
+    }
+}
+function DeleteDBAllNowNotHere(){
+    for(let i = 0; i <NowNotHere_id.length;i++){
+        deletedbnownothere(NowNotHere_id[i])
+    }
+}
+
+
 const UserAdditionOption = {
     open(options) {
         options = Object.assign({}, {
@@ -59,11 +111,11 @@ function ShowUserAdditionOption() {
 }
 function ShowUserAdditionOptionPage() {
 
-    AdditionPage = "<div class='center'>"
-
-    AdditionPage += "<button id='exportExcel' onclick='DownloadUserXLSX()' class='UserDownload' style='margin:10px'>ดาวโหลดข้อมูลผู้เข้าร่วม</class=>";
-
-    AdditionPage += "</div>"
+    AdditionPage = "<div class='center' style='margin:10px;font-size:25px'>ดาวน์โหลดข้อมูลผู้เข้าร่วมทั้งหมด<i class='fa fa-download' style='font-size:30px;margin:10px'></i></div>"
+    AdditionPage += "<button onclick='DownloadUserXLSX()' class='UserDownload'>ดาวน์โหลด Excel</button>";
+    AdditionPage += "<div style='margin:10px;font-size:25px'>ลบข้อมูลผู้เข้าร่วมทั้งหมด<i class='fa fa-trash' style='font-size:30px;margin:10px'></i></div>"
+    AdditionPage += "<button onclick='DeleteAllUser()' class='UserDelete'>ลบข้อมูลทั้งหมด</button>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>คำเตือน: !! ข้อมูลผู้เข้าร่วมจะหายไปทั้งหมด</div>"
 
     return AdditionPage;
 }
@@ -103,6 +155,38 @@ async function DownloadUserXLSX() {
     XLSX.utils.book_append_sheet(workbook, worksheet, "LuckyDrawUser");
 
     XLSX.writeFile(workbook, "LuckyDrawUser.xlsx", { compression: true });
+}
+function DeleteAllUser(){
+    Swal.fire({
+        title: "แน่ใจหรือไม่",
+        text: "ลบข้อมูลผู้เข้าร่วมทั้งหมด",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#4db17f",
+        confirmButtonText: "ลบข้อมูลทั้งหมด",
+        cancelButtonText: "ยกเลิก",
+      }).then((result) => {
+        if (result.isConfirmed) {
+            UpdateDBDefaultDrawPrize()
+            DeleteDBAllNowRandom()
+            DeleteDBAllNowNotHere()
+            DeleteDBAllUser()
+            
+            Swal.fire({
+                confirmButtonText: "รับทราบ",
+                title: "ลบเรียบร้อยแล้ว",
+                text: "ตอนนี้ข้อมูลผู้เข้าร่วมได้ถูกลบทั้งหมดแล้ว",
+                icon: "success"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setTimeout(function() {
+                        window.location.href='/listuser';
+                    }, 600);
+                }
+            });
+        }
+    });
 }
 
 

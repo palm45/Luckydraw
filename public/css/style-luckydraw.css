@@ -381,6 +381,25 @@ i.fa{
 .Addition_option:hover{
     background-color:#c1c1c1
 }
+.UserDownload{
+    padding:10px;
+    margin:5px;
+    border-radius:10px;
+    background-color:#3e8c65
+}
+.UserDownload:hover{
+    background-color:#4db17f;
+}
+.UserDelete{
+    padding:10px;
+    margin:5px;
+    border-radius:10px;
+    background-color:rgb(227, 62, 62)
+}
+.UserDelete:hover{
+    background-color:rgb(255, 86, 86)
+}
+
 
 .search-button{
     font-size: 18px;

@@ -183,6 +183,7 @@ app.get('/listprize', (req, res) => {
     })
 });
 
+
 app.get('/setotp', (req, res) => {
     res.render('setotp');
 });
@@ -308,6 +309,11 @@ app.put('/updatenewprizeuser', (req, res) => {
     update(ref(database), updateuserprize)
     db.query(sql);
 })
+app.delete('/deleteuser', (req, res)=>{
+    const { user_id } = req.body;
+
+    remove(ref(database, "users/" + (user_id-1) ));
+})
 
 
 app.post('/addnewprize', (req, res) => {
@@ -375,6 +381,15 @@ app.get('/getnewprize', (req, res) => {
 app.delete('/deletenewprize', (req, res) => {
     const { prize_id } = req.body
     remove(ref(database, "prizes/" + (prize_id-1) ));
+})
+app.put('/updatedefaultdrawprize', (req, res) => {
+    const { prize_id } = req.body
+    
+    const updateprize = {};
+
+    updateprize['prizes/'+ (prize_id-1) + '/Draw'] = 0;
+
+    update(ref(database), updateprize)
 })
 app.put('/updatenewprize', (req, res) => {
     const { prize_id, nameprize, countprize, drawprize } = req.body;
@@ -457,6 +472,11 @@ app.put('/updatenowrandom', (req, res) => {
 
     update(ref(database), updatenowprize)
 })
+app.delete('/deletenowrandom', (req, res) => {
+    const { nowrandom_id } = req.body;
+
+    remove(ref(database, "nowrandom/" + (nowrandom_id-1) ))
+})
 
 
 app.post('/addnewnownothere', (req, res) => {
@@ -521,5 +541,6 @@ app.get('/getnewnownothere', (req, res) => {
 })
 app.delete('/deletenewnothere', (req, res) => {
     const { codenothere_id } = req.body;
+    
     remove(ref(database, "nownothere/" + (codenothere_id-1) ));
 })
