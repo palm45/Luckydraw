@@ -58,77 +58,87 @@ function ShowUserAdditionOption() {
     })
 }
 function ShowUserAdditionOptionPage() {
-    
+
     AdditionPage = "<div class='center'>"
 
-    AdditionPage += "<button onclick='DownloadUserCSV()' class='UserDownload' style='margin:10px'>ดาวโหลดข้อมูลผู้เข้าร่วม</class=>";
+    AdditionPage += "<button id='exportExcel' onclick='DownloadUserXLSX()' class='UserDownload' style='margin:10px'>ดาวโหลดข้อมูลผู้เข้าร่วม</class=>";
 
     AdditionPage += "</div>"
 
     return AdditionPage;
 }
-function DownloadUserCSV(){
-    const titleKeys = Object.keys(datauser[0])
-    const refinedData = []
-    refinedData.push(titleKeys)
+async function DownloadUserXLSX() {
+    var userlist = []
+    var worksheetCol = [
+        {wch: 7},
+        {wch: 15},
+        {wch: 15},
+        {wch: 10},
+        {wch: 27},
+        {wch: 8},
+        {wch: 15},
+        {wch: 7}
+    ]
 
-    datauser.forEach(item => {
-        refinedData.push(Object.values(item))
-    })
+    for(let i=0;i<datauser.length;i++){
+        userlist.push({
+            User_id: datauser[i].User_id,
+            Name: datauser[i].Name,
+            Surname: datauser[i].Surname,
+            Phone: datauser[i].Phone,
+            Email_user: datauser[i].Email_user,
+            CodeUser: datauser[i].CodeUser,
+            Getprize: datauser[i].Getprize,
+            UserGet: datauser[i].UserGet
+        })
+    }
 
-    let csvContent = ''
+    const XLSX = await import("https://cdn.sheetjs.com/xlsx-0.19.2/package/xlsx.mjs");
 
-    refinedData.forEach(row => {
-        csvContent += row.join(',') + '\n'
-    })
+    const worksheet = XLSX.utils.json_to_sheet(userlist)
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8,' })
-    const objUrl = URL.createObjectURL(blob)
+    worksheet['!cols'] = worksheetCol;
 
-    const link = document.createElement('a')
-    link.setAttribute('href', objUrl)
-    link.setAttribute('download', 'LuckyDrawUser.csv')
-    link.textContent = 'Click to Download'
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "LuckyDrawUser");
 
-    document.querySelector('body').append(link)
-
-    link.click();
-    document.body.removeChild(link);
+    XLSX.writeFile(workbook, "LuckyDrawUser.xlsx", { compression: true });
 }
 
 
-async function getStatus(){
-    const res = await fetch( url + '/getStatusForm', {
+
+async function getStatus() {
+    const res = await fetch(url + '/getStatusForm', {
         method: 'GET',
     })
     dataStatus = await res.json();
-    if(dataStatus.Time>0){
+    if (dataStatus.Time > 0) {
         Timer(dataStatus.Time)
     }
 }
 getStatus()
 
-function updateStatusForm(StatusForm){
-    fetch( url + '/UpdateStatusForm', {
+function updateStatusForm(StatusForm) {
+    fetch(url + '/UpdateStatusForm', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({Status: StatusForm})
+        body: JSON.stringify({ Status: StatusForm })
     })
 }
-function updateStatusTime(StatusTime){
-    fetch( url + '/UpdateTime', {
+function updateStatusTime(StatusTime) {
+    fetch(url + '/UpdateTime', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({time: StatusTime})
+        body: JSON.stringify({ time: StatusTime })
     })
 }
 
 function Timer(remaining) {
-    if(remaining==0){
+    if (remaining == 0) {
         updateStatusForm(0);
     }
 
@@ -156,7 +166,7 @@ function Timer(remaining) {
             Timer(remaining);
         }, 1000);
         return;
-    }else{
+    } else {
         document.getElementById("timer2").innerHTML = "";
     }
 }
@@ -261,7 +271,7 @@ function SearchPrize(seach) {
                 }
             }
         }
-    } else{
+    } else {
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[2];
             if (td) {
@@ -276,27 +286,27 @@ function SearchPrize(seach) {
     }
 }
 
-function CensorPhone(phone){
+function CensorPhone(phone) {
     PhoneNew = "";
-    for(let i = 0; i < phone.length; i++){
-        if(i%3==0 && i!=0 && i<7){
+    for (let i = 0; i < phone.length; i++) {
+        if (i % 3 == 0 && i != 0 && i < 7) {
             PhoneNew += '-'
         }
-        if(i<6){
+        if (i < 6) {
             PhoneNew += 'x'
-        }else{
+        } else {
             PhoneNew += phone.charAt(i);
         }
     }
     document.write(PhoneNew);
 }
 
-function ShowPrizeUser(nameprize){
-    names="";
-    if(nameprize.length==0){
-        names="-"
-    }else{
-        names=nameprize;
+function ShowPrizeUser(nameprize) {
+    names = "";
+    if (nameprize.length == 0) {
+        names = "-"
+    } else {
+        names = nameprize;
     }
     document.write(names);
 }
