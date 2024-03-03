@@ -269,9 +269,8 @@ function AddPrize() {
     let name = document.getElementById("add-prize").value;
     let num = document.getElementById("add-numprize").value;
     if (num.length == 0 && name.length == 0) {
-        
         alert("กรุณาใส่ชื่อ และจำนวนของรางวัล")
-    } else if (num.length == 0) {
+    } else if (num.length == 0 || num == 0) {
         alert("กรุณาใส่จำนวนของรางวัล")
     } else if (name.length > 0) {
         Samecheck = false;

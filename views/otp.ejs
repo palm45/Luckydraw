@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/css/style-otp.css">
     <script src="/js/script-otp.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Lucky Draw OTP</title>
 </head>
 
@@ -41,7 +42,7 @@
             </div>
             <div class="spacemini"></div>
             <div class="center">
-                <button onclick="SendEmail()" class="button-OTP">Send OTP</button>
+                <button id="button-OTP" class="button-OTP" onclick="SendEmail()" >Send OTP</button>
             </div>
 
             <div class="space"></div>
@@ -65,15 +66,22 @@
                             required />
                     </div>
                 </div>
+            </form>
                 <div class="center">
                     <div class="time">Timer left = <span id="timer">0:00</span></div>
                 </div>
+                <div class="center">
+                    <div class="OTP">
+                        <button id="resend" class="resend" onclick="resend()"><span style="font-size:25px;font-weight:900" class=reload>&#x27F3;</span></button>
+                        ส่ง OTP อีกครั้ง
+                    </div>
+                </div>
                 <div class="spacemini"></div>
                 <div class="center">
-                    <button type="submit" class="button-Verify" onclick="VerifyOTP()">Verify</button>
+                    <button id="button-Verify" type="submit" class="button-Verify" onclick="VerifyOTP()">Verify</button>
                 </div>
                 <div class="space"></div>
-            </form>
+            
         </div>
     </div>
 

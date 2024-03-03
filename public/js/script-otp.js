@@ -36,24 +36,25 @@ function input() {
 }
 
 datanew = [];
-var names = "";
-var surnames = "";
-var phone = "";
-var email = "";
 var codeuser = "";
 var Verifyotp = "";
 
+var resendname = "";
+var resendsurnames = "";
+var resendphone = "";
+var resendemail = "";
+
 function postnewdata() {
-    fetch( url + '/addnewuser', {
+    fetch(url + '/addnewuser', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name: names, surname: surnames, phone: phone, email: email, codeuser: codeuser })
+        body: JSON.stringify({ name: resendname, surname: resendsurnames, phone: resendphone, email: resendemail, codeuser: codeuser })
     });
 }
 async function getnewdata() {
-    const res = await fetch( url + '/getnewuser', {
+    const res = await fetch(url + '/getnewuser', {
         method: 'GET',
     })
     datanew = await res.json();
@@ -97,11 +98,12 @@ function RandomOTP() {
 
 CheckVerifyOTP = false;
 function SendEmail() {
-    document.getElementsByClassName('button-OTP')[0].disabled = true;
+    document.getElementById("button-OTP").style.pointerEvents = "none"
     names = document.getElementById("name").value;
     surnames = document.getElementById("surname").value;
     phone = document.getElementById("phone").value;
     email = document.getElementById("email").value;
+
     var errormessage = "";
     var samemessage = "";
 
@@ -153,11 +155,11 @@ function SendEmail() {
         }
         if (email.includes('@') && email.includes('.com') && errormessage.length == 0 && CheckEmail == false) {
             if (CheckSamename == false && CheckPhone == false) {
-                body = '<div style="text-align: center; ' 
-                        + 'height:200px; width:200px;">' + 
-                        '<h1 style="color:black;">รหัส OTP</h1>' + 
-                        '<div style="font-size: 35px;">'+ Verifyotp +'</div>'
-                        + '</div>';
+                body = '<div style="text-align: center; '
+                    + 'height:200px; width:200px;">' +
+                    '<h1 style="color:black;">รหัส OTP</h1>' +
+                    '<div style="font-size: 35px;">' + Verifyotp + '</div>'
+                    + '</div>';
                 Email.send({
                     Host: "smtp.elasticemail.com",
                     Username: "LuckyDraw@gmail.com",
@@ -169,8 +171,17 @@ function SendEmail() {
                 }).then(
                     message => {
                         if (message === "OK") {
-                            alert("ส่ง OTP เรียบร้อย โปรดตรวจสอบใน email");
+                            Swal.fire({
+                                confirmButtonText: "รับทราบ",
+                                title: "ส่งรหัส OTP เรียบร้อย",
+                                html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>(ถ้าไม่เจออาจจะอยู่ใน <a style='font-weight: bold'>จดหมายขยะ</a> )",
+                                icon: "success"
+                            })
                             Timer(180);
+                            resendname = names;
+                            resendsurnames = surnames;
+                            resendphone = phone;
+                            resendemail = email;
                             document.getElementById("name").value = "";
                             document.getElementById("surname").value = "";
                             document.getElementById("phone").value = "";
@@ -204,13 +215,13 @@ function SendEmail() {
 
         if (errormessage.length > 0 && samemessage.length > 0) {
             alert(errormessage + "ให้ถูกต้อง" + " และ\n" + samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
-            document.getElementsByClassName('button-OTP')[0].disabled = false;
+            document.getElementById("button-OTP").style.pointerEvents = "auto"
         } else if (errormessage.length > 0 && samemessage.length == 0) {
             alert(errormessage + "ให้ถูกต้อง");
-            document.getElementsByClassName('button-OTP')[0].disabled = false;
+            document.getElementById("button-OTP").style.pointerEvents = "auto"
         } else if (errormessage.length == 0 && samemessage.length > 0) {
             alert(samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
-            document.getElementsByClassName('button-OTP')[0].disabled = false;
+            document.getElementById("button-OTP").style.pointerEvents = "auto"
         }
     } else {
         alert("คุณได้รับ Code ของรางวัลแล้ว");
@@ -223,28 +234,33 @@ function VerifyOTP() {
     var input4 = document.getElementById("input4").value;
 
     var OTP = input1 + input2 + input3 + input4;
-    
+
     if (OTP == Verifyotp && Verifyotp != "") {
         codeuser = RandomCodeUser();
         //body = codeuser;
-        body = '<div style="text-align: center; ' 
-                + 'height:200px; width:200px;">' + 
-                '<h1 style="color:black;">รหัส LuckyDraw</h1>' + 
-                '<div style="font-size: 35px;">'+ codeuser +'</div>'
-                + '</div>';
+        body = '<div style="text-align: center; '
+            + 'height:200px; width:200px;">' +
+            '<h1 style="color:black;">รหัส LuckyDraw</h1>' +
+            '<div style="font-size: 35px;">' + codeuser + '</div>'
+            + '</div>';
         Email.send({
             Host: "smtp.elasticemail.com",
             Username: "LuckyDraw@gmail.com",
             Password: "E4940A7C2D5FD3437AB28CD7DCE9948C56DB",
-            To: email,
+            To: resendemail,
             From: "akkhraviphanon_p@silpakorn.edu",
             Subject: "Code LuckyDraw",
             Body: body
         }).then(
             message => {
                 if (message === "OK") {
-                    alert("คุณได้รับ Code เข้าร่วม Lucky Draw แล้ว โปรดตรวจสอบใน email");
-                    document.getElementsByClassName('button-Verify')[0].disabled = true;
+                    Swal.fire({
+                        confirmButtonText: "รับทราบ",
+                        title: "ส่ง Code เข้าร่วม Lucky Draw เรียบร้อย",
+                        html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>(ถ้าไม่เจออาจจะอยู่ใน <a style='font-weight: bold'>จดหมายขยะ</a> )",
+                        icon: "success"
+                    })
+                    document.getElementById("button-Verify").style.pointerEvents = "none"
                 }
             }
         );
@@ -286,8 +302,45 @@ function Timer(remaining) {
     }
 
     if (Verifyotp != "" && CheckVerifyOTP == false) {
-        document.getElementsByClassName('button-OTP')[0].disabled = false;
+        document.getElementById("button-OTP").style.pointerEvents = "auto"
         alert('หมดเวลายืนยันตัวตน \nกรุณากรอกข้อมูลยืนยันตัวตนใหม่');
         Verifyotp = "";
+        document.getElementById("resend").style.pointerEvents = "auto"
     }
+}
+function resend() {
+    NewOTP = RandomOTP();
+    Verifyotp = NewOTP;
+    body = '<div style="text-align: center; '
+        + 'height:200px; width:200px;">' +
+        '<h1 style="color:black;">รหัส OTP</h1>' +
+        '<div style="font-size: 35px;">' + Verifyotp + '</div>'
+        + '</div>';
+    Email.send({
+        Host: "smtp.elasticemail.com",
+        Username: "LuckyDraw@gmail.com",
+        Password: "E4940A7C2D5FD3437AB28CD7DCE9948C56DB",
+        To: resendemail,
+        From: "akkhraviphanon_p@silpakorn.edu",
+        Subject: "OTP LuckyDraw",
+        Body: body
+    }).then(
+        message => {
+            if (message === "OK") {
+                Swal.fire({
+                    confirmButtonText: "รับทราบ",
+                    title: "ส่งรหัส OTP เรียบร้อย",
+                    html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>(ถ้าไม่เจออาจจะอยู่ใน <a style='font-weight: bold'>จดหมายขยะ</a> )",
+                    icon: "success"
+                })
+                Timer(180);
+                document.getElementById("name").value = "";
+                document.getElementById("surname").value = "";
+                document.getElementById("phone").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("button-OTP").style.pointerEvents = "none"
+                document.getElementById("resend").style.pointerEvents = "none"
+            }
+        }
+    )
 }

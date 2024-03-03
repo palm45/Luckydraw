@@ -53,7 +53,7 @@ function ChangeOpenForm(){
         cancel = true;
         time = 0;
         updateStatusTime(0);
-        document.getElementById('timesetup').disabled = false;
+        document.getElementById("timesetup").style.pointerEvents = "auto"
         if(time==0){
             document.getElementById('timer').innerHTML = "0:00:00"
         }
@@ -65,6 +65,7 @@ function ChangeOpenForm(){
         }
     }
 }
+
 
 function set_time() {
     var val3 = document.getElementById("time-qrcode3").value;
@@ -158,9 +159,9 @@ function Timer(remaining) {
     if(remaining==0){
         FormNow(false);
         updateStatusForm(0);
-        document.getElementById('timesetup').disabled = false;
+        document.getElementById("timesetup").style.pointerEvents = "auto"
     }else if(remaining>0){
-        document.getElementById('timesetup').disabled = true;
+        document.getElementById("timesetup").style.pointerEvents = "none"
     }
 
     updateStatusTime(remaining);
@@ -197,7 +198,7 @@ function cancelTimer() {
         time = 0;
         FormNow(false);
         updateStatusForm(0);
-        document.getElementById('timesetup').disabled = false;
+        document.getElementById("timesetup").style.pointerEvents = "auto"
         cancel = true;
         document.getElementById('timer').innerHTML = '0:00:00' ;
     }

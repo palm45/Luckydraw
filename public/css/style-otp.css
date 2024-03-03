@@ -54,6 +54,9 @@ body {
     width: 150px;
     border-radius: 20px;
 }
+.button-OTP:hover{
+    background-color:rgb(12, 90, 32)
+}
 .button-Verify{
     background-color:#193b2a;
     color: #fff;
@@ -63,6 +66,10 @@ body {
     width: 150px;
     border-radius: 20px;
 }
+.button-Verify:hover{
+    background-color:rgb(12, 90, 32)
+}
+
 
 .space{
     padding: 5%;
@@ -109,4 +116,16 @@ body {
 .time{
     font-size: 25px;
     padding: 15px;
+}
+.resend{
+    background-color:rgb(235, 235, 235);
+    border-radius:10px;
+    border:none;
+    pointer-events: none;
+}
+.resend:hover{
+    background-color:rgb(196, 196, 196)
+}
+.OTP{
+    font-size: 20px
 }

@@ -387,11 +387,11 @@ function ChangeModePrize() {
     ChangePrizeMode = document.querySelector('#changemode').checked;
     if (ChangePrizeMode == true) {
         document.getElementById('randomprize').innerHTML = SelectPrizeRandom();
-        document.getElementsByClassName('random-button')[0].disabled = true;
+        document.getElementById("random-button").style.pointerEvents = "none"
         document.getElementById('Mode').innerHTML = "เลือกรางวัล";
         console.log(document.querySelector('#changemode').checked);
     }else if(ChangePrizeMode == false){
-        document.getElementsByClassName('random-button')[0].disabled = false;
+        document.getElementById("random-button").style.pointerEvents = "auto"
         document.getElementById('Mode').innerHTML = "สุ่มรางวัล";
 
         check = 0;
@@ -424,9 +424,9 @@ function SelectPrizeRandom() {
 }
 function SelectTypePrizeRandom(i) {
     if (i == -1) {
-        document.getElementsByClassName('random-button')[0].disabled = true;
+        document.getElementById("random-button").style.pointerEvents = "none"
     } else {
-        document.getElementsByClassName('random-button')[0].disabled = false;
+        document.getElementById("random-button").style.pointerEvents = "auto"
         Prize = i;
     }
 }
@@ -434,7 +434,7 @@ function getrandom() {
     let RandomPrizeNow = '';
     let RandomCodeNow = '';
     document.getElementsByClassName('random-button')[0].innerHTML = 'รอ...';
-    document.getElementsByClassName('random-button')[0].disabled = true;
+    document.getElementById("random-button").style.pointerEvents = "none"
     document.getElementById('changemode').setAttribute('disabled', 'disabled');
 
     if (ChangePrizeMode == false) {
@@ -457,7 +457,7 @@ function getrandom() {
         }
         clearInterval(intervalCode);
         document.getElementsByClassName('random-button')[0].innerHTML = 'สุ่มรางวัล';
-        document.getElementsByClassName('random-button')[0].disabled = false;
+        document.getElementById("random-button").style.pointerEvents = "auto"
         document.getElementById('changemode').removeAttribute('disabled');
         Confirm.open({
             title: 'ยินดีด้วย!!',
@@ -541,7 +541,7 @@ function getrandom() {
                                     if (RandomPrizeNow == prize[j]) {
                                         if (draw[j] == countprize[j]) {
                                             document.getElementById('SelectPrizeRandom').options[i].remove();
-                                            document.getElementsByClassName('random-button')[0].disabled = true;
+                                            document.getElementById("random-button").style.pointerEvents = "none"
                                         }
                                     }
                                 }
