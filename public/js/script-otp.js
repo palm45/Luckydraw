@@ -214,17 +214,37 @@ function SendEmail() {
         }
 
         if (errormessage.length > 0 && samemessage.length > 0) {
-            alert(errormessage + "ให้ถูกต้อง" + " และ\n" + samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
+            Swal.fire({
+                confirmButtonText: "รับทราบ",
+                html: "<br>"+ errormessage + "ให้ถูกต้อง" + " และ</br>" + samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว",
+                icon: "warning"
+            })
+            //alert(errormessage + "ให้ถูกต้อง" + " และ\n" + samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
             document.getElementById("button-OTP").style.pointerEvents = "auto"
         } else if (errormessage.length > 0 && samemessage.length == 0) {
-            alert(errormessage + "ให้ถูกต้อง");
+            Swal.fire({
+                confirmButtonText: "รับทราบ",
+                html: errormessage + "ให้ถูกต้อง",
+                icon: "info"
+            })
+            //alert(errormessage + "ให้ถูกต้อง");
             document.getElementById("button-OTP").style.pointerEvents = "auto"
         } else if (errormessage.length == 0 && samemessage.length > 0) {
-            alert(samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
+            Swal.fire({
+                confirmButtonText: "รับทราบ",
+                html: samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว",
+                icon: "warning"
+            })
+            //alert(samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว");
             document.getElementById("button-OTP").style.pointerEvents = "auto"
         }
     } else {
-        alert("คุณได้รับ Code ของรางวัลแล้ว");
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "คุณได้รับ Code ของรางวัลแล้ว",
+            icon: "warning"
+        })
+        //alert("คุณได้รับ Code ของรางวัลแล้ว");
     }
 }
 function VerifyOTP() {
@@ -268,11 +288,26 @@ function VerifyOTP() {
         CheckVerifyOTP = true;
         postnewdata();
     } else if (OTP != Verifyotp && Verifyotp == "" && CheckVerifyOTP == false || Verifyotp == "") {
-        alert("กรุณากรอกรายละเอียดส่ง OTP ใหม่")
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "<br>กรุณากรอกรายละเอียดส่ง OTP ใหม่</br> หรือกดส่ง OTP ใหม่อีกครั้ง",
+            icon: "info"
+        })
+        //alert("กรุณากรอกรายละเอียดส่ง OTP ใหม่")
     } else if (OTP != Verifyotp && CheckVerifyOTP == true) {
-        alert("คุณได้รับ Code ของรางวัลแล้ว");
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "คุณได้รับ Code ของรางวัลแล้ว",
+            icon: "warning"
+        })
+        //alert("คุณได้รับ Code ของรางวัลแล้ว");
     } else if (OTP != Verifyotp) {
-        alert("OTP ไม่ถูกต้อง")
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "OTP ไม่ถูกต้อง",
+            icon: "error"
+        })
+        //alert("OTP ไม่ถูกต้อง")
     }
 
     document.getElementById("input1").value = "";
@@ -303,7 +338,12 @@ function Timer(remaining) {
 
     if (Verifyotp != "" && CheckVerifyOTP == false) {
         document.getElementById("button-OTP").style.pointerEvents = "auto"
-        alert('หมดเวลายืนยันตัวตน \nกรุณากรอกข้อมูลยืนยันตัวตนใหม่');
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "หมดเวลายืนยันตัวตน \nกรุณากรอกข้อมูลยืนยันตัวตนใหม่",
+            icon: "warning"
+        })
+        //alert('หมดเวลายืนยันตัวตน \nกรุณากรอกข้อมูลยืนยันตัวตนใหม่');
         Verifyotp = "";
         document.getElementById("resend").style.pointerEvents = "auto"
     }

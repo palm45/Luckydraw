@@ -269,9 +269,35 @@ function AddPrize() {
     let name = document.getElementById("add-prize").value;
     let num = document.getElementById("add-numprize").value;
     if (num.length == 0 && name.length == 0) {
-        alert("กรุณาใส่ชื่อ และจำนวนของรางวัล")
-    } else if (num.length == 0 || num == 0) {
-        alert("กรุณาใส่จำนวนของรางวัล")
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "กรุณาใส่ชื่อ และจำนวนของรางวัล",
+            icon: "info"
+        })
+        //alert("กรุณาใส่ชื่อ และจำนวนของรางวัล")
+    }else if(name.length > 0 && num.length == 0 || name.length > 0 && num == 0 ){
+        Samecheck = false;
+        for (let i = 0; i < prize.length; i++) {
+            if (name == prize[i]) {
+                Samecheck = true;
+            }
+        }
+
+        if (Samecheck == true) {
+            Swal.fire({
+                confirmButtonText: "รับทราบ",
+                html: "<br>ชื่อของรางวัลซ้ำ กรุณาใส่ชื่อของรางวัลใหม่</br> และใส่จำนวนของรางวัล",
+                icon: "warning"
+            })
+            //alert("ชื่อของรางวัลซ้ำ กรุณาใส่ชื่อของรางวัลใหม่");
+        }
+    }else if (num.length == 0 || num == 0) {
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "กรุณาใส่จำนวนของรางวัล",
+            icon: "info"
+        })
+        //alert("กรุณาใส่จำนวนของรางวัล")
     } else if (name.length > 0) {
         Samecheck = false;
         for (let i = 0; i < prize.length; i++) {
@@ -281,7 +307,12 @@ function AddPrize() {
         }
 
         if (Samecheck == true) {
-            alert("ชื่อของรางวัลซ้ำ กรุณาใส่ชื่อของรางวัลใหม่");
+            Swal.fire({
+                confirmButtonText: "รับทราบ",
+                html: "ชื่อของรางวัลซ้ำ กรุณาใส่ชื่อของรางวัลใหม่",
+                icon: "warning"
+            })
+            //alert("ชื่อของรางวัลซ้ำ กรุณาใส่ชื่อของรางวัลใหม่");
         } else {
             postprize(name, num);
 
@@ -293,7 +324,12 @@ function AddPrize() {
             }, 600);
         }
     } else {
-        alert("กรุณาใส่ชื่อของรางวัล");
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "กรุณาใส่ชื่อของรางวัล",
+            icon: "info"
+        })
+        //alert("กรุณาใส่ชื่อของรางวัล");
     }
 }
 function DeletePrize(id) {
@@ -394,7 +430,12 @@ function Save_button(id) {
     for (let i = 0; i < prize_id.length; i++) {
         if (prize_id[i] == id) {
             if (countprizeupdate <= 0) {
-                alert("กรุณาใส่จำนวนของรางวัลอีกครั้ง")
+                Swal.fire({
+                    confirmButtonText: "รับทราบ",
+                    html: "กรุณาใส่จำนวนของรางวัลอีกครั้ง",
+                    icon: "info"
+                })
+                //alert("กรุณาใส่จำนวนของรางวัลอีกครั้ง")
             } else if (draw[i] <= countprizeupdate) {
                 updatedbprize(id, nameprizeupdate, countprizeupdate, drawprizeupdate);
                 document.getElementById('Nameprize_' + id).contentEditable = false;
@@ -407,7 +448,12 @@ function Save_button(id) {
                 document.getElementById('Countprize_' + id).style.border = "none";
                 buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button(' + id + ')" type="button">แก้ไข</button>';
             } else if (draw[i] > countprizeupdate) {
-                alert("มีคนได้ของรางวัลนี้ไปแล้ว ไม่สามารถลดของรางวัลได้")
+                Swal.fire({
+                    confirmButtonText: "รับทราบ",
+                    html: "กรุณาใส่จำนวนของรางวัลอีกครั้ง",
+                    icon: "warning"
+                })
+                //alert("มีคนได้ของรางวัลนี้ไปแล้ว ไม่สามารถลดของรางวัลได้")
             }
         }
     }

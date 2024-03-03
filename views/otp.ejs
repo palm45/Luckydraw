@@ -90,7 +90,7 @@
         var inputField2 = document.querySelector('#email');
 
         inputField.onkeydown = function (event) {
-            if (isNaN(event.key) && event.key !== 'Backspace' || event.keyCode === 32) {
+            if (isNaN(event.key) && event.key !== 'Backspace' && event.keyCode !== 37 && event.keyCode !== 39 || event.keyCode === 32) {
                 event.preventDefault();
             }
         };
