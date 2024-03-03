@@ -177,7 +177,7 @@ function SendEmail() {
                                 html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>(ถ้าไม่เจออาจจะอยู่ใน <a style='font-weight: bold'>จดหมายขยะ</a> )",
                                 icon: "success"
                             })
-                            Timer(180);
+                            Timer(10);
                             resendname = names;
                             resendsurnames = surnames;
                             resendphone = phone;
@@ -186,6 +186,14 @@ function SendEmail() {
                             document.getElementById("surname").value = "";
                             document.getElementById("phone").value = "";
                             document.getElementById("email").value = "";
+                        }else{
+                            Swal.fire({
+                                confirmButtonText: "รับทราบ",
+                                title: "ส่งรหัส OTP ไม่ได้",
+                                html: "Email ไม่ถูกต้อง",
+                                icon: "error"
+                            })
+                            document.getElementById("button-OTP").style.pointerEvents = "auto"
                         }
                     }
                 )
@@ -340,7 +348,8 @@ function Timer(remaining) {
         document.getElementById("button-OTP").style.pointerEvents = "auto"
         Swal.fire({
             confirmButtonText: "รับทราบ",
-            html: "หมดเวลายืนยันตัวตน \nกรุณากรอกข้อมูลยืนยันตัวตนใหม่",
+            title: "หมดเวลายืนยันตัวตน",
+            html: "<br>กรุณากรอกข้อมูลยืนยันตัวตนใหม่</br> หรือกดส่ง OTP ใหม่อีกครั้ง",
             icon: "warning"
         })
         //alert('หมดเวลายืนยันตัวตน \nกรุณากรอกข้อมูลยืนยันตัวตนใหม่');
