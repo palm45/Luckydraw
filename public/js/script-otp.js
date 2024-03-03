@@ -177,7 +177,7 @@ function SendEmail() {
                                 html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>(ถ้าไม่เจออาจจะอยู่ใน <a style='font-weight: bold'>จดหมายขยะ</a> )",
                                 icon: "success"
                             })
-                            Timer(10);
+                            Timer(180);
                             resendname = names;
                             resendsurnames = surnames;
                             resendphone = phone;
