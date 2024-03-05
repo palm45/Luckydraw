@@ -310,7 +310,7 @@ function AddPrize() {
                 icon: "warning"
             })
         } else {
-            postprize(name, num);
+            postprize(name, parseInt(num));
 
             document.getElementById("add-prize").value = "";
             document.getElementById("add-numprize").value = 1;
@@ -328,10 +328,26 @@ function AddPrize() {
     }
 }
 function DeletePrize(id) {
-    deletedbprize(id);
-    setTimeout(function () {
-        window.location.href = '/listprize';
-    }, 600);
+    checkdraw = false;
+    for (let i = 0; i < prize.length; i++) {
+        if (prize_id[i] == id && draw[i] > 0) {
+            checkdraw = true;
+        }
+    }
+    if (checkdraw == false) {
+        deletedbprize(id);
+        setTimeout(function () {
+            window.location.href = '/listprize';
+        }, 600);
+    }else{
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            title: "ไม่สามารถลบได้",
+            html: "เนื่องจากของรางวัลนี้มีผู้โชคดีได้ไปแล้ว",
+            icon: "warning"
+        })
+    }
+
 }
 function SearchPrizeNow() {
     var x = document.getElementById("text-add");
@@ -434,7 +450,7 @@ function Save_button(id) {
             } else if (countprizeupdate <= 0) {
                 drawcase = 2
                 checkdraw = true;
-            } else if(isNaN(countprizeupdate)){
+            } else if (isNaN(countprizeupdate)) {
                 drawcase = 3
                 checkdraw = true;
             }
@@ -453,55 +469,55 @@ function Save_button(id) {
             html: "ชื่อของรางวัลนี้ซ้ำ กรุณาใส่ชื่อของรางวัลใหม่และ <br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br>",
             icon: "warning"
         })
-    }else if (drawcase == 3 && checksame == true) {
+    } else if (drawcase == 3 && checksame == true) {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "ชื่อของรางวัลนี้ซ้ำ กรุณาใส่ชื่อของรางวัลใหม่และ <br>กรุณาใส่จำนวนของรางวัล</br>",
             icon: "warning"
         })
-    }else if (drawcase == 1 && nameprizeupdate=="") {
+    } else if (drawcase == 1 && nameprizeupdate == "") {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "กรุณาใส่ชื่อของรางวัลใหม่และ<br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br> เนื่องจากของรางวัลนี้มีผู้โชคดีได้ไปแล้ว",
             icon: "warning"
         })
-    } else if (drawcase == 2 && nameprizeupdate=="") {
+    } else if (drawcase == 2 && nameprizeupdate == "") {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "กรุณาใส่ชื่อของรางวัลใหม่และ <br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br>",
             icon: "info"
         })
-    }else if (drawcase == 3 && nameprizeupdate=="") {
+    } else if (drawcase == 3 && nameprizeupdate == "") {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "กรุณาใส่ชื่อของรางวัลใหม่และ <br>กรุณาใส่จำนวนของรางวัล</br>",
             icon: "info"
         })
-    }else if (drawcase == 1) {
+    } else if (drawcase == 1) {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "<br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br> เนื่องจากของรางวัลนี้มีผู้โชคดีได้ไปแล้ว",
             icon: "warning"
         })
-    } else if(drawcase == 2){
+    } else if (drawcase == 2) {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "กรุณาใส่จำนวนของรางวัลอีกครั้ง",
             icon: "info"
         })
-    } else if(drawcase == 3){
+    } else if (drawcase == 3) {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "กรุณาใส่จำนวนของรางวัล",
             icon: "info"
         })
-    } else if(checksame == true){
+    } else if (checksame == true) {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "ชื่อของรางวัลนี้ซ้ำ กรุณาใส่ชื่อของรางวัลใหม่",
             icon: "warning"
         })
-    } else if(nameprizeupdate==""){
+    } else if (nameprizeupdate == "") {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "กรุณาใส่ชื่อของรางวัล",
@@ -509,7 +525,7 @@ function Save_button(id) {
         })
     }
 
-    if (checksame == false && checkdraw == false && nameprizeupdate!="") {
+    if (checksame == false && checkdraw == false && nameprizeupdate != "") {
         updatedbprize(id, nameprizeupdate, countprizeupdate, drawprizeupdate);
 
         for (let i = 0; i < prize.length; i++) {

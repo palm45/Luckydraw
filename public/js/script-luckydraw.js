@@ -461,7 +461,7 @@ function getrandom() {
         document.getElementById('changemode').removeAttribute('disabled');
         Confirm.open({
             title: 'ยินดีด้วย!!',
-            message: "ได้" + String(RandomPrizeNow) + "<div>" + String(RandomCodeNow) + "</div>",
+            message: "ได้" + RandomPrizeNow + "<div>" + String(RandomCodeNow) + "</div>",
             onok: () => {
                 var checkprize = 0;
                 var checkUserGet = 0;
