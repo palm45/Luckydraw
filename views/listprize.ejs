@@ -131,9 +131,15 @@
 
     <script>
         var inputField = document.querySelector('#add-numprize');
+        var inputField2 = document.querySelector('#add-prize');
 
         inputField.onkeydown = function (event) {
             if (isNaN(event.key) && event.key !== 'Backspace' || event.keyCode === 32) {
+                event.preventDefault();
+            }
+        };
+        inputField2.onkeydown = function (event) {
+            if (event.keyCode === 32) {
                 event.preventDefault();
             }
         };

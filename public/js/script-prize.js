@@ -1,7 +1,7 @@
 var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
-function DeleteDBAllPrizes(){
-    for(let i = 0; i < prize_id.length;i++){
+function DeleteDBAllPrizes() {
+    for (let i = 0; i < prize_id.length; i++) {
         deletedbprize(prize_id[i])
     }
 }
@@ -274,7 +274,7 @@ function AddPrize() {
             html: "กรุณาใส่ชื่อ และจำนวนของรางวัล",
             icon: "info"
         })
-    }else if(name.length > 0 && num.length == 0 || name.length > 0 && num == 0 ){
+    } else if (name.length > 0 && num.length == 0 || name.length > 0 && num == 0) {
         Samecheck = false;
         for (let i = 0; i < prize.length; i++) {
             if (name == prize[i]) {
@@ -289,7 +289,7 @@ function AddPrize() {
                 icon: "warning"
             })
         }
-    }else if (num.length == 0 || num == 0) {
+    } else if (num.length == 0 || num == 0) {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             html: "กรุณาใส่จำนวนของรางวัล",
@@ -394,7 +394,7 @@ function Edit_button(id) {
         }
     });
     $('#Nameprize_' + id).keypress(function (e) {
-        if (e.keyCode == 13) {
+        if (e.keyCode == 13 || e.keyCode == 32) {
             e.preventDefault();
         }
     });
@@ -402,22 +402,26 @@ function Edit_button(id) {
 function Save_button(id) {
     var buttonsContainer = document.getElementById('buttons_' + id);
 
-    nameprizeupdate = document.getElementById('Nameprize_' + id).innerHTML;
+    checksame = false;
+    checkdraw = false;
+    drawcase = 0;
+    nameprizeupdate = "";
+
+    nameprize = document.getElementById('Nameprize_' + id).innerHTML;
     countprizeupdate = parseInt(document.getElementById('Countprize_' + id).innerHTML);
     drawprizeupdate = parseInt(document.getElementById('Drawprize_' + id).innerHTML);
 
+    for (let i = 0; i <= nameprize.length; i++) {
+        if (nameprize.charAt(i) != " " && nameprize.charAt(i) != "\n") {
+            nameprizeupdate += nameprize.charAt(i);
+        }
+    }
+
+    console.log(nameprizeupdate);
+
     for (let i = 0; i < prize.length; i++) {
-        if (prize_id[i] == id) {
-            for (let j = 0; j < NowRandom_id.length; j++) {
-                if (prize[i] == NowPrize[j]) {
-                    updateNowRandom(NowRandom_id[j], nameprizeupdate);
-                }
-            }
-            for (let j = 0; j < user_id.length; j++) {
-                if (Getprize[j] == prize[i]) {
-                    updatedbuserprize(user_id[j], nameprizeupdate);
-                }
-            }
+        if (prize[i] == nameprizeupdate && prize_id[i] != id) {
+            checksame = true;
         }
     }
 
@@ -425,30 +429,113 @@ function Save_button(id) {
     for (let i = 0; i < prize_id.length; i++) {
         if (prize_id[i] == id) {
             if (draw[i] > countprizeupdate) {
-                Swal.fire({
-                    confirmButtonText: "รับทราบ",
-                    html: "<br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br> เนื่องจากของรางวัลนี้มีผู้โชคดีได้ไปแล้ว",
-                    icon: "warning"
-                })
-            }else if (countprizeupdate <= 0) {
-                Swal.fire({
-                    confirmButtonText: "รับทราบ",
-                    html: "กรุณาใส่จำนวนของรางวัลอีกครั้ง",
-                    icon: "info"
-                })
-            } else if (draw[i] <= countprizeupdate) {
-                updatedbprize(id, nameprizeupdate, countprizeupdate, drawprizeupdate);
-                document.getElementById('Nameprize_' + id).contentEditable = false;
-                document.getElementById('Countprize_' + id).contentEditable = false;
-                document.getElementById('Nameprize_' + id).style.backgroundColor = "rgb(8, 68, 23)";
-                document.getElementById('Countprize_' + id).style.backgroundColor = "rgb(8, 68, 23)";
-                document.getElementById('Nameprize_' + id).style.color = "white";
-                document.getElementById('Countprize_' + id).style.color = "white";
-                document.getElementById('Nameprize_' + id).style.border = "none";
-                document.getElementById('Countprize_' + id).style.border = "none";
-                buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button(' + id + ')" type="button">แก้ไข</button>';
+                drawcase = 1;
+                checkdraw = true;
+            } else if (countprizeupdate <= 0) {
+                drawcase = 2
+                checkdraw = true;
+            } else if(isNaN(countprizeupdate)){
+                drawcase = 3
+                checkdraw = true;
             }
         }
+    }
+
+    if (drawcase == 1 && checksame == true) {
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "ชื่อของรางวัลนี้ซ้ำ กรุณาใส่ชื่อของรางวัลใหม่และ<br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br> เนื่องจากของรางวัลนี้มีผู้โชคดีได้ไปแล้ว",
+            icon: "warning"
+        })
+    } else if (drawcase == 2 && checksame == true) {
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "ชื่อของรางวัลนี้ซ้ำ กรุณาใส่ชื่อของรางวัลใหม่และ <br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br>",
+            icon: "warning"
+        })
+    }else if (drawcase == 3 && checksame == true) {
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "ชื่อของรางวัลนี้ซ้ำ กรุณาใส่ชื่อของรางวัลใหม่และ <br>กรุณาใส่จำนวนของรางวัล</br>",
+            icon: "warning"
+        })
+    }else if (drawcase == 1 && nameprizeupdate=="") {
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "กรุณาใส่ชื่อของรางวัลใหม่และ<br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br> เนื่องจากของรางวัลนี้มีผู้โชคดีได้ไปแล้ว",
+            icon: "warning"
+        })
+    } else if (drawcase == 2 && nameprizeupdate=="") {
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "กรุณาใส่ชื่อของรางวัลใหม่และ <br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br>",
+            icon: "info"
+        })
+    }else if (drawcase == 3 && nameprizeupdate=="") {
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "กรุณาใส่ชื่อของรางวัลใหม่และ <br>กรุณาใส่จำนวนของรางวัล</br>",
+            icon: "info"
+        })
+    }else if (drawcase == 1) {
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "<br>กรุณาใส่จำนวนของรางวัลอีกครั้ง</br> เนื่องจากของรางวัลนี้มีผู้โชคดีได้ไปแล้ว",
+            icon: "warning"
+        })
+    } else if(drawcase == 2){
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "กรุณาใส่จำนวนของรางวัลอีกครั้ง",
+            icon: "info"
+        })
+    } else if(drawcase == 3){
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "กรุณาใส่จำนวนของรางวัล",
+            icon: "info"
+        })
+    } else if(checksame == true){
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "ชื่อของรางวัลนี้ซ้ำ กรุณาใส่ชื่อของรางวัลใหม่",
+            icon: "warning"
+        })
+    } else if(nameprizeupdate==""){
+        Swal.fire({
+            confirmButtonText: "รับทราบ",
+            html: "กรุณาใส่ชื่อของรางวัล",
+            icon: "info"
+        })
+    }
+
+    if (checksame == false && checkdraw == false && nameprizeupdate!="") {
+        updatedbprize(id, nameprizeupdate, countprizeupdate, drawprizeupdate);
+
+        for (let i = 0; i < prize.length; i++) {
+            if (prize_id[i] == id) {
+                for (let j = 0; j < NowRandom_id.length; j++) {
+                    if (prize[i] == NowPrize[j]) {
+                        updateNowRandom(NowRandom_id[j], nameprizeupdate);
+                    }
+                }
+                for (let j = 0; j < user_id.length; j++) {
+                    if (Getprize[j] == prize[i]) {
+                        updatedbuserprize(user_id[j], nameprizeupdate);
+                    }
+                }
+            }
+        }
+
+        document.getElementById('Nameprize_' + id).contentEditable = false;
+        document.getElementById('Countprize_' + id).contentEditable = false;
+        document.getElementById('Nameprize_' + id).style.backgroundColor = "rgb(8, 68, 23)";
+        document.getElementById('Countprize_' + id).style.backgroundColor = "rgb(8, 68, 23)";
+        document.getElementById('Nameprize_' + id).style.color = "white";
+        document.getElementById('Countprize_' + id).style.color = "white";
+        document.getElementById('Nameprize_' + id).style.border = "none";
+        document.getElementById('Countprize_' + id).style.border = "none";
+        buttonsContainer.innerHTML = '<button class="edit-button" onclick="Edit_button(' + id + ')" type="button">แก้ไข</button>';
     }
 }
 function Cancel_button(id) {
