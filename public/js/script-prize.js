@@ -108,7 +108,7 @@ function DeleteAllPrize() {
                 Swal.fire({
                     confirmButtonText: "รับทราบ",
                     icon: "error",
-                    title: "ลบไม่ได้",
+                    title: "ไม่สามารถลบได้",
                     text: "เนื่องจากได้มีการสุ่มผู้โชคดีไปแล้ว จึงไม่สามารถลบข้อมูลได้ กรุณาลบข้อมูลผู้เข้าร่วมทั้งหมดก่อน",
                 });
             }
@@ -344,7 +344,7 @@ function DeletePrize(id) {
             confirmButtonText: "รับทราบ",
             title: "ไม่สามารถลบได้",
             html: "เนื่องจากของรางวัลนี้มีผู้โชคดีได้ไปแล้ว",
-            icon: "warning"
+            icon: "error"
         })
     }
 
@@ -530,6 +530,8 @@ function Save_button(id) {
 
         for (let i = 0; i < prize.length; i++) {
             if (prize_id[i] == id) {
+                prize[i] = nameprizeupdate;
+                countprize[i] = countprizeupdate;
                 for (let j = 0; j < NowRandom_id.length; j++) {
                     if (prize[i] == NowPrize[j]) {
                         updateNowRandom(NowRandom_id[j], nameprizeupdate);
