@@ -408,6 +408,15 @@ i.fa{
 .UserDelete:hover{
     background-color:rgb(255, 86, 86)
 }
+.UploadPrize{
+    padding:10px;
+    margin:5px;
+    border-radius:10px;
+    background-color:#428196
+}
+.UploadPrize:hover{
+    background-color:#5ab0cd
+}
 
 
 .search-button{

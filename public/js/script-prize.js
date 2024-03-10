@@ -65,12 +65,82 @@ function ShowPrizeAdditionOption() {
 }
 function ShowPrizeAdditionOptionPage() {
     AdditionPage = ''
+    AdditionPage += "<div style='margin:10px;font-size:25px'>อัปโหลดรายการของรางวัล<i class='fa fa-upload' style='font-size:30px;margin:10px'></i></div>"
+    AdditionPage += "<div style='center; margin:10px'><input type='file' id='upload' accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' /></div>"
+    AdditionPage += "<button onclick='ImportPrize()' class='UploadPrize'>อัปโหลดรายการของรางวัล</button>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>คำเตือน: !! ต้องอัปโหลดเป็นไฟล์ .xlsx เท่านั้น</div>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>(ให้คอลัมน์นึงเป็นชื่อของรางวัล อีกคอลัมน์นึงเป็นจำนวนของรางวัล)</div>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>(ชื่อของรางวัลที่มีการเว้นวรรคตัวอักษรจะติดกันทั้งหมด)</div>"
     AdditionPage += "<div style='margin:10px;font-size:25px'>ลบข้อมูลของรางวัลทั้งหมด<i class='fa fa-trash' style='font-size:30px;margin:10px'></i></div>"
     AdditionPage += "<button onclick='DeleteAllPrize()' class='UserDelete'>ลบข้อมูลทั้งหมด</button>"
-    AdditionPage += "<div style='margin:10px;font-size:15px'>คำเตือน: !! กรณีที่มีการสุ่มผู้โชคดีไปแล้ว</div>"
-    AdditionPage += "<div style='margin:10px;font-size:15px'>ต้องลบข้อมูลผู้เข้าร่วมทั้งหมดก่อน</div>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>คำเตือน: !! รายการของรางวัลจะหาายไปทั้งหมด</div>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>(กรณีที่มีการสุ่มผู้โชคดีไปแล้วต้องลบข้อมูลผู้เข้าร่วมทั้งหมดก่อน)</div>"
+
 
     return AdditionPage;
+}
+function UploadPrize(names, num) {
+    fetch(url + '/addprizeupload', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nameprize: names, countprize: num })
+    });
+}
+async function ImportPrize() {
+    var file = document.getElementById('upload');
+    const XLSX = await import("https://cdn.sheetjs.com/xlsx-0.19.2/package/xlsx.mjs");
+
+    readFile(file.files[0], function (e) {
+        var data = new Uint8Array(e.target.result);
+
+        var work_book = XLSX.read(data, { type: 'array' });
+
+        var sheet_name = work_book.SheetNames;
+
+        var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], { header: 1 });
+
+        nameslist = [];
+        numlist = [];
+        names = "";
+        num = 0;
+
+        for (var row = 0; row < sheet_data.length; row++) {
+            for (var cell = 0; cell < sheet_data[row].length; cell++) {
+                if (typeof sheet_data[row][cell] == "string") {
+                    if (sheet_data[row][cell].length != 0) {
+                        for(let i=0;i<sheet_data[row][cell].length;i++){
+                            if(sheet_data[row][cell].charAt(i) != " ") {
+                                names += sheet_data[row][cell].charAt(i);
+                            }
+                        }
+                    }
+                } else if (typeof sheet_data[row][cell] == "number") {
+                    if (sheet_data[row][cell] > 0) {
+                        num = sheet_data[row][cell];
+                    }
+                }
+            }
+            if (names.length != 0 && num > 0) {
+                nameslist.push(names);
+                numlist.push(num);
+            }
+            names = "";
+            num = 0;
+        }
+        
+        UploadPrize(nameslist, numlist)
+    })
+
+    setTimeout(function () {
+        window.location.href = '/listprize';
+    }, 600);
+}
+function readFile(file, onLoadCallback) {
+    var reader = new FileReader();
+    reader.onload = onLoadCallback;
+    reader.readAsArrayBuffer(file);
 }
 function DeleteAllPrize() {
     Swal.fire({
@@ -114,7 +184,6 @@ function DeleteAllPrize() {
             }
         }
     })
-
 }
 
 
@@ -339,7 +408,7 @@ function DeletePrize(id) {
         setTimeout(function () {
             window.location.href = '/listprize';
         }, 600);
-    }else{
+    } else {
         Swal.fire({
             confirmButtonText: "รับทราบ",
             title: "ไม่สามารถลบได้",

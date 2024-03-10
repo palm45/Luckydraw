@@ -350,6 +350,42 @@ app.post('/addnewprize', (req, res) => {
         })
     })
 })
+app.post('/addprizeupload', (req, res) => {
+    const { nameprize, countprize } = req.body;
+    get(ref(database, 'prizes')).then((snapshot) => {
+        check = 0, id = 0, i = 0;
+        if (snapshot.val() != null) {
+            while (true) {
+                try {
+                    if (snapshot.val()[i] != null) {
+                        id = snapshot.val()[i].Prize_id;
+                        check++;
+                    }
+                } catch (e) {
+                    if (e instanceof ReferenceError) {
+                        console.log("ReferenceError");
+                    }
+                    if (e instanceof TypeError) {
+                        console.log("TypeError");
+                    }
+                }
+                if (check == Object.keys(snapshot.val()).length) {
+                    break;
+                }
+                i++;
+            }
+        }
+
+        for(let i=0;i<nameprize.length;i++) {
+            set(ref(database, 'prizes/' + (id + i).toString()), {
+                Prize_id: id + 1 + i,
+                Nameprize: nameprize[i],
+                Countprize: countprize[i],
+                Draw: 0,
+            })
+        }
+    })
+})
 app.get('/getnewprize', (req, res) => {
     get(ref(database, 'prizes')).then((snapshot) => {
         check = 0, id = 0, i = 0;
