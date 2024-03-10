@@ -5,7 +5,15 @@ function DeleteDBAllPrizes() {
         deletedbprize(prize_id[i])
     }
 }
-
+function UploadPrize(names, num) {
+    fetch(url + '/addprizeupload', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nameprize: names, countprize: num })
+    });
+}
 const PrizeAdditionOption = {
     open(options) {
         options = Object.assign({}, {
@@ -65,28 +73,24 @@ function ShowPrizeAdditionOption() {
 }
 function ShowPrizeAdditionOptionPage() {
     AdditionPage = ''
+    
     AdditionPage += "<div style='margin:10px;font-size:25px'>อัปโหลดรายการของรางวัล<i class='fa fa-upload' style='font-size:30px;margin:10px'></i></div>"
     AdditionPage += "<div style='center; margin:10px'><input type='file' id='upload' accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' /></div>"
     AdditionPage += "<button onclick='ImportPrize()' class='UploadPrize'>อัปโหลดรายการของรางวัล</button>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>คำเตือน: !! ต้องอัปโหลดเป็นไฟล์ .xlsx เท่านั้น</div>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>(ให้คอลัมน์นึงเป็นชื่อของรางวัล อีกคอลัมน์นึงเป็นจำนวนของรางวัล)</div>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>(ชื่อของรางวัลที่มีการเว้นวรรคตัวอักษรจะติดกันทั้งหมด)</div>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>(กรณีที่ชื่อซ้ำกับของรางวัลที่มีอยู่แล้ว หรือ</div>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>จำนวนน้อยกว่า 1 จะไม่ถูกเพิ่มเข้ารายการ)</div>"
+    AdditionPage += "<div style='margin:10px;font-size:15px'>(แต่กรณีที่ชื่อซ้ำ แล้วจำนวนของรางวัลมากกว่า draw จำนวนนั้นจะอัพเดต)</div>"
     AdditionPage += "<div style='margin:10px;font-size:25px'>ลบข้อมูลของรางวัลทั้งหมด<i class='fa fa-trash' style='font-size:30px;margin:10px'></i></div>"
+    
     AdditionPage += "<button onclick='DeleteAllPrize()' class='UserDelete'>ลบข้อมูลทั้งหมด</button>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>คำเตือน: !! รายการของรางวัลจะหาายไปทั้งหมด</div>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>(กรณีที่มีการสุ่มผู้โชคดีไปแล้วต้องลบข้อมูลผู้เข้าร่วมทั้งหมดก่อน)</div>"
 
 
     return AdditionPage;
-}
-function UploadPrize(names, num) {
-    fetch(url + '/addprizeupload', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nameprize: names, countprize: num })
-    });
 }
 async function ImportPrize() {
     var file = document.getElementById('upload');
@@ -122,15 +126,28 @@ async function ImportPrize() {
                     }
                 }
             }
+
+            for(let i=0;i<prize.length;i++){
+                if(prize[i]==names){
+                    if(draw[i]<=num){
+                        updatedbprize(prize_id[i], prize[i], num, draw[i]);
+                    }
+                    names="";
+                    break;
+                }
+            }
+
             if (names.length != 0 && num > 0) {
                 nameslist.push(names);
                 numlist.push(num);
             }
+
             names = "";
             num = 0;
         }
+
+        UploadPrize(nameslist, numlist);
         
-        UploadPrize(nameslist, numlist)
     })
 
     setTimeout(function () {
