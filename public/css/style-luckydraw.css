@@ -716,11 +716,11 @@ input:checked + .slider:before {
 }
 #timer2{
     font-size: 30px;
-    padding-left: 60px;
+    padding-right: 50px;
 }
 #timer3{
     font-size: 30px;
-    padding-left: 80px;
+    padding-right: 10px;
 }
 #qrcode-button{
     font-size: 20px;
