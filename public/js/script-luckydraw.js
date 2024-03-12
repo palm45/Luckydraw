@@ -1,22 +1,5 @@
 var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
-function on() {
-    document.getElementById("overlay").style.display = "block";
-}
-
-function off() {
-    document.getElementById("overlay").style.display = "none";
-}
-
-function generateQRCode() {
-    on()
-    let qrcodeContainer = document.getElementById("qrcode");
-    qrcodeContainer.innerHTML = "";
-    new QRCode(qrcodeContainer, url + '/qr');
-
-    document.getElementById("qrcode-container").style.display = "block";
-}
-
 function nexthome() {
     window.location.href = "/";
 }

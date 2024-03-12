@@ -616,18 +616,20 @@ function Save_button(id) {
 
         for (let i = 0; i < prize.length; i++) {
             if (prize_id[i] == id) {
-                prize[i] = nameprizeupdate;
-                countprize[i] = countprizeupdate;
                 for (let j = 0; j < NowRandom_id.length; j++) {
                     if (prize[i] == NowPrize[j]) {
+                        NowPrize[j] = nameprizeupdate;
                         updateNowRandom(NowRandom_id[j], nameprizeupdate);
                     }
                 }
                 for (let j = 0; j < user_id.length; j++) {
                     if (Getprize[j] == prize[i]) {
+                        Getprize[j] = nameprizeupdate;
                         updatedbuserprize(user_id[j], nameprizeupdate);
                     }
                 }
+                prize[i] = nameprizeupdate;
+                countprize[i] = countprizeupdate;
             }
         }
 

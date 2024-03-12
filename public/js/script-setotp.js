@@ -216,3 +216,21 @@ function cancelTimer() {
     document.getElementById("time-qrcode2").value = '0' + 0;
     document.getElementById("time-qrcode3").value = '0' + 0;
 }
+
+
+function on() {
+    document.getElementById("overlay").style.display = "block";
+}
+
+function off() {
+    document.getElementById("overlay").style.display = "none";
+}
+
+function generateQRCode() {
+    on()
+    let qrcodeContainer = document.getElementById("qrcode");
+    qrcodeContainer.innerHTML = "";
+    new QRCode(qrcodeContainer, url + '/qr');
+
+    document.getElementById("qrcode-container").style.display = "block";
+}

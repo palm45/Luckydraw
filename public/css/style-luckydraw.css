@@ -133,12 +133,13 @@ body {
 }
 #showrandom{
     text-align: center;
+    display: block;
     margin-left: 20px;
     font-size: 35px;
     columns: 200px 2;
 
     height: 106px;
-    width: 200px;
+    min-width: 300px;
 }
 .ShowNotHere{
     font-size: 23px;
