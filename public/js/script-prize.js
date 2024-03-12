@@ -152,7 +152,7 @@ async function ImportPrize() {
 
     setTimeout(function () {
         window.location.href = '/listprize';
-    }, 600);
+    }, 1000);
 }
 function readFile(file, onLoadCallback) {
     var reader = new FileReader();
