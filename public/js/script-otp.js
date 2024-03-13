@@ -1,4 +1,4 @@
-var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
+var url = 'https://squirrel-inspired-quickly.ngrok-free.app'
 
 function input() {
     const inputs = document.getElementById("inputs");
@@ -96,6 +96,54 @@ function RandomOTP() {
 }
 
 
+CheckSend1 = false;
+CheckSend2 = false;
+CheckResend = false;
+function sendEmail(email, body, title) {
+    (function () {
+        emailjs.init("ihVVublTFlXa_SSaT");
+    })();
+    var parms = {
+        sendername: "akkhraviphanon_p@su.ac.th",
+        to: email,
+        subject: "LuckyDraw",
+        message: body,
+    };
+
+    var serviceID = "service_5w1xlho"
+    var templateID = "template_o0bnxbb"
+
+    emailjs.send(serviceID, templateID, parms)
+        .then(res => {
+            Swal.fire({
+                confirmButtonText: "รับทราบ",
+                title: title,
+                html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>",
+                icon: "success"
+            })
+
+        }).catch(err => {
+            Swal.fire({
+                confirmButtonText: "รับทราบ",
+                title: "ส่งรหัส OTP ไม่ได้",
+                icon: "error"
+            })
+            if (title == "ส่งรหัส OTP เรียบร้อย") {
+                document.getElementById("button-OTP").style.pointerEvents = "auto"
+            }
+        });
+    if (title == "ส่งรหัส OTP เรียบร้อย") {
+        CheckSend1 = true;
+    } else if (title == "ส่ง Code เข้าร่วม Lucky Draw เรียบร้อย") {
+        CheckSend2 = true;
+        document.getElementById("button-Verify").style.pointerEvents = "none"
+    } else if (title == "ส่งรหัส OTP อีกครั้งเรียบร้อย") {
+        CheckResend = true;
+    }
+
+}
+
+
 CheckVerifyOTP = false;
 function SendEmail() {
     document.getElementById("button-OTP").style.pointerEvents = "none"
@@ -155,50 +203,24 @@ function SendEmail() {
         }
         if (email.includes('@') && email.includes('.com') && errormessage.length == 0 && CheckEmail == false) {
             if (CheckSamename == false && CheckPhone == false) {
-                body = '<div style="text-align: center; '
-                    + 'height:200px; width:200px;">' +
-                    '<h1 style="color:black;">รหัส OTP</h1>' +
-                    '<div style="font-size: 35px;">' + Verifyotp + '</div>'
-                    + '</div>';
-                Email.send({
-                    Host: "smtp.elasticemail.com",
-                    Username: "LuckyDraw@gmail.com",
-                    Password: "E4940A7C2D5FD3437AB28CD7DCE9948C56DB",
-                    To: email,
-                    From: "akkhraviphanon_p@silpakorn.edu",
-                    Subject: "OTP LuckyDraw",
-                    Body: body
-                }).then(
-                    message => {
-                        if (message === "OK") {
-                            Swal.fire({
-                                confirmButtonText: "รับทราบ",
-                                title: "ส่งรหัส OTP เรียบร้อย",
-                                html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>(ถ้าไม่เจออาจจะอยู่ใน <a style='font-weight: bold'>จดหมายขยะ</a> )",
-                                icon: "success"
-                            })
-                            Timer(180);
-                            resendname = names;
-                            resendsurnames = surnames;
-                            resendphone = phone;
-                            resendemail = email;
-                            document.getElementById("name").value = "";
-                            document.getElementById("surname").value = "";
-                            document.getElementById("phone").value = "";
-                            document.getElementById("email").value = "";
-                        }else{
-                            Swal.fire({
-                                confirmButtonText: "รับทราบ",
-                                title: "ส่งรหัส OTP ไม่ได้",
-                                html: "Email ไม่ถูกต้อง",
-                                icon: "error"
-                            })
-                            document.getElementById("button-OTP").style.pointerEvents = "auto"
-                        }
-                    }
-                )
-            }
 
+                body = 'รหัส OTP \n' + Verifyotp;
+
+                sendEmail(email, body, "ส่งรหัส OTP เรียบร้อย");
+
+                if (CheckSend1 == true) {
+                    TimerOTP(180);
+                    resendname = names;
+                    resendsurnames = surnames;
+                    resendphone = phone;
+                    resendemail = email;
+                    document.getElementById("name").value = "";
+                    document.getElementById("surname").value = "";
+                    document.getElementById("phone").value = "";
+                    document.getElementById("email").value = "";
+                    CheckSend1 = false;
+                }
+            }
         } else {
             if (errormessage.length == 0 && CheckEmail == false) {
                 errormessage += "กรุณาใส่ email ";
@@ -224,7 +246,7 @@ function SendEmail() {
         if (errormessage.length > 0 && samemessage.length > 0) {
             Swal.fire({
                 confirmButtonText: "รับทราบ",
-                html: "<br>"+ errormessage + "ให้ถูกต้อง" + " และ</br>" + samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว",
+                html: "<br>" + errormessage + "ให้ถูกต้อง" + " และ</br>" + samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว",
                 icon: "warning"
             })
             document.getElementById("button-OTP").style.pointerEvents = "auto"
@@ -261,36 +283,14 @@ function VerifyOTP() {
 
     if (OTP == Verifyotp && Verifyotp != "") {
         codeuser = RandomCodeUser();
-        //body = codeuser;
-        body = '<div style="text-align: center; '
-            + 'height:200px; width:200px;">' +
-            '<h1 style="color:black;">รหัส LuckyDraw</h1>' +
-            '<div style="font-size: 35px;">' + codeuser + '</div>'
-            + '</div>';
-        Email.send({
-            Host: "smtp.elasticemail.com",
-            Username: "LuckyDraw@gmail.com",
-            Password: "E4940A7C2D5FD3437AB28CD7DCE9948C56DB",
-            To: resendemail,
-            From: "akkhraviphanon_p@silpakorn.edu",
-            Subject: "Code LuckyDraw",
-            Body: body
-        }).then(
-            message => {
-                if (message === "OK") {
-                    Swal.fire({
-                        confirmButtonText: "รับทราบ",
-                        title: "ส่ง Code เข้าร่วม Lucky Draw เรียบร้อย",
-                        html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>(ถ้าไม่เจออาจจะอยู่ใน <a style='font-weight: bold'>จดหมายขยะ</a> )",
-                        icon: "success"
-                    })
-                    document.getElementById("button-Verify").style.pointerEvents = "none"
-                }
-            }
-        );
-        Verifyotp = "";
-        CheckVerifyOTP = true;
-        postnewdata();
+        body = 'รหัส LuckyDraw\n' + codeuser;
+        sendEmail(resendemail, body, "ส่ง Code เข้าร่วม Lucky Draw เรียบร้อย")
+        if(CheckSend2 == true){
+            Verifyotp = "";
+            CheckVerifyOTP = true;
+            postnewdata();
+            CheckSend2 = false;
+        }
     } else if (OTP != Verifyotp && Verifyotp == "" && CheckVerifyOTP == false || Verifyotp == "") {
         Swal.fire({
             confirmButtonText: "รับทราบ",
@@ -316,7 +316,7 @@ function VerifyOTP() {
     document.getElementById("input3").value = "";
     document.getElementById("input4").value = "";
 }
-function Timer(remaining) {
+function TimerOTP(remaining) {
     var m = Math.floor(remaining / 60);
     var s = remaining % 60;
 
@@ -328,7 +328,7 @@ function Timer(remaining) {
     if (remaining >= 0) {
         setTimeout(function () {
             if (CheckVerifyOTP == false) {
-                Timer(remaining);
+                TimerOTP(remaining);
             } else {
                 document.getElementById('timer').innerHTML = "0:00";
             }
@@ -352,36 +352,19 @@ function Timer(remaining) {
 function resend() {
     NewOTP = RandomOTP();
     Verifyotp = NewOTP;
-    body = '<div style="text-align: center; '
-        + 'height:200px; width:200px;">' +
-        '<h1 style="color:black;">รหัส OTP</h1>' +
-        '<div style="font-size: 35px;">' + Verifyotp + '</div>'
-        + '</div>';
-    Email.send({
-        Host: "smtp.elasticemail.com",
-        Username: "LuckyDraw@gmail.com",
-        Password: "E4940A7C2D5FD3437AB28CD7DCE9948C56DB",
-        To: resendemail,
-        From: "akkhraviphanon_p@silpakorn.edu",
-        Subject: "OTP LuckyDraw",
-        Body: body
-    }).then(
-        message => {
-            if (message === "OK") {
-                Swal.fire({
-                    confirmButtonText: "รับทราบ",
-                    title: "ส่งรหัส OTP เรียบร้อย",
-                    html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>(ถ้าไม่เจออาจจะอยู่ใน <a style='font-weight: bold'>จดหมายขยะ</a> )",
-                    icon: "success"
-                })
-                Timer(180);
-                document.getElementById("name").value = "";
-                document.getElementById("surname").value = "";
-                document.getElementById("phone").value = "";
-                document.getElementById("email").value = "";
-                document.getElementById("button-OTP").style.pointerEvents = "none"
-                document.getElementById("resend").style.pointerEvents = "none"
-            }
-        }
-    )
+    body = 'รหัส OTP\n' + Verifyotp;
+
+    sendEmail(resendemail, body, "ส่งรหัส OTP อีกครั้งเรียบร้อย")
+
+    if (CheckResend == true) {
+        TimerOTP(180);
+        document.getElementById("name").value = "";
+        document.getElementById("surname").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("button-OTP").style.pointerEvents = "none"
+        document.getElementById("resend").style.pointerEvents = "none"
+        CheckResend = false;
+    }
+
 }

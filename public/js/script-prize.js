@@ -1,4 +1,4 @@
-var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
+var url = 'https://squirrel-inspired-quickly.ngrok-free.app'
 
 function DeleteDBAllPrizes() {
     for (let i = 0; i < prize_id.length; i++) {

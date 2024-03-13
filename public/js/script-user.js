@@ -1,4 +1,4 @@
-var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
+var url = 'https://squirrel-inspired-quickly.ngrok-free.app'
 
 
 function deletedbuser(user_id){
