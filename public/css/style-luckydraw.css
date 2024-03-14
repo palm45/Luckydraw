@@ -139,7 +139,7 @@ body {
     columns: 200px 2;
 
     height: 106px;
-    min-width: 300px;
+    max-width: 400px;
 }
 .ShowNotHere{
     font-size: 23px;
