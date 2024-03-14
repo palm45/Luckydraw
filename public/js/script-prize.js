@@ -73,10 +73,10 @@ function ShowPrizeAdditionOption() {
 }
 function ShowPrizeAdditionOptionPage() {
     AdditionPage = ''
-    
+
     AdditionPage += "<div style='margin:10px;font-size:25px'>อัปโหลดรายการของรางวัล<i class='fa fa-upload' style='font-size:30px;margin:10px'></i></div>"
     AdditionPage += "<div style='center; margin:10px'><input type='file' id='upload' accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' /></div>"
-    AdditionPage += "<button onclick='ImportPrize()' class='UploadPrize'>อัปโหลดรายการของรางวัล</button>"
+    AdditionPage += "<button onclick='ImportPrize()' id='UploadPrize' class='UploadPrize'>อัปโหลดรายการของรางวัล</button>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>คำเตือน: !! ต้องอัปโหลดเป็นไฟล์ .xlsx เท่านั้น</div>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>(ให้คอลัมน์นึงเป็นชื่อของรางวัล อีกคอลัมน์นึงเป็นจำนวนของรางวัล)</div>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>(ชื่อของรางวัลที่มีการเว้นวรรคตัวอักษรจะติดกันทั้งหมด)</div>"
@@ -84,7 +84,7 @@ function ShowPrizeAdditionOptionPage() {
     AdditionPage += "<div style='margin:10px;font-size:15px'>จำนวนน้อยกว่า 1 จะไม่ถูกเพิ่มเข้ารายการ)</div>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>(แต่กรณีที่ชื่อซ้ำ แล้วจำนวนของรางวัลมากกว่า draw จำนวนนั้นจะอัพเดต)</div>"
     AdditionPage += "<div style='margin:10px;font-size:25px'>ลบข้อมูลของรางวัลทั้งหมด<i class='fa fa-trash' style='font-size:30px;margin:10px'></i></div>"
-    
+
     AdditionPage += "<button onclick='DeleteAllPrize()' class='UserDelete'>ลบข้อมูลทั้งหมด</button>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>คำเตือน: !! รายการของรางวัลจะหาายไปทั้งหมด</div>"
     AdditionPage += "<div style='margin:10px;font-size:15px'>(กรณีที่มีการสุ่มผู้โชคดีไปแล้วต้องลบข้อมูลผู้เข้าร่วมทั้งหมดก่อน)</div>"
@@ -93,6 +93,7 @@ function ShowPrizeAdditionOptionPage() {
     return AdditionPage;
 }
 async function ImportPrize() {
+    
     var file = document.getElementById('upload');
     const XLSX = await import("https://cdn.sheetjs.com/xlsx-0.19.2/package/xlsx.mjs");
 
@@ -114,8 +115,8 @@ async function ImportPrize() {
             for (var cell = 0; cell < sheet_data[row].length; cell++) {
                 if (typeof sheet_data[row][cell] == "string") {
                     if (sheet_data[row][cell].length != 0) {
-                        for(let i=0;i<sheet_data[row][cell].length;i++){
-                            if(sheet_data[row][cell].charAt(i) != " ") {
+                        for (let i = 0; i < sheet_data[row][cell].length; i++) {
+                            if (sheet_data[row][cell].charAt(i) != " ") {
                                 names += sheet_data[row][cell].charAt(i);
                             }
                         }
@@ -127,15 +128,18 @@ async function ImportPrize() {
                 }
             }
 
-            for(let i=0;i<prize.length;i++){
-                if(prize[i]==names){
-                    if(draw[i]<=num){
-                        updatedbprize(prize_id[i], prize[i], num, draw[i]);
+            if (prize.length > 0) {
+                for (let i = 0; i < prize.length; i++) {
+                    if (prize[i] == names) {
+                        if (draw[i] <= num) {
+                            updatedbprize(prize_id[i], prize[i], num, draw[i]);
+                        }
+                        names = "";
+                        break;
                     }
-                    names="";
-                    break;
                 }
             }
+
 
             if (names.length != 0 && num > 0) {
                 nameslist.push(names);
@@ -147,7 +151,7 @@ async function ImportPrize() {
         }
 
         UploadPrize(nameslist, numlist);
-        
+        document.getElementById("UploadPrize").style.pointerEvents = "none"
     })
 
     setTimeout(function () {
