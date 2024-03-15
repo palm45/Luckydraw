@@ -2,7 +2,6 @@ const { initializeApp } = require('firebase/app');
 const { getDatabase, ref, set, get, update, remove } = require('firebase/database');
 
 const express = require('express');
-//const mysql = require('mysql2');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
@@ -19,22 +18,8 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
 
-/*const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'palm2545',
-    database: 'luckydraw',
-});
-
-db.connect((err) => {
-    if (err) {
-        console.error('can not connect MySQL: ' + err.stack);
-        return;
-    }
-});*/
-
 const firebaseConfig = {
-    databaseURL: "https://luckydraw-82d2c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    databaseURL: "https://luckydraw-63b70-default-rtdb.asia-southeast1.firebasedatabase.app/"
 }
 const app2 = initializeApp(firebaseConfig);
 const database = getDatabase(app2);

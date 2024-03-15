@@ -372,7 +372,6 @@ function ChangeModePrize() {
         document.getElementById('randomprize').innerHTML = SelectPrizeRandom();
         document.getElementById("random-button").style.pointerEvents = "none"
         document.getElementById('Mode').innerHTML = "เลือกรางวัล";
-        console.log(document.querySelector('#changemode').checked);
     }else if(ChangePrizeMode == false){
         document.getElementById("random-button").style.pointerEvents = "auto"
         document.getElementById('Mode').innerHTML = "สุ่มรางวัล";
@@ -389,7 +388,6 @@ function ChangeModePrize() {
         } else {
             document.getElementById('randomprize').innerHTML = "..สุ่มรางวัล..";
         }
-        console.log(document.querySelector('#changemode').checked);
     }
 }
 function SelectPrizeRandom() {
@@ -501,11 +499,6 @@ function getrandom() {
                         }
                     }
 
-                    console.log(prize);
-                    console.log(draw);
-                    console.log(code);
-                    console.log(UserGet);
-
                     for (let i = NowPrize.length - 2; i >= 0; i--) {
                         document.getElementById('showrandom').innerHTML -= NowPrize[i];
                         document.getElementById('showrandom').innerHTML -= NowCode[i];
@@ -556,7 +549,6 @@ function getrandom() {
                 if (check < code.length && RandomPrizeNow != -1) {
                     postnownothere(RandomCodeNow);
                     NowNotHere.push(RandomCodeNow);
-                    console.log(NowNotHere);
                     setTimeout(function() {
                         window.location.href='/';
                     }, 600);

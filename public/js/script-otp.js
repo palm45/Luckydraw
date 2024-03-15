@@ -101,17 +101,17 @@ CheckSend2 = false;
 CheckResend = false;
 function sendEmail(email, body, title) {
     (function () {
-        emailjs.init("ihVVublTFlXa_SSaT");
+        emailjs.init("rs8fYhfb75rO3Viy5");
     })();
     var parms = {
-        sendername: "akkhraviphanon_p@su.ac.th",
+        sendername: "luckydrawfinalproject@gmail.com",
         to: email,
         subject: "LuckyDraw",
         message: body,
     };
 
-    var serviceID = "service_5w1xlho"
-    var templateID = "template_o0bnxbb"
+    var serviceID = "service_xgbpzke"
+    var templateID = "template_fll2wnq"
 
     emailjs.send(serviceID, templateID, parms)
         .then(res => {
