@@ -316,7 +316,7 @@ body {
     outline: none;
 }
 .confirm__button:hover{
-    opacity: 0.7;
+    opacity: 0.8;
 }
 .confirm__button--fill {
     background: #009879;
