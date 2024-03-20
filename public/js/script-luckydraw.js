@@ -157,18 +157,33 @@ function deletedbnownothere(codedelete) {
     })
 }
 
-async function getStatus2() {
+async function getStatusMain() {
     const res = await fetch(url + '/getStatusForm', {
         method: 'GET',
     })
     dataStatus = await res.json();
+    if(dataStatus.StatusRandom == 1){
+        document.querySelector('#changemode').checked = true;
+        ChangeModePrize()
+        
+    }
+    SelectPrizeRandom()
     if (dataStatus.Time > 0) {
         Timer2(dataStatus.Time)
     }
 }
-getStatus2()
+getStatusMain()
 
-function updateStatusForm2(StatusForm) {
+function updateStatusRandom(StatusRandom) {
+    fetch(url + '/UpdateStatusRandom', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ Status: StatusRandom })
+    })
+}
+function updateStatusFormMain(StatusForm) {
     fetch(url + '/UpdateStatusForm', {
         method: 'PUT',
         headers: {
@@ -177,7 +192,7 @@ function updateStatusForm2(StatusForm) {
         body: JSON.stringify({ Status: StatusForm })
     })
 }
-function updateStatusTime2(StatusTime) {
+function updateStatusTimeMain(StatusTime) {
     fetch(url + '/UpdateTime', {
         method: 'PUT',
         headers: {
@@ -187,12 +202,13 @@ function updateStatusTime2(StatusTime) {
     })
 }
 
+
 function Timer2(remaining) {
     if (remaining == 0) {
-        updateStatusForm2(0);
+        updateStatusFormMain(0);
     }
 
-    updateStatusTime2(remaining);
+    updateStatusTimeMain(remaining);
 
     var h = 0;
     var m = 0;
@@ -372,6 +388,7 @@ function ChangeModePrize() {
         document.getElementById('randomprize').innerHTML = SelectPrizeRandom();
         document.getElementById("random-button").style.pointerEvents = "none"
         document.getElementById('Mode').innerHTML = "เลือกรางวัล";
+        updateStatusRandom(1)
     } else if (ChangePrizeMode == false) {
         document.getElementById("random-button").style.pointerEvents = "auto"
         document.getElementById('Mode').innerHTML = "สุ่มรางวัล";
@@ -388,6 +405,7 @@ function ChangeModePrize() {
         } else {
             document.getElementById('randomprize').innerHTML = "..สุ่มรางวัล..";
         }
+        updateStatusRandom(0)
     }
 }
 function SelectPrizeRandom() {
@@ -440,9 +458,15 @@ function getrandom() {
         document.getElementsByClassName('random-button')[0].innerHTML = 'สุ่มรางวัล';
         document.getElementById("random-button").style.pointerEvents = "auto"
         document.getElementById('changemode').removeAttribute('disabled');
+        MessageRandom = '';
+        if(RandomPrizeNow == 'รางวัลหมดแล้ว!!'){
+            MessageRandom = RandomPrizeNow + "<div>" + String(RandomCodeNow) + "</div>"
+        }else{
+            MessageRandom = "ได้" + RandomPrizeNow + "<div>" + String(RandomCodeNow) + "</div>"
+        }
         Confirm.open({
             title: 'ยินดีด้วย!!',
-            message: "ได้" + RandomPrizeNow + "<div>" + String(RandomCodeNow) + "</div>",
+            message: MessageRandom,
             onok: () => {
                 var checkprize = 0;
                 var checkUserGet = 0;

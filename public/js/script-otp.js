@@ -213,7 +213,7 @@ function SendEmail() {
                 sendEmail(email, body, "ส่งรหัส OTP เรียบร้อย");
 
                 if (CheckSend1 == true) {
-                    TimerOTP(10);
+                    TimerOTP(180);
                     resendname = names;
                     resendsurnames = surnames;
                     resendphone = phone;

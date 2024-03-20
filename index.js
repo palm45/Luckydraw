@@ -188,6 +188,13 @@ app.get('/getStatusForm', (req, res) => {
         res.send(snapshot);
     })
 })
+app.put('/UpdateStatusRandom', (req, res) => {
+    const { Status } = req.body
+    const updatestatus = {};
+    updatestatus['Status/' + 'StatusRandom'] = Status;
+
+    update(ref(database), updatestatus)
+})
 app.put('/UpdateStatusForm', (req, res) => {
     const { Status } = req.body
     const updatestatus = {};
