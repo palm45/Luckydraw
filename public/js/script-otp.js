@@ -1,4 +1,4 @@
-var url = 'https://squirrel-inspired-quickly.ngrok-free.app'
+var url = 'https://upward-poodle-surely.ngrok-free.app'
 
 function input() {
     const inputs = document.getElementById("inputs");
@@ -118,7 +118,7 @@ function sendEmail(email, body, title) {
             Swal.fire({
                 confirmButtonText: "รับทราบ",
                 title: title,
-                html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/>",
+                html: "<br>โปรดตรวจสอบใน Email ของคุณ <br/> (ถ้าหาไม่เจออาจจะอยู่ใน <class style='font-weight:bold'>จดหมายขยะ</class>)",
                 icon: "success"
             })
 
@@ -260,7 +260,7 @@ function SendEmail() {
         } else if (errormessage.length == 0 && samemessage.length > 0) {
             Swal.fire({
                 confirmButtonText: "รับทราบ",
-                html: samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว",
+                html: samemessage + "นี้ <br> เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว </br>",
                 icon: "warning"
             })
             document.getElementById("button-OTP").style.pointerEvents = "auto"

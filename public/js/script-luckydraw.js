@@ -1,4 +1,4 @@
-var url = 'https://squirrel-inspired-quickly.ngrok-free.app'
+var url = 'https://upward-poodle-surely.ngrok-free.app'
 
 function nexthome() {
     window.location.href = "/";
@@ -46,11 +46,11 @@ const NowNotHere_id = [];
 const NowNotHere = [];
 
 async function getdbuser() {
-    const res = await fetch( url + '/getnewuser', {
+    const res = await fetch(url + '/getnewuser', {
         method: 'GET',
     })
     datauser = await res.json();
-    for(let i=0;i<datauser.length;i++){
+    for (let i = 0; i < datauser.length; i++) {
         user_id.push(datauser[i].User_id);
         namelist.push(datauser[i].Name);
         surnamelist.push(datauser[i].Surname);
@@ -58,9 +58,9 @@ async function getdbuser() {
         gmail.push(datauser[i].Email_user);
         code.push(datauser[i].CodeUser);
         Getprize.push(datauser[i].Getprize);
-        if(datauser[i].UserGet==0){
+        if (datauser[i].UserGet == 0) {
             UserGet.push(false);
-        }else if(datauser[i].UserGet==1){
+        } else if (datauser[i].UserGet == 1) {
             UserGet.push(true);
         }
     }
@@ -68,12 +68,12 @@ async function getdbuser() {
 getdbuser();
 
 
-async function getdbprize(){
-    const res = await fetch( url + '/getnewprize', {
+async function getdbprize() {
+    const res = await fetch(url + '/getnewprize', {
         method: 'GET',
     })
     dataprize = await res.json();
-    for(let i=0;i<dataprize.length;i++){
+    for (let i = 0; i < dataprize.length; i++) {
         prize_id.push(dataprize[i].Prize_id);
         prize.push(dataprize[i].Nameprize);
         countprize.push(dataprize[i].Countprize);
@@ -82,12 +82,12 @@ async function getdbprize(){
 }
 getdbprize();
 
-async function getdbnowrandom(){
-    const res = await fetch( url + '/getnewnowrandom', {
+async function getdbnowrandom() {
+    const res = await fetch(url + '/getnewnowrandom', {
         method: 'GET',
     })
     datarandomnow = await res.json();
-    for(let i=0;i<datarandomnow.length;i++){
+    for (let i = 0; i < datarandomnow.length; i++) {
         NowRandom_id.push(datarandomnow[i].Now_id);
         NowPrize.push(datarandomnow[i].NowPrizeList);
         NowCode.push(datarandomnow[i].NowCodeList);
@@ -95,100 +95,100 @@ async function getdbnowrandom(){
 }
 getdbnowrandom()
 
-async function getdbnownothere(){
-    const res = await fetch( url + '/getnewnownothere', {
+async function getdbnownothere() {
+    const res = await fetch(url + '/getnewnownothere', {
         method: 'GET',
     })
     datanownothere = await res.json();
-    for(let i=0;i<datanownothere.length;i++){
+    for (let i = 0; i < datanownothere.length; i++) {
         NowNotHere_id.push(datanownothere[i].NowNotHere_id);
         NowNotHere.push(datanownothere[i].CodeNotHere);;
     }
 }
 getdbnownothere()
 
-function postnowrandom(nowprizeadd, nowcodeadd){
-    fetch( url + '/addnewnowrandom', {
+function postnowrandom(nowprizeadd, nowcodeadd) {
+    fetch(url + '/addnewnowrandom', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ nowprizelist: nowprizeadd, nowcodelist: nowcodeadd})
+        body: JSON.stringify({ nowprizelist: nowprizeadd, nowcodelist: nowcodeadd })
     });
 }
 
-function postnownothere(codeadd){
-    fetch( url + '/addnewnownothere', {
+function postnownothere(codeadd) {
+    fetch(url + '/addnewnownothere', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({codenownothere: codeadd})
+        body: JSON.stringify({ codenownothere: codeadd })
     })
 }
 
-function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate){
-    fetch( url + '/updatenewprize', {
+function updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate) {
+    fetch(url + '/updatenewprize', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({prize_id: idupdate, nameprize: nameprizeupdate, countprize: countprizeupdate, drawprize: drawprizeupdate})
+        body: JSON.stringify({ prize_id: idupdate, nameprize: nameprizeupdate, countprize: countprizeupdate, drawprize: drawprizeupdate })
     })
 }
 
-function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate){
-    fetch( url + '/updatenewuser', {
+function updatedbuser(idupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate) {
+    fetch(url + '/updatenewuser', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({user_id: idupdate, name: nameuserupdate, surname: surnameuserupdate, phone: phoneupdate, email_user: emailuserupdate, codeuser: codeuserupdate, getprize: getprizeupdate, userget: usergetupdate})
+        body: JSON.stringify({ user_id: idupdate, name: nameuserupdate, surname: surnameuserupdate, phone: phoneupdate, email_user: emailuserupdate, codeuser: codeuserupdate, getprize: getprizeupdate, userget: usergetupdate })
     })
 }
 
-function deletedbnownothere(codedelete){
-    fetch( url + '/deletenewnothere', {
+function deletedbnownothere(codedelete) {
+    fetch(url + '/deletenewnothere', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({codenothere_id: codedelete})
+        body: JSON.stringify({ codenothere_id: codedelete })
     })
 }
 
-async function getStatus2(){
-    const res = await fetch( url + '/getStatusForm', {
+async function getStatus2() {
+    const res = await fetch(url + '/getStatusForm', {
         method: 'GET',
     })
     dataStatus = await res.json();
-    if(dataStatus.Time>0){
+    if (dataStatus.Time > 0) {
         Timer2(dataStatus.Time)
     }
 }
 getStatus2()
 
-function updateStatusForm2(StatusForm){
-    fetch( url + '/UpdateStatusForm', {
+function updateStatusForm2(StatusForm) {
+    fetch(url + '/UpdateStatusForm', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({Status: StatusForm})
+        body: JSON.stringify({ Status: StatusForm })
     })
 }
-function updateStatusTime2(StatusTime){
-    fetch( url + '/UpdateTime', {
+function updateStatusTime2(StatusTime) {
+    fetch(url + '/UpdateTime', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({time: StatusTime})
+        body: JSON.stringify({ time: StatusTime })
     })
 }
 
 function Timer2(remaining) {
-    if(remaining==0){
+    if (remaining == 0) {
         updateStatusForm2(0);
     }
 
@@ -216,7 +216,7 @@ function Timer2(remaining) {
             Timer2(remaining);
         }, 1000);
         return;
-    }else{
+    } else {
         document.getElementById("timer1").innerHTML = "";
     }
 }
@@ -269,7 +269,7 @@ function randomcodeuser() {
             if (UserGet[random] == false) {
                 if (NowNotHere.length > 0) {
                     for (let i = 0; i < NowNotHere.length; i++) {
-                        if (NowNotHere[i] == code[random]|| NowCode[i] == code[random]) {
+                        if (NowNotHere[i] == code[random] || NowCode[i] == code[random]) {
                             checkrandom = true
                         }
                     }
@@ -372,7 +372,7 @@ function ChangeModePrize() {
         document.getElementById('randomprize').innerHTML = SelectPrizeRandom();
         document.getElementById("random-button").style.pointerEvents = "none"
         document.getElementById('Mode').innerHTML = "เลือกรางวัล";
-    }else if(ChangePrizeMode == false){
+    } else if (ChangePrizeMode == false) {
         document.getElementById("random-button").style.pointerEvents = "auto"
         document.getElementById('Mode').innerHTML = "สุ่มรางวัล";
 
@@ -530,9 +530,6 @@ function getrandom() {
                     postnowrandom(RandomPrizeNow, RandomCodeNow);
                     updatedbprize(idupdate, nameprizeupdate, countprizeupdate, drawprizeupdate);
                     updatedbuser(iduserupdate, nameuserupdate, surnameuserupdate, phoneupdate, emailuserupdate, codeuserupdate, getprizeupdate, usergetupdate)
-                    /*setTimeout(function() {
-                        window.location.href='/';
-                    }, 600);*/
                 }
 
             },
@@ -549,8 +546,8 @@ function getrandom() {
                 if (check < code.length && RandomPrizeNow != -1) {
                     postnownothere(RandomCodeNow);
                     NowNotHere.push(RandomCodeNow);
-                    setTimeout(function() {
-                        window.location.href='/';
+                    setTimeout(function () {
+                        window.location.href = '/';
                     }, 600);
                 }
             }
@@ -611,13 +608,14 @@ const NotHere = {
     }
 };
 function ShowNotHereTable() {
-    table = `<table id="myTableNotHere" class="display" style="width: 95%;"><thead><tr>`;
+    table = ``;
+    table += `<input id="SearchNotHere" type="search" placeholder="ค้นหา..." onkeyup="SearchNotHere()" class="search" style="margin-top: 10px">`;
+    table += `<table id="myTableNotHere" class="display" style="width: 95%;"><thead>`;
     for (var i = 0; i < NowNotHere.length; i++) {
-        table += `<td>` + NowNotHere[i] + `</td>`
+        table += `<tr><td>` + NowNotHere[i] + `</td>`
         table += `<td><button class="remove-nothere" onclick="DeleteNotHere(this,` + i + `)">นำออก</button></td>`
-        table += `</tr><tr>`
+        table += `</tr>`
     }
-    table += `</tr>`
     table += `</thead></table>`
     return table;
 }
@@ -632,4 +630,23 @@ function ShowNotHere() {
     NotHere.open({
         message: ShowNotHereTable(),
     })
+}
+function SearchNotHere() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("SearchNotHere");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTableNotHere");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }

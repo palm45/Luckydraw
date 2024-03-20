@@ -1,4 +1,4 @@
-var url = 'https://squirrel-inspired-quickly.ngrok-free.app'
+var url = 'https://upward-poodle-surely.ngrok-free.app'
 
 async function getStatus() {
     const res = await fetch(url + '/getStatusForm', {
