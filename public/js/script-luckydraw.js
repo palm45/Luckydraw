@@ -13,16 +13,6 @@ function nextsetqrcode() {
     window.location.href = "/setotp";
 }
 
-//const NowPrize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม"];
-//const NowCode = ["995710", "125114", "876541"];
-//const draw = [1, 1, 1, 0];
-//const countprize = [1, 2, 3, 1];
-//const prize = ["จักรยาน", "ลูกปิงปอง", "ลูกอม", "โอริโอ้"]; //, "ไอโฟน", "ลูกปิงปอง"
-//const code = ["995710", "686625", "125114", "849529", "876541", "582393", "109254"];
-//const gmail = ["ggez@gmail.com", "sapook@gmail.com", "tyot@gmail.com", "Omega@gmail.com", "Tpose@gmail.com", "City@gmail.com", "Reality@gmail.com"];
-//const phonelist = ["0915254875", "04456871254", "0842267595", "0451931245", "0894152455", "0421249963", "0426587911"];
-//const UserGet = [true, false, true, false, true, false, false];
-
 datauser = [];
 
 const user_id = [];
