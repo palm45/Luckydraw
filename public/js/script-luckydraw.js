@@ -613,7 +613,7 @@ function ShowNotHereTable() {
     table += `<table id="myTableNotHere" class="display" style="width: 95%;"><thead>`;
     for (var i = 0; i < NowNotHere.length; i++) {
         table += `<tr><td>` + NowNotHere[i] + `</td>`
-        table += `<td><button class="remove-nothere" onclick="DeleteNotHere(this,` + i + `)">นำออก</button></td>`
+        table += `<td><button class="remove-nothere" onclick="DeleteNotHere(this,` + NowNotHere_id[i] + `)">นำออก</button></td>`
         table += `</tr>`
     }
     table += `</thead></table>`
@@ -622,9 +622,17 @@ function ShowNotHereTable() {
 function DeleteNotHere(button, i) {
     let row = button.parentNode.parentNode;
     row.parentNode.removeChild(row);
-    codedelete = NowNotHere_id[i];
-    NowNotHere.splice(i, 1);
+    codedelete = i;
+    l = 0;
+    for(let j = 0;j<NowNotHere.length;j++){
+        if(NowNotHere_id[j]==i){
+            l = j;
+        }
+    }
+    NowNotHere.splice(l, 1);
     deletedbnownothere(codedelete);
+    document.getElementById("SearchNotHere").value = "";
+    SearchNotHere()
 }
 function ShowNotHere() {
     NotHere.open({
