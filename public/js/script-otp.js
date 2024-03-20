@@ -134,7 +134,7 @@ function sendEmail(email, body, title) {
         });
     if (title == "ส่งรหัส OTP เรียบร้อย") {
         CheckSend1 = true;
-    } else if (title == "ส่ง Code เข้าร่วม Lucky Draw เรียบร้อย") {
+    } else if (title == "ส่งรหัส Lucky Draw เรียบร้อย") {
         CheckSend2 = true;
         document.getElementById("button-Verify").style.pointerEvents = "none"
     } else if (title == "ส่งรหัส OTP อีกครั้งเรียบร้อย") {
@@ -246,7 +246,7 @@ function SendEmail() {
         if (errormessage.length > 0 && samemessage.length > 0) {
             Swal.fire({
                 confirmButtonText: "รับทราบ",
-                html: "<br>" + errormessage + "ให้ถูกต้อง" + " และ</br>" + samemessage + "นี้เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว",
+                html: "<br>" + errormessage + "ให้ถูกต้อง" + " และ</br>" + samemessage + "นี้เคยได้รับรหัส Lucky Draw ไปแล้ว",
                 icon: "warning"
             })
             document.getElementById("button-OTP").style.pointerEvents = "auto"
@@ -260,7 +260,7 @@ function SendEmail() {
         } else if (errormessage.length == 0 && samemessage.length > 0) {
             Swal.fire({
                 confirmButtonText: "รับทราบ",
-                html: samemessage + "นี้ <br> เคยได้รับสิทธิ์ Code ของรางวัลไปแล้ว </br>",
+                html: samemessage + "นี้ <br> เคยได้รับรหัส Lucky Draw ไปแล้ว </br>",
                 icon: "warning"
             })
             document.getElementById("button-OTP").style.pointerEvents = "auto"
@@ -268,7 +268,7 @@ function SendEmail() {
     } else {
         Swal.fire({
             confirmButtonText: "รับทราบ",
-            html: "คุณได้รับ Code ของรางวัลแล้ว",
+            html: "คุณได้รับรหัส Lucky Draw แล้ว",
             icon: "warning"
         })
     }
@@ -284,7 +284,7 @@ function VerifyOTP() {
     if (OTP == Verifyotp && Verifyotp != "") {
         codeuser = RandomCodeUser();
         body = 'รหัส LuckyDraw\n' + codeuser;
-        sendEmail(resendemail, body, "ส่ง Code เข้าร่วม Lucky Draw เรียบร้อย")
+        sendEmail(resendemail, body, "ส่งรหัส Lucky Draw เรียบร้อย")
         if(CheckSend2 == true){
             Verifyotp = "";
             CheckVerifyOTP = true;
@@ -300,7 +300,7 @@ function VerifyOTP() {
     } else if (OTP != Verifyotp && CheckVerifyOTP == true) {
         Swal.fire({
             confirmButtonText: "รับทราบ",
-            html: "คุณได้รับ Code ของรางวัลแล้ว",
+            html: "คุณได้รับรหัส Lucky Draw แล้ว",
             icon: "warning"
         })
     } else if (OTP != Verifyotp) {
