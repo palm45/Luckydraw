@@ -100,13 +100,26 @@ CheckSend1 = false;
 CheckSend2 = false;
 CheckResend = false;
 function sendEmail(email, body, title) {
+    HeadSubject = '';
+    if (title == "ส่งรหัส OTP เรียบร้อย") {
+        CheckSend1 = true;
+        HeadSubject = 'Lucky Draw OTP'
+    } else if (title == "ส่งรหัส Lucky Draw เรียบร้อย") {
+        CheckSend2 = true;
+        HeadSubject = 'Lucky Draw Code'
+        document.getElementById("button-Verify").style.pointerEvents = "none"
+    } else if (title == "ส่งรหัส OTP อีกครั้งเรียบร้อย") {
+        CheckResend = true;
+        HeadSubject = 'Lucky Draw OTP'
+    }
+    
     (function () {
         emailjs.init("rs8fYhfb75rO3Viy5");
     })();
     var parms = {
         sendername: "luckydrawfinalproject@gmail.com",
         to: email,
-        subject: "LuckyDraw",
+        subject: HeadSubject,
         message: body,
     };
 
@@ -132,15 +145,6 @@ function sendEmail(email, body, title) {
                 document.getElementById("button-OTP").style.pointerEvents = "auto"
             }
         });
-    if (title == "ส่งรหัส OTP เรียบร้อย") {
-        CheckSend1 = true;
-    } else if (title == "ส่งรหัส Lucky Draw เรียบร้อย") {
-        CheckSend2 = true;
-        document.getElementById("button-Verify").style.pointerEvents = "none"
-    } else if (title == "ส่งรหัส OTP อีกครั้งเรียบร้อย") {
-        CheckResend = true;
-    }
-
 }
 
 
@@ -209,7 +213,7 @@ function SendEmail() {
                 sendEmail(email, body, "ส่งรหัส OTP เรียบร้อย");
 
                 if (CheckSend1 == true) {
-                    TimerOTP(180);
+                    TimerOTP(10);
                     resendname = names;
                     resendsurnames = surnames;
                     resendphone = phone;
