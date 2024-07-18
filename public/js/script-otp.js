@@ -1,4 +1,4 @@
-var url = 'https://upward-poodle-surely.ngrok-free.app'
+var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
 function input() {
     const inputs = document.getElementById("inputs");
@@ -114,17 +114,17 @@ function sendEmail(email, body, title) {
     }
     
     (function () {
-        emailjs.init("rs8fYhfb75rO3Viy5");
+        emailjs.init("Jm6k77dQ0Rp-seG-s");
     })();
     var parms = {
-        sendername: "luckydrawfinalproject@gmail.com",
+        sendername: "paranyuak@gmail.com",
         to: email,
         subject: HeadSubject,
         message: body,
     };
 
-    var serviceID = "service_xgbpzke"
-    var templateID = "template_fll2wnq"
+    var serviceID = "service_kk6c2gt"
+    var templateID = "template_5rsjgip"
 
     emailjs.send(serviceID, templateID, parms)
         .then(res => {

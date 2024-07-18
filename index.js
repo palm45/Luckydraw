@@ -19,7 +19,7 @@ app.listen(port, () => {
 });
 
 const firebaseConfig = {
-    databaseURL: "https://luckydraw-63b70-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    databaseURL: "https://luckydraw-4b670-default-rtdb.asia-southeast1.firebasedatabase.app/"
 }
 const app2 = initializeApp(firebaseConfig);
 const database = getDatabase(app2);

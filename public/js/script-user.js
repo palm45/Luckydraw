@@ -1,4 +1,4 @@
-var url = 'https://upward-poodle-surely.ngrok-free.app'
+var url = 'https://jaguar-literate-smoothly.ngrok-free.app'
 
 
 function deletedbuser(user_id){
