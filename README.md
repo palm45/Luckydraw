@@ -17,3 +17,4 @@
 <h3>วิธีเขียนในรายการ excel</h3>
 <img width="948" height="1018" alt="Prizelist xlsx - Excel 13_3_2567 14_45_45" src="https://github.com/user-attachments/assets/f6e1a09c-63df-438d-ae5e-f6bc31b3d625" />
 <div></div>
+<h3>4) ภาพตัวอย่างหน้าแสกนQRCode สามารถเปิดหรือปิดหน้าลงทะเบียนได้ นอกจากนี้ยังสามารถตั้งเวลาปิดหน้าลงทะเบียนได้ด้วย และมี QRCode ให้แสกน เพื่อไปหน้าลงทะเบียน</h3>
