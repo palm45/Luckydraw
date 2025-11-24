@@ -18,3 +18,11 @@
 <img width="948" height="1018" alt="Prizelist xlsx - Excel 13_3_2567 14_45_45" src="https://github.com/user-attachments/assets/f6e1a09c-63df-438d-ae5e-f6bc31b3d625" />
 <div></div>
 <h3>4) ภาพตัวอย่างหน้าแสกนQRCode สามารถเปิดหรือปิดหน้าลงทะเบียนได้ นอกจากนี้ยังสามารถตั้งเวลาปิดหน้าลงทะเบียนได้ด้วย และมี QRCode ให้แสกน เพื่อไปหน้าลงทะเบียน</h3>
+<img width="1920" height="1020" alt="Lucky Draw and 1 more page - Personal - Microsoft​ Edge 6_3_2567 19_41_21" src="https://github.com/user-attachments/assets/b6057185-dd0e-4110-9a40-b0c2aa994c88" />
+<img width="1920" height="1020" alt="Lucky Draw and 1 more page - Personal - Microsoft​ Edge 6_3_2567 19_41_28" src="https://github.com/user-attachments/assets/c196d69e-f8c5-4536-b90e-62d9410c5013" />
+<div></div>
+<h3>5) ภาพตัวอย่างหน้า Lucky Draw OTP เป็นหน้าลงทะเบียน ซึ่งต้องกรอก ชื่อ นามสกุล เบอร์โทร และ gmail ในการลงทะเบียน และต้องรับรหัสOTP ผ่าน gmail และนำมากรอกที่หน้าเว็บ เพื่อยืนยันตัวตนในการเข้าร่วมเล่น Lucky Draw หลังจากนั้นก็จะได้รับรหัสเข้าร่วม Lucky Draw ผ่าน gmail</h3>
+<img width="1920" height="1020" alt="Lucky Draw OTP and 1 more page - Personal - Microsoft​ Edge 13_3_2567 14_56_30" src="https://github.com/user-attachments/assets/c8ec908a-e614-4716-a08b-a4476762f13f" />
+<img width="1920" height="1020" alt="Lucky Draw OTP and 1 more page - Personal - Microsoft​ Edge 6_3_2567 19_14_06" src="https://github.com/user-attachments/assets/9e3b5232-b14d-4bab-963e-29c0ff18060c" />
+<img width="1920" height="1020" alt="Lucky Draw OTP and 1 more page - Personal - Microsoft​ Edge 6_3_2567 19_14_35" src="https://github.com/user-attachments/assets/bcce41e0-4063-48a0-8877-3134d434155b" />
+<img width="1920" height="1020" alt="Lucky Draw OTP and 1 more page - Personal - Microsoft​ Edge 6_3_2567 19_14_40" src="https://github.com/user-attachments/assets/9680287a-9b3c-4785-a111-0143776faca0" />
